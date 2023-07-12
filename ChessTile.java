@@ -6,6 +6,6 @@ public abstract class ChessTile {
         this.tileNumber = tileNumber;
     }
 
-    public abstract boolean isTitleOccupied();
+    public abstract boolean isTileFull();
 
 }

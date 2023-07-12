@@ -4,7 +4,7 @@ public class EmptyTile extends ChessTile{
     }
 
     @Override
-    public boolean isTitleOccupied() {
+    public boolean isTileFull() {
         return false;
     }
 }
