@@ -1,4 +1,4 @@
-public abstract class ChessTile {
+public class ChessTile {
 
     int tileNumber;
 
@@ -6,8 +6,12 @@ public abstract class ChessTile {
         this.tileNumber = tileNumber;
     }
 
-    public abstract boolean isTileFilled();
+    public boolean isTileFilled() {
+        return false;
+    }
 
-    public abstract Piece getPiece();
+    public Piece getPiece() {
+        return null;
+    }
 
 }
