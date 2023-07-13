@@ -38,7 +38,6 @@ public class Game extends JFrame {
         int borderWidth = 1;
         Border border = BorderFactory.createLineBorder(Color.BLACK, borderWidth);
         square.setBorder(border);
-        // You can customize the square panel here, such as adding labels, images, or other components
         return square;
     }
 
