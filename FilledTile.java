@@ -4,7 +4,12 @@ public class FilledTile extends ChessTile{
     }
 
     @Override
-    public boolean isTileFull() {
+    public boolean isTileFilled() {
         return true;
+    }
+
+    @Override
+    public Piece getPiece() {
+        return null;
     }
 }
