@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 
@@ -9,7 +10,7 @@ public class Game extends JFrame {
         private JPanel chessBoardPanel; // Panel to hold the Chess board
 
         public Game() {
-            setTitle("Chess Board GUI");
+            setTitle("Chess Board");
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             setLayout(new BorderLayout());
 
@@ -20,25 +21,39 @@ public class Game extends JFrame {
             // Create and add the Chess board squares
             for (int row = 0; row < BOARD_SIZE; row++) {
                 for (int col = 0; col < BOARD_SIZE; col++) {
-                    JPanel square = new JPanel();
-                    square.setBackground(getSquareColor(row, col));
+                    ChessTile tile;
+                    if (row == 0 || row == 1 || row == 6 || row == 7) {
+                        tile = new FilledTile(row * BOARD_SIZE + col);
+                    } else {
+                        tile = new EmptyTile(row * BOARD_SIZE + col);
+                    }
+                    JPanel square = createSquarePanel(tile);
                     chessBoardPanel.add(square);
                 }
             }
-
             setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT); // Set the default size
             setLocationRelativeTo(null);
             setVisible(true);
         }
 
-        private Color getSquareColor(int row, int col) {
-            // Calculate the color of the square based on row and column indexes
-            if ((row + col) % 2 == 0) {
-                return Color.WHITE;
-            } else {
-                return Color.GRAY;
-            }
+    private JPanel createSquarePanel(ChessTile tile) {
+        JPanel square = new JPanel();
+        square.setBackground(getSquareColor(tile));
+        int borderWidth = 1;
+        Border border = BorderFactory.createLineBorder(Color.BLACK, borderWidth);
+        square.setBorder(border);
+        // You can customize the square panel here, such as adding labels, images, or other components
+        return square;
+    }
+
+    private Color getSquareColor(ChessTile tile) {
+        if (tile instanceof FilledTile) {
+            return new Color(118,150,86);
+        } else {
+            return new Color(238,238,210);
         }
+
+    }
 
         public static void main(String[] args) {
             SwingUtilities.invokeLater(Game::new);
