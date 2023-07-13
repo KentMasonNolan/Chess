@@ -1,17 +1,20 @@
 public class ChessTile {
-
     int tileNumber;
+    private Piece piece; // Add Piece property
 
     public ChessTile(int tileNumber) {
         this.tileNumber = tileNumber;
     }
 
     public boolean isTileFilled() {
-        return false;
+        return piece != null; // Check if the tile has a piece
     }
 
     public Piece getPiece() {
-        return null;
+        return piece;
     }
 
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
 }
