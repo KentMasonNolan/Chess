@@ -36,7 +36,8 @@ abstract class Piece {
         return type;
     }
 
-    public abstract boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol);
+
+    public abstract boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard);
 
     public abstract boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol);
 }

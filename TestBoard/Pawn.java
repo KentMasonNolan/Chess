@@ -11,21 +11,22 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol) {
+    public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
         //TODO add error detection for going out of bounds
-        //TODO add check for if tile is occupied
+
+        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
 
         if (Objects.equals(this.getColor(), "black")){
-            if (isFirstMove && destCol == sourceCol-1 || destCol == sourceCol-2){
+            if (isFirstMove && (destCol == sourceCol-1 || destCol == sourceCol-2) && !isDestinationOccupied){
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol-1) {
+            } else if (!isFirstMove && destCol == sourceCol-1 && !isDestinationOccupied) {
                 return true;
             }
         } else /* colour will be white */ {
-            if (isFirstMove && destCol == sourceCol+1 || destCol == sourceCol+2){
+            if (isFirstMove && (destCol == sourceCol+1 || destCol == sourceCol+2) && !isDestinationOccupied){
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol+1) {
+            } else if (!isFirstMove && destCol == sourceCol+1 && !isDestinationOccupied) {
                 return true;
             }
         }
