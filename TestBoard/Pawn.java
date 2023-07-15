@@ -34,8 +34,16 @@ public class Pawn extends Piece{
     }
 
     @Override
-    public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol) {
-        return false;
+    public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+
+        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+
+        if (!isDestinationOccupied){
+            return false;
+        } else {
+            return false;
+        }
+
     }
 
     protected Pawn(String color, int xLoc, int yLoc) {
