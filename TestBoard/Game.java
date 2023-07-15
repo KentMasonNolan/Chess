@@ -29,8 +29,14 @@ public class Game {
     }
 
     private void setupInitialPieces(ChessTile[][] chessboard) {
-        // Set up the initial pieces on the chessboard
-        // Implement your logic here to place the pieces in their starting positions
+        // For testing - set up the pawns on the second row of the chessboard
+        String[] colors = {"black", "white"};
+        for (String color : colors) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                chessboard[1][col].setPiece(new Pawn(color));
+                chessboard[6][col].setPiece(new Pawn(color)); // Filling the second-to-last row as well
+            }
+        }
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
@@ -51,10 +57,8 @@ public class Game {
     }
 
     private String getPieceSymbol(Piece piece) {
-        // Map the Piece object to the corresponding ASCII character or symbol
-        // Implement your logic here to determine the appropriate symbol for each piece
-        // Example mapping: pawn = "P", rook = "R", knight = "N", bishop = "B", etc.
-        return piece.getType().substring(0, 1).toUpperCase(); // Return the first letter as the symbol
+        // not sure if I need this
+        return piece.getType().substring(0, 1).toUpperCase();
     }
 }
 

@@ -1,8 +1,27 @@
 package TestBoard;
 
-class Piece {
+abstract class Piece {
     private String color;
-    private String type;
+    protected String type;
+
+    protected int xLoc;
+    protected int yLoc;
+
+    public int getxLoc() {
+        return xLoc;
+    }
+
+    public void setxLoc(int xLoc) {
+        this.xLoc = xLoc;
+    }
+
+    public int getyLoc() {
+        return yLoc;
+    }
+
+    public void setyLoc(int yLoc) {
+        this.yLoc = yLoc;
+    }
 
     public Piece(String color, String type) {
         this.color = color;
@@ -16,4 +35,8 @@ class Piece {
     public String getType() {
         return type;
     }
+
+    public abstract boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol);
+
+    public abstract boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol);
 }
