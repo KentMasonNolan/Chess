@@ -33,8 +33,8 @@ public class Game {
         String[] colors = {"black", "white"};
         for (String color : colors) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                chessboard[1][col].setPiece(new Pawn(color));
-                chessboard[6][col].setPiece(new Pawn(color)); // Filling the second-to-last row as well
+                chessboard[1][col].setPiece(new Pawn(color, 1, col));
+                chessboard[6][col].setPiece(new Pawn(color, 6, col)); // Filling the second-to-last row as well
             }
         }
     }
