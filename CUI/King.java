@@ -16,7 +16,6 @@ public class King extends Piece{
     }
 
     @Override
-    public boolean canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        return false;
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
     }
 }

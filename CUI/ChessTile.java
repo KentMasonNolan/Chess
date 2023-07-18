@@ -11,7 +11,7 @@ class ChessTile {
         return canBlackCapture;
     }
 
-    public void setCanBlackCapture(ChessTile chessTiles) {
+    public void setCanBlackCapture(boolean chessTiles) {
         this.canBlackCapture = true;
     }
 

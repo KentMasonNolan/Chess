@@ -1,5 +1,6 @@
 package CUI;
 
+import javax.swing.plaf.IconUIResource;
 import java.util.Objects;
 
 public class Pawn extends Piece{
@@ -53,9 +54,16 @@ public class Pawn extends Piece{
 
         //TODO add error detection for capturing outside of board
 
-        if (Piece.color == "black"){
-            ChessTile.setCanBlackCapture(chessboard[sourceCol-1][sourceRow-1]);
-            ChessTile.setCanBlackCapture(chessboard[sourceCol+1][sourceRow-1]);
+        if (color.equals("black")){ // remember, black pieces are moving down
+            if (sourceCol > 0 && sourceCol < 8){
+                chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
+                chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
+            } else if (sourceCol == 0) {
+                chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //only capture down right (left will be off the board)
+            } else {
+                chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //only capture down left (right will be off the board)
+
+            }
         }
     }
 
