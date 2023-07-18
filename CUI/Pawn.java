@@ -48,6 +48,17 @@ public class Pawn extends Piece{
 
     }
 
+    @Override
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+
+        //TODO add error detection for capturing outside of board
+
+        if (Piece.color == "black"){
+            ChessTile.setCanBlackCapture(chessboard[sourceCol-1][sourceRow-1]);
+            ChessTile.setCanBlackCapture(chessboard[sourceCol+1][sourceRow-1]);
+        }
+    }
+
     protected Pawn(String color, int xLoc, int yLoc) {
         super(color, "GUI.Pawn");
         this.xLoc = xLoc;

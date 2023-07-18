@@ -4,23 +4,23 @@ class ChessTile {
     private int row;
     private int col;
 
-    private boolean canBlackCapture = false;
+    protected boolean canBlackCapture = false;
     private boolean canWhiteCapture = false;
 
-    public boolean isCanBlackCapture() {
+    public boolean getCanBlackCapture() {
         return canBlackCapture;
     }
 
-    public void setCanBlackCapture(boolean canBlackCapture) {
-        this.canBlackCapture = canBlackCapture;
+    public void setCanBlackCapture(ChessTile chessTiles) {
+        this.canBlackCapture = true;
     }
 
-    public boolean isCanWhiteCapture() {
+    public boolean getCanWhiteCapture() {
         return canWhiteCapture;
     }
 
-    public void setCanWhiteCapture(boolean canWhiteCapture) {
-        this.canWhiteCapture = canWhiteCapture;
+    public void setCanWhiteCapture(ChessTile chessTiles) {
+        this.canWhiteCapture = true;
     }
 
     private Piece piece;

@@ -61,18 +61,18 @@ public class Game {
         return piece.getType().substring(0, 1).toUpperCase();
     }
 
-    private void clearBlackCaptureflag(){
+    private void clearBlackCaptureflag(ChessTile[][] chessboard){
         //TODO loop through all tiles and set flag to false
     }
-    private void clearWhiteCaptureflag(){
+    private void clearWhiteCaptureflag(ChessTile[][] chessboard){
 
         //TODO loop through all tiles and set flag to false
     }
 
-    private void setBlackCaptureflag(){
+    private void setBlackCaptureflag(ChessTile[][] chessboard){
         //TODO loop through all tiles if they have a piece, check where they can capture and set flag
     }
-    private void setWhiteCaptureflag(){
+    private void setWhiteCaptureflag(ChessTile[][] chessboard){
 
         //TODO loop through all tiles if they have a piece, check where they can capture and set flag
     }

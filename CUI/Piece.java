@@ -1,7 +1,7 @@
 package CUI;
 
 abstract class Piece {
-    private String color;
+    protected static String color;
     protected String type;
 
     protected int xLoc;
@@ -40,4 +40,6 @@ abstract class Piece {
     public abstract boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard);
 
     public abstract boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard);
+
+    public abstract void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard);
 }
