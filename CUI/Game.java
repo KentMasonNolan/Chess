@@ -1,10 +1,10 @@
-package TestBoard;
+package CUI;
 
 public class Game {
     private static final int BOARD_SIZE = 8;
 
     public static void main(String[] args) {
-        // Create a new instance of the Game class and start the game
+        // Create a new instance of the GUI.Game class and start the game
         Game game = new Game();
         game.start();
     }

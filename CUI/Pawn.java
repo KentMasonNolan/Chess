@@ -1,4 +1,4 @@
-package TestBoard;
+package CUI;
 
 import java.util.Objects;
 
@@ -49,7 +49,7 @@ public class Pawn extends Piece{
     }
 
     protected Pawn(String color, int xLoc, int yLoc) {
-        super(color, "Pawn");
+        super(color, "GUI.Pawn");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
     }

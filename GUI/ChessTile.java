@@ -1,6 +1,8 @@
+package GUI;
+
 public class ChessTile {
     int tileNumber;
-    private Piece piece; // Add Piece property
+    private Piece piece; // Add GUI.Piece property
 
     public ChessTile(int tileNumber) {
         this.tileNumber = tileNumber;

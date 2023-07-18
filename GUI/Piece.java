@@ -1,3 +1,5 @@
+package GUI;
+
 public class Piece {
     private String color;
     private String type;

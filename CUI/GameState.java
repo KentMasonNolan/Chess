@@ -1,4 +1,4 @@
-package TestBoard;
+package CUI;
 
 public class GameState {
     private ChessTile[][] chessboard;

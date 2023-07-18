@@ -1,4 +1,4 @@
-package TestBoard;
+package CUI;
 
 class ChessTile {
     private int row;

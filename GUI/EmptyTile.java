@@ -1,11 +1,16 @@
-public class FilledTile extends ChessTile{
-    public FilledTile(int tileNumber) {
+package GUI;
+
+public class EmptyTile extends ChessTile{
+
+
+
+    public EmptyTile(int tileNumber) {
         super(tileNumber);
     }
 
     @Override
     public boolean isTileFilled() {
-        return true;
+        return false;
     }
 
     @Override

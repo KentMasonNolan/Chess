@@ -1,4 +1,4 @@
-package TestBoard;
+package CUI;
 
 abstract class Piece {
     private String color;
