@@ -40,7 +40,7 @@ public class Game {
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
-        System.out.println("   a b c d e f g h"); // Column labels
+        System.out.println("  a b c d e f g h"); // Column labels
         for (int row = 0; row < BOARD_SIZE; row++) {
             System.out.print((row + 1) + " "); // Row label
             for (int col = 0; col < BOARD_SIZE; col++) {
