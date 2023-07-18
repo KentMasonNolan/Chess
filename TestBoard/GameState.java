@@ -11,5 +11,7 @@ public class GameState {
         //check if king is in check
         return false;
     }
+
+
 }
 

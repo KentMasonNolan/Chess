@@ -36,6 +36,8 @@ public class Pawn extends Piece{
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
+        //TODO if a piece can capture the tile, the tile's flag must be changed.
+
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
 
         if (!isDestinationOccupied){

@@ -60,5 +60,22 @@ public class Game {
         // not sure if I need this
         return piece.getType().substring(0, 1).toUpperCase();
     }
+
+    private void clearBlackCaptureflag(){
+        //TODO loop through all tiles and set flag to false
+    }
+    private void clearWhiteCaptureflag(){
+
+        //TODO loop through all tiles and set flag to false
+    }
+
+    private void setBlackCaptureflag(){
+        //TODO loop through all tiles if they have a piece, check where they can capture and set flag
+    }
+    private void setWhiteCaptureflag(){
+
+        //TODO loop through all tiles if they have a piece, check where they can capture and set flag
+    }
+
 }
 
