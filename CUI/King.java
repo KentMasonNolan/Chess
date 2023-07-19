@@ -9,7 +9,16 @@ public class King extends Piece{
 
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-        return false;
+
+        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+
+        if (destCol == sourceCol + 1 || destCol == sourceCol - 1 || destCol == sourceCol
+                && destRow == sourceRow + 1 || destRow == sourceRow - 1 || destRow == sourceRow
+                && !isDestinationOccupied) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
