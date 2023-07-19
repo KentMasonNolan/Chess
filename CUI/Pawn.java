@@ -1,13 +1,12 @@
 package CUI;
 
-import javax.swing.plaf.IconUIResource;
 import java.util.Objects;
 
-public class Pawn extends Piece{
+public class Pawn extends Piece {
 
     private boolean isFirstMove = true;
 
-    private boolean isFirstMove(){
+    private boolean isFirstMove() {
         return !isFirstMove;
     }
 
@@ -18,16 +17,16 @@ public class Pawn extends Piece{
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
 
-        if (Objects.equals(this.getColor(), "black")){
-            if (isFirstMove && (destCol == sourceCol-1 || destCol == sourceCol-2) && !isDestinationOccupied){
+        if (Objects.equals(this.getColor(), "black")) {
+            if (isFirstMove && (destCol == sourceCol - 1 || destCol == sourceCol - 2) && !isDestinationOccupied) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol-1 && !isDestinationOccupied) {
+            } else if (!isFirstMove && destCol == sourceCol - 1 && !isDestinationOccupied) {
                 return true;
             }
         } else /* colour will be white */ {
-            if (isFirstMove && (destCol == sourceCol+1 || destCol == sourceCol+2) && !isDestinationOccupied){
+            if (isFirstMove && (destCol == sourceCol + 1 || destCol == sourceCol + 2) && !isDestinationOccupied) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol+1 && !isDestinationOccupied) {
+            } else if (!isFirstMove && destCol == sourceCol + 1 && !isDestinationOccupied) {
                 return true;
             }
         }
@@ -41,7 +40,7 @@ public class Pawn extends Piece{
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
 
-        if (!isDestinationOccupied){
+        if (!isDestinationOccupied) {
             return false;
         } else {
             return false;
@@ -52,10 +51,8 @@ public class Pawn extends Piece{
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
-        //TODO add error detection for capturing outside of board
-
-        if (color.equals("black")){ // remember, black pieces are moving down
-            if (sourceCol > 0 && sourceCol < 8){
+        if (color.equals("black")) { // remember, black pieces are moving down
+            if (sourceCol > 0 && sourceCol < 8) {
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
                 chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
             } else if (sourceCol == 0) {
@@ -64,11 +61,21 @@ public class Pawn extends Piece{
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //only capture down left (right will be off the board)
 
             }
+        } else if (color.equals("white")) { //white are moving up
+            if (sourceCol > 0 && sourceCol < 8) {
+                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
+                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
+            } else if (sourceCol == 0) {
+                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //only capture up right (left will be off the board)
+            } else {
+                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //only capture up left (right will be off the board)
+
+            }
         }
     }
 
     protected Pawn(String color, int xLoc, int yLoc) {
-        super(color, "GUI.Pawn");
+        super(color, "Pawn");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
     }
