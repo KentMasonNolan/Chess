@@ -86,6 +86,9 @@ public class Game {
         movePiece(sourceRow, sourceCol, destRow, destCol);
     }
 
+    private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
+    }
+
 
     private String getPieceSymbol(Piece piece) {
         // not sure if I need this

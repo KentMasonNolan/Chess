@@ -1,6 +1,9 @@
 package CUI;
 
 public class King extends Piece {
+
+    private boolean isFirstMove = true;
+
     protected King(String color, int xLoc, int yLoc) {
         super(color, "King");
         this.xLoc = xLoc;
