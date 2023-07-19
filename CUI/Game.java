@@ -63,6 +63,30 @@ public class Game {
         }
     }
 
+    private void handleUserInput(String input) {
+
+        //expected input to be something like C4 C5
+
+        String[] squares = input.split(" ");
+        if (squares.length != 2) {
+            System.out.println("Invalid input. Please enter two squares separated by a space.");
+            return;
+        }
+
+        String sourceSquare = squares[0].toUpperCase();
+        String destSquare = squares[1].toUpperCase();
+
+        // TODO convert C4 into [2][3], etc
+        int sourceRow;
+        int sourceCol;
+        int destRow;
+        int destCol;
+
+        //TODO add movePiece
+        movePiece(sourceRow, sourceCol, destRow, destCol);
+    }
+
+
     private String getPieceSymbol(Piece piece) {
         // not sure if I need this
         return piece.getType().substring(0, 1).toUpperCase();
