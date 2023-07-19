@@ -16,17 +16,22 @@ public class Pawn extends Piece {
         //TODO add error detection for going out of bounds
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+        boolean isDestinationInBounds = false;
+
+        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)){
+            isDestinationInBounds = true;
+        }
 
         if (Objects.equals(this.getColor(), "black")) {
-            if (isFirstMove && (destCol == sourceCol - 1 || destCol == sourceCol - 2) && !isDestinationOccupied) {
+            if (isFirstMove && (destCol == sourceCol - 1 || destCol == sourceCol - 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol - 1 && !isDestinationOccupied) {
+            } else if (!isFirstMove && destCol == sourceCol - 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             }
         } else /* colour will be white */ {
-            if (isFirstMove && (destCol == sourceCol + 1 || destCol == sourceCol + 2) && !isDestinationOccupied) {
+            if (isFirstMove && (destCol == sourceCol + 1 || destCol == sourceCol + 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol + 1 && !isDestinationOccupied) {
+            } else if (!isFirstMove && destCol == sourceCol + 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             }
         }
