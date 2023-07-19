@@ -36,6 +36,13 @@ public class Game {
                 chessboard[1][col].setPiece(new Pawn(color, 1, col));
                 chessboard[6][col].setPiece(new Pawn(color, 6, col)); // Filling the second-to-last row as well
             }
+            int kingRow;
+            if (color.equals("black")) {
+                kingRow = 0;
+            } else {
+                kingRow = BOARD_SIZE - 1;
+            }
+            chessboard[kingRow][4].setPiece(new King(color, kingRow, 4));
         }
     }
 
