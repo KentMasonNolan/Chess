@@ -46,7 +46,7 @@ public class King extends Piece{
             chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
             chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
             chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture up
-        } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 8) {
+        } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 7) {
 
             chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
             chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
@@ -55,7 +55,7 @@ public class King extends Piece{
             chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
             chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
 
-        } else if (sourceRow == 8 && sourceCol != 0 && sourceCol != 8) {
+        } else if (sourceRow == 8 && sourceCol != 0 || sourceCol != 7) {
 
             chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
             chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
@@ -63,6 +63,8 @@ public class King extends Piece{
 
             chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
             chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
+
+
         } //todo not finished yet
 
     }
