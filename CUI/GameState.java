@@ -6,6 +6,18 @@ public class GameState {
     private boolean isCheck;
     private boolean isCheckmate;
 
+    public void switchPlayer() {
+        if (currentPlayer.equals("white")) {
+            currentPlayer = "black";
+        } else {
+            currentPlayer = "white";
+        }
+    }
+
+    public GameState() {
+        // Initialize the chessboard and other fields as needed
+    }
+
 
     public boolean isKingInCheck(String kingColor) {
         //check if king is in check

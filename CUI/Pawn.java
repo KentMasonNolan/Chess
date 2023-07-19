@@ -6,6 +6,10 @@ public class Pawn extends Piece {
 
     private boolean isFirstMove = true;
 
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
+    }
+
     private boolean isFirstMove() {
         return !isFirstMove;
     }

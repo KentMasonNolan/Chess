@@ -23,6 +23,10 @@ class ChessTile {
         this.canWhiteCapture = true;
     }
 
+    public void removePiece() {
+        piece = null; // Remove the piece from the tile (set it to null)
+    }
+
     private Piece piece;
 
     public ChessTile(int row, int col) {

@@ -2,6 +2,9 @@ package CUI;
 
 public class Game {
     private static final int BOARD_SIZE = 8;
+    ChessTile[][] chessboard = createEmptyChessboard();
+    private String currentPlayerColor;
+
 
     public static void main(String[] args) {
         // Create a new instance of the GUI.Game class and start the game
@@ -11,7 +14,7 @@ public class Game {
 
     private void start() {
         // Initialize the chessboard and pieces
-        ChessTile[][] chessboard = createEmptyChessboard();
+
         setupInitialPieces(chessboard);
 
         // Draw the chessboard
@@ -87,7 +90,29 @@ public class Game {
     }
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
+        // TODO: Implement the movement logic
+
+        Piece piece = chessboard[sourceRow][sourceCol].getPiece();
+
+        if (piece != null && piece.getColor().equals(currentPlayerColor)) {
+            if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                chessboard[sourceRow][sourceCol].removePiece();
+                chessboard[destRow][destCol].setPiece(piece);
+
+                if (piece instanceof Pawn) {
+                    ((Pawn) piece).setFirstMove(false);
+                }
+
+                // TODO: check for captures, check/checkmate, and switch player turns
+
+            } else {
+                System.out.println("Invalid move. Please try again.");
+            }
+        } else {
+            System.out.println("No piece found or it's not your turn. Please try again.");
+        }
     }
+
 
 
     private String getPieceSymbol(Piece piece) {
