@@ -1,6 +1,6 @@
 package CUI;
 
-public class King extends Piece{
+public class King extends Piece {
     protected King(String color, int xLoc, int yLoc) {
         super(color, "King");
         this.xLoc = xLoc;
@@ -13,14 +13,11 @@ public class King extends Piece{
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
         boolean isDestinationInBounds = false;
 
-        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)){
+        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)) {
             isDestinationInBounds = true;
         }
 
-        if (destCol == sourceCol + 1 || destCol == sourceCol - 1 || destCol == sourceCol
-                && destRow == sourceRow + 1 || destRow == sourceRow - 1 || destRow == sourceRow
-                && !isDestinationOccupied
-                && isDestinationInBounds) {
+        if (destCol == sourceCol + 1 || destCol == sourceCol - 1 || destCol == sourceCol && destRow == sourceRow + 1 || destRow == sourceRow - 1 || destRow == sourceRow && !isDestinationOccupied && isDestinationInBounds) {
             return true;
         } else {
             return false;
@@ -35,7 +32,8 @@ public class King extends Piece{
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
-        if (sourceRow > 0 && sourceRow < 7 && sourceCol > 0 && sourceCol < 7){
+        if (sourceRow > 0 && sourceRow < 7 && sourceCol > 0 && sourceCol < 7) {
+
             chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
             chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
             chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true); //capture down
@@ -46,6 +44,7 @@ public class King extends Piece{
             chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
             chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
             chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture up
+
         } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 7) {
 
             chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
@@ -55,7 +54,7 @@ public class King extends Piece{
             chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
             chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
 
-        } else if (sourceRow == 8 && sourceCol != 0 || sourceCol != 7) {
+        } else if (sourceRow == 7 && sourceCol != 0 && sourceCol != 7) {
 
             chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
             chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
@@ -64,8 +63,6 @@ public class King extends Piece{
             chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
             chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
 
-
-        } //todo not finished yet
-
+        } //TODO add testing to find out why I'm getting errors saying this will always be true/false
     }
 }
