@@ -86,7 +86,7 @@ public class Game {
         //todo spilt C4 in C and 4
         //todo call C to number method
         //todo 4--
-        int sourceRow;
+        int sourceRow = letterToNumber(sourceSquare.charAt(0));
 
 
 
