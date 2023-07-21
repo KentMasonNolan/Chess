@@ -1,7 +1,7 @@
 package CUI;
 
 abstract class Piece {
-    protected static String color;
+    protected String color;
     protected String type;
 
     protected int xLoc;

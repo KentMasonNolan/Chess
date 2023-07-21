@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Game {
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
-    private GameState gameState;
+    private GameState gameState = new GameState();
     private String currentPlayerColor;
 
     private boolean playerAbort = false;
@@ -15,18 +15,20 @@ public class Game {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Game game = new Game();
         GameState gameState = new GameState();
+        Game game = new Game();
         game.start();
 
-        System.out.println("Welcome to the game of chess. " +
-                "This is a two player game with no AI or game engine so you are expected to play " +
-                "two player or play both sides. The expected inputs are the square you want to move " +
-                "followed by the destination square. e.g. C2 C4. At any point in this game, you can type 'EXIT' to quit." +
-                "Good luck.");
+        System.out.println("Welcome to the game of chess.\n\n" +
+                "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" +
+                "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" +
+                "At any point in this game, you can type 'EXIT' to quit.\n\n" +
+                "Good luck.\n");
+
 
         while (!gameState.isCheckmate() && !game.playerAbort){
-            System.out.println("It is " + gameState.currentPlayer + "'s turn. Please input your command.");
+            game.drawChessboard(game.chessboard);
+            System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
             try {
                 String userInputCommand = input.nextLine();
@@ -42,7 +44,7 @@ public class Game {
 
     private void start() {
         setupInitialPieces(chessboard);
-        drawChessboard(chessboard);
+//        drawChessboard(chessboard);
     }
 
     private ChessTile[][] createEmptyChessboard() {
@@ -111,14 +113,13 @@ public class Game {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred. Please try again.");
+            System.out.println("An unexpected error occurred in the userInput method. Please try again.");
         }
     }
 
 
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
-        // TODO: Implement the movement logic
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 

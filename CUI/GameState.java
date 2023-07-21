@@ -2,7 +2,7 @@ package CUI;
 
 public class GameState {
     private ChessTile[][] chessboard;
-    String currentPlayer = "white";
+    public String currentPlayer;
     private boolean isCheck;
     protected boolean isCheckmate;
 
@@ -24,7 +24,7 @@ public class GameState {
     }
 
     public GameState() {
-        // Initialize the chessboard and other fields as needed
+      currentPlayer = "white";
     }
 
 
