@@ -1,5 +1,7 @@
 package CUI;
 
+import javax.swing.text.AttributeSet;
+
 public class Game {
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
@@ -80,7 +82,14 @@ public class Game {
         String destSquare = squares[1].toUpperCase();
 
         // TODO convert C4 into [2][3], etc
+
+        //todo spilt C4 in C and 4
+        //todo call C to number method
+        //todo 4--
         int sourceRow;
+
+
+
         int sourceCol;
         int destRow;
         int destCol;
@@ -111,6 +120,13 @@ public class Game {
         } else {
             System.out.println("No piece found or it's not your turn. Please try again.");
         }
+    }
+
+    private int letterToNumber(char inputLetter){
+
+
+
+        return 0;
     }
 
 
