@@ -4,7 +4,16 @@ public class GameState {
     private ChessTile[][] chessboard;
     private String currentPlayer;
     private boolean isCheck;
-    private boolean isCheckmate;
+    protected boolean isCheckmate;
+
+
+    public boolean isCheckmate() {
+        return isCheckmate;
+    }
+
+    public void setCheckmate(boolean checkmate) {
+        isCheckmate = checkmate;
+    }
 
     public void switchPlayer() {
         if (currentPlayer.equals("white")) {
@@ -19,7 +28,7 @@ public class GameState {
     }
 
 
-    public boolean isKingInCheck(String kingColor) {
+    protected boolean isKingInCheck(String kingColor) {
         //check if king is in check
         return false;
     }

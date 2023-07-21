@@ -11,7 +11,14 @@ public class Game {
     public static void main(String[] args) {
         // Create a new instance of the GUI.Game class and start the game
         Game game = new Game();
+        GameState gameState = new GameState();
         game.start();
+
+        while (!gameState.isCheckmate()){
+            //Do all the things.
+        }
+
+
     }
 
     private void start() {
@@ -80,8 +87,6 @@ public class Game {
 
         String sourceSquare = squares[0].toUpperCase();
         String destSquare = squares[1].toUpperCase();
-
-        // TODO convert C4 into [2][3], etc
 
         int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) -1;
 
