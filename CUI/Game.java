@@ -1,32 +1,47 @@
 package CUI;
 
 import javax.swing.text.AttributeSet;
+import java.util.Scanner;
 
 public class Game {
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
+    private GameState gameState;
     private String currentPlayerColor;
+
+    private boolean playerAbort = false;
+
 
 
     public static void main(String[] args) {
-        // Create a new instance of the GUI.Game class and start the game
+        Scanner input = new Scanner(System.in);
         Game game = new Game();
         GameState gameState = new GameState();
         game.start();
 
-        while (!gameState.isCheckmate()){
-            //Do all the things.
+        System.out.println("Welcome to the game of chess. " +
+                "This is a two player game with no AI or game engine so you are expected to play " +
+                "two player or play both sides. The expected inputs are the square you want to move " +
+                "followed by the destination square. e.g. C2 C4. At any point in this game, you can type 'EXIT' to quit." +
+                "Good luck.");
+
+        while (!gameState.isCheckmate() && !game.playerAbort){
+            System.out.println("It is " + gameState.currentPlayer + "'s turn. Please input your command.");
+
+            try {
+                String userInputCommand = input.nextLine();
+                game.userInput(userInputCommand);
+            } catch (Exception e){
+                System.out.println("Please input a valid command. e.g. C2 C4");
+            }
+
         }
 
 
     }
 
     private void start() {
-        // Initialize the chessboard and pieces
-
         setupInitialPieces(chessboard);
-
-        // Draw the chessboard
         drawChessboard(chessboard);
     }
 
@@ -75,37 +90,39 @@ public class Game {
         }
     }
 
-    private void handleUserInput(String input) {
+    private void userInput(String input) {
 
-        //expected input to be something like C4 C5
+        try {
+            // expected input to be something like "C4 C5"
+            String[] squares = input.split(" ");
+            if (squares.length != 2) {
+                throw new IllegalArgumentException("Invalid input. Please enter two squares separated by a space.");
+            }
 
-        String[] squares = input.split(" ");
-        if (squares.length != 2) {
-            System.out.println("Invalid input. Please enter two squares separated by a space.");
-            return;
+            String sourceSquare = squares[0].toUpperCase();
+            String destSquare = squares[1].toUpperCase();
+
+            int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) - 1;
+            int sourceCol = letterToNumber(sourceSquare.charAt(0));
+            int destRow = Character.getNumericValue(destSquare.charAt(1)) - 1;
+            int destCol = letterToNumber(destSquare.charAt(0));
+
+            movePiece(sourceRow, sourceCol, destRow, destCol);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An unexpected error occurred. Please try again.");
         }
-
-        String sourceSquare = squares[0].toUpperCase();
-        String destSquare = squares[1].toUpperCase();
-
-        int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) -1;
-
-        int sourceCol = letterToNumber(sourceSquare.charAt(0));
-
-        int destRow = Character.getNumericValue(destSquare.charAt(1)) -1;
-
-        int destCol =  letterToNumber(destSquare.charAt(0));
-
-        //TODO add movePiece
-        movePiece(sourceRow, sourceCol, destRow, destCol);
     }
+
+
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
         // TODO: Implement the movement logic
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
-        if (piece != null && piece.getColor().equals(currentPlayerColor)) {
+        if (piece != null && piece.getColor().equals(gameState.currentPlayer)) {
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
