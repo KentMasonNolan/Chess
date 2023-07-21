@@ -83,19 +83,16 @@ public class Game {
 
         // TODO convert C4 into [2][3], etc
 
-        //todo spilt C4 in C and 4
-        //todo call C to number method
-        //todo 4--
-        int sourceRow = letterToNumber(sourceSquare.charAt(0));
+        int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) -1;
 
+        int sourceCol = letterToNumber(sourceSquare.charAt(0));
 
+        int destRow = Character.getNumericValue(destSquare.charAt(1)) -1;
 
-        int sourceCol;
-        int destRow;
-        int destCol;
+        int destCol =  letterToNumber(destSquare.charAt(0));
 
         //TODO add movePiece
-//        movePiece(sourceRow, sourceCol, destRow, destCol);
+        movePiece(sourceRow, sourceCol, destRow, destCol);
     }
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
@@ -124,7 +121,7 @@ public class Game {
 
     private int letterToNumber(char inputLetter){
 
-        int outputInt = -1;
+        int outputInt = -1; // allows for error checking.
 
         if (inputLetter == 'A'){
             outputInt = 0;
