@@ -95,7 +95,7 @@ public class Game {
         int destCol;
 
         //TODO add movePiece
-        movePiece(sourceRow, sourceCol, destRow, destCol);
+//        movePiece(sourceRow, sourceCol, destRow, destCol);
     }
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
@@ -124,9 +124,34 @@ public class Game {
 
     private int letterToNumber(char inputLetter){
 
+        int outputInt = -1;
 
+        if (inputLetter == 'A'){
+            outputInt = 0;
+        }
+        if (inputLetter == 'B'){
+            outputInt = 1;
+        }
+        if (inputLetter == 'C'){
+            outputInt = 2;
+        }
+        if (inputLetter == 'D'){
+            outputInt = 3;
+        }
+        if (inputLetter == 'E'){
+            outputInt = 4;
+        }
+        if (inputLetter == 'F'){
+            outputInt = 5;
+        }
+        if (inputLetter == 'G'){
+            outputInt = 6;
+        }
+        if (inputLetter == 'H'){
+            outputInt = 7;
+        }
 
-        return 0;
+        return outputInt;
     }
 
 
