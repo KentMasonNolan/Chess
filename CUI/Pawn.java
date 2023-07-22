@@ -33,7 +33,7 @@ public class Pawn extends Piece {
                 return true;
             }
         } else /* colour will be white */ {
-            if (isFirstMove && (destCol == sourceCol + 1 || destCol == sourceCol + 2) && !isDestinationOccupied && isDestinationInBounds) {
+            if (isFirstMove && (destRow == sourceRow + 1 || destRow == sourceRow + 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             } else if (!isFirstMove && destCol == sourceCol + 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
