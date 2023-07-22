@@ -1,23 +1,23 @@
 package GUI;
 
 public class Piece {
-    private String color;
+    private String colour;
     private String type;
 
-    public Piece(String color, String type) {
-        this.color = color;
+    public Piece(String colour, String type) {
+        this.colour = colour;
         this.type = type;
     }
 
     // Add methods for movement and capturing logic
 
 
-    public String getColor() {
-        return color;
+    public String getcolour() {
+        return colour;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setcolour(String colour) {
+        this.colour = colour;
     }
 
     public String getType() {

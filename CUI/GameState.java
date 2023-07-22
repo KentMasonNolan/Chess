@@ -28,7 +28,7 @@ public class GameState {
     }
 
 
-    protected boolean isKingInCheck(String kingColor) {
+    protected boolean isKingInCheck(String kingcolour) {
         //check if king is in check
         return false;
     }

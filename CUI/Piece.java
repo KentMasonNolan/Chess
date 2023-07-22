@@ -1,7 +1,7 @@
 package CUI;
 
 abstract class Piece {
-    protected String color;
+    protected String colour;
     protected String type;
 
     protected int xLoc;
@@ -23,13 +23,13 @@ abstract class Piece {
         this.yLoc = yLoc;
     }
 
-    public Piece(String color, String type) {
-        this.color = color;
+    public Piece(String colour, String type) {
+        this.colour = colour;
         this.type = type;
     }
 
-    public String getColor() {
-        return color;
+    public String getcolour() {
+        return colour;
     }
 
     public String getType() {

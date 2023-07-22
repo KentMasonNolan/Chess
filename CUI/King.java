@@ -4,8 +4,8 @@ public class King extends Piece {
 
     private boolean isFirstMove = true;
 
-    protected King(String color, int xLoc, int yLoc) {
-        super(color, "King");
+    protected King(String colour, int xLoc, int yLoc) {
+        super(colour, "King");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
     }

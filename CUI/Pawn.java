@@ -26,16 +26,16 @@ public class Pawn extends Piece {
             isDestinationInBounds = true;
         }
 
-        if (Objects.equals(this.getColor(), "black")) {
-            if (isFirstMove && (destCol == sourceCol - 1 || destCol == sourceCol - 2) && !isDestinationOccupied && isDestinationInBounds) {
+        if (Objects.equals(this.getcolour(), "black")) {
+            if (isFirstMove && (destRow == sourceRow - 1 || destRow == sourceRow - 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol - 1 && !isDestinationOccupied && isDestinationInBounds) {
+            } else if (!isFirstMove && destRow == sourceRow - 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             }
         } else /* colour will be white */ {
             if (isFirstMove && (destRow == sourceRow + 1 || destRow == sourceRow + 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
-            } else if (!isFirstMove && destCol == sourceCol + 1 && !isDestinationOccupied && isDestinationInBounds) {
+            } else if (!isFirstMove && destRow == sourceRow + 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             }
         }
@@ -60,7 +60,7 @@ public class Pawn extends Piece {
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
-        if (color.equals("black")) { // remember, black pieces are moving down
+        if (colour.equals("black")) { // remember, black pieces are moving down
             if (sourceCol > 0 && sourceCol < 8) {
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
                 chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
@@ -70,7 +70,7 @@ public class Pawn extends Piece {
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //only capture down left (right will be off the board)
 
             }
-        } else if (color.equals("white")) { //white are moving up
+        } else if (colour.equals("white")) { //white are moving up
             if (sourceCol > 0 && sourceCol < 8) {
                 chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
                 chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
@@ -83,8 +83,8 @@ public class Pawn extends Piece {
         }
     }
 
-    protected Pawn(String color, int xLoc, int yLoc) {
-        super(color, "Pawn");
+    protected Pawn(String colour, int xLoc, int yLoc) {
+        super(colour, "Pawn");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
     }

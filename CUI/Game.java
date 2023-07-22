@@ -21,7 +21,7 @@ public class Game {
                 "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" +
                 "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" +
                 "At any point in this game, you can type 'EXIT' to quit.\n\n" +
-                "Good luck.\n");
+                "You are playing black. Good luck.\n");
 
 
         while (!gameState.isCheckmate() && !game.playerAbort){
@@ -56,38 +56,39 @@ public class Game {
     }
 
     private void setupInitialPieces(ChessTile[][] chessboard) {
-        // For testing - set up the pawns on the second row of the chessboard
-        String[] colors = {"black", "white"};
-        for (String color : colors) {
+        String[] colours = {"white", "black"};
+        for (String colour : colours) {
             for (int col = 0; col < BOARD_SIZE; col++) {
-                chessboard[1][col].setPiece(new Pawn(color, 1, col));
-                chessboard[6][col].setPiece(new Pawn(color, 6, col)); // Filling the second-to-last row as well
+                chessboard[1][col].setPiece(new Pawn("white", 1, col));
+            }
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                chessboard[6][col].setPiece(new Pawn("black", 6, col)); // Filling the second-to-last row as well
             }
             int kingRow;
-            if (color.equals("black")) {
-                kingRow = 0;
-            } else {
+            if (colour.equals("black")) {
                 kingRow = BOARD_SIZE - 1;
+            } else {
+                kingRow = 0;
             }
-            chessboard[kingRow][4].setPiece(new King(color, kingRow, 4));
+            chessboard[kingRow][4].setPiece(new King(colour, kingRow, 4));
         }
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
-        System.out.println("  a b c d e f g h"); // Column labels
         for (int row = 0; row < BOARD_SIZE; row++) {
-            System.out.print((8 - row) + " "); // Row label
+            System.out.print((row + 1) + " "); // Row label
             for (int col = 0; col < BOARD_SIZE; col++) {
                 ChessTile tile = chessboard[row][col];
                 if (tile.isTileFilled()) {
                     // Print the piece symbol based on the piece type
                     System.out.print(getPieceSymbol(tile.getPiece()) + " ");
                 } else {
-                    System.out.print("- "); // Empty tile symbol
+                    System.out.print("-  "); // Empty tile symbol
                 }
             }
             System.out.println();
         }
+        System.out.println("  h  g  f  e  d  c  b  a"); // Column labels
     }
 
     private void userInput(String input, GameState gameState) {
@@ -121,7 +122,7 @@ public class Game {
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
-        if (piece != null && piece.getColor().equals(gameState.currentPlayer)) {
+        if (piece != null && piece.getcolour().equals(gameState.currentPlayer)) {
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
@@ -132,7 +133,7 @@ public class Game {
 
                 gameState.switchPlayer();
 
-                // TODO: check for captures, check/checkmate, and switch player turns
+                // TODO: check for captures, check/checkmate
 
             } else {
                 System.out.println("Invalid move. Please try again.");
@@ -147,28 +148,28 @@ public class Game {
         int outputInt = -1; // allows for error checking.
 
         if (inputLetter == 'A'){
-            outputInt = 0;
+            outputInt = 7;
         }
         if (inputLetter == 'B'){
-            outputInt = 1;
-        }
-        if (inputLetter == 'C'){
-            outputInt = 2;
-        }
-        if (inputLetter == 'D'){
-            outputInt = 3;
-        }
-        if (inputLetter == 'E'){
-            outputInt = 4;
-        }
-        if (inputLetter == 'F'){
-            outputInt = 5;
-        }
-        if (inputLetter == 'G'){
             outputInt = 6;
         }
+        if (inputLetter == 'C'){
+            outputInt = 5;
+        }
+        if (inputLetter == 'D'){
+            outputInt = 4;
+        }
+        if (inputLetter == 'E'){
+            outputInt = 3;
+        }
+        if (inputLetter == 'F'){
+            outputInt = 2;
+        }
+        if (inputLetter == 'G'){
+            outputInt = 1;
+        }
         if (inputLetter == 'H'){
-            outputInt = 7;
+            outputInt = 0;
         }
 
         return outputInt;
@@ -178,7 +179,18 @@ public class Game {
 
     private String getPieceSymbol(Piece piece) {
         // not sure if I need this
-        return piece.getType().substring(0, 1).toUpperCase();
+
+        String colourPrefix;
+        if (piece.getcolour().equals("white")) {
+            colourPrefix = "w";
+        } else {
+            colourPrefix = "b";
+        }
+
+        String pieceType = piece.getType().substring(0, 1).toUpperCase();
+
+
+        return colourPrefix + pieceType;
     }
 
     private void clearBlackCaptureflag(ChessTile[][] chessboard){
