@@ -1,13 +1,11 @@
 package CUI;
 
-import javax.swing.text.AttributeSet;
 import java.util.Scanner;
 
 public class Game {
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
     private GameState gameState = new GameState();
-    private String currentPlayerColor;
 
     private boolean playerAbort = false;
 
@@ -32,7 +30,7 @@ public class Game {
 
             try {
                 String userInputCommand = input.nextLine();
-                game.userInput(userInputCommand);
+                game.userInput(userInputCommand, gameState);
             } catch (Exception e){
                 System.out.println("Please input a valid command. e.g. C2 C4");
             }
@@ -92,7 +90,7 @@ public class Game {
         }
     }
 
-    private void userInput(String input) {
+    private void userInput(String input, GameState gameState) {
 
         try {
             // expected input to be something like "C4 C5"
@@ -109,7 +107,7 @@ public class Game {
             int destRow = Character.getNumericValue(destSquare.charAt(1)) - 1;
             int destCol = letterToNumber(destSquare.charAt(0));
 
-            movePiece(sourceRow, sourceCol, destRow, destCol);
+            movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
@@ -119,7 +117,7 @@ public class Game {
 
 
 
-    private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol) {
+    private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
@@ -131,6 +129,8 @@ public class Game {
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
                 }
+
+                gameState.switchPlayer();
 
                 // TODO: check for captures, check/checkmate, and switch player turns
 
