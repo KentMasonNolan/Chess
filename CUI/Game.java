@@ -143,7 +143,30 @@ public class Game {
         }
     }
 
-    private int letterToNumber(char inputLetter){
+    private void capturePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
+
+        Piece piece = chessboard[sourceRow][sourceCol].getPiece();
+        Piece capturedPiece = chessboard[destRow][destCol].getPiece();
+
+
+        if (piece != null && capturedPiece != null && piece.getcolour().equals(gameState.currentPlayer)) {
+            if (piece.isValidCapture(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+
+                chessboard[destRow][destCol].setPreviousPiece(capturedPiece);
+                chessboard[destRow][destCol].removePiece();
+
+                chessboard[sourceRow][sourceCol].removePiece();
+                chessboard[destRow][destCol].setPiece(piece);
+
+                //todo check for checkmate here
+
+                gameState.switchPlayer();
+            }
+        }
+
+    }
+
+        private int letterToNumber(char inputLetter){
 
         int outputInt = -1; // allows for error checking.
 
