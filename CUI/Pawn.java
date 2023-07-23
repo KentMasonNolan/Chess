@@ -23,7 +23,7 @@ public class Pawn extends Piece {
         boolean isDestinationInBounds = false;
 
         //todo this should be a try/catch because it will error if it is out of bounds
-        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)){
+        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)) {
             isDestinationInBounds = true;
         }
 
@@ -50,16 +50,18 @@ public class Pawn extends Piece {
         boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
 
 
-
-        if (!isDestinationOccupied && isOpponentColour) {
-            if (colour.equals("black")){
-                //todo check for valid captures
+        if (isDestinationOccupied && isOpponentColour) {
+            if (colour.equals("black")) { //I might not need this because if the flag is the oppoentcolour is flase, it won't make it into the next if statement.
+                if (destCol > 0 && destCol < 8 && destRow == sourceRow + 1 || destRow == sourceRow - 1 && destCol == sourceCol + 1) {
+                    return true;
+                }
+            } else if (colour.equals("white")) {
+                if (destCol > 0 && destCol < 8 && destRow == sourceRow - 1 || destRow == sourceRow - 1 && destCol == sourceCol + 1) {
+                    return true;
+                }
             }
-            return false;
-        } else { // must be white
-            return false;
         }
-
+        return false;
     }
 
     @Override
