@@ -28,6 +28,7 @@ class ChessTile {
     }
 
     private Piece piece;
+    private Piece previousPiece;
 
     public ChessTile(int row, int col) {
         this.row = row;
@@ -40,6 +41,14 @@ class ChessTile {
 
     public Piece getPiece() {
         return piece;
+    }
+
+    public Piece getPreviousPiece() {
+        return previousPiece;
+    }
+
+    public void setPreviousPiece(Piece previousPiece) {
+        this.previousPiece = previousPiece;
     }
 
     public void setPiece(Piece piece) {

@@ -7,6 +7,26 @@ abstract class Piece {
     protected int xLoc;
     protected int yLoc;
 
+    protected int previousXLoc;
+
+    public int getPreviousXLoc() {
+        return previousXLoc;
+    }
+
+    public void setPreviousXLoc(int previousXLoc) {
+        this.previousXLoc = previousXLoc;
+    }
+
+    public int getPreviousYLoc() {
+        return PreviousYLoc;
+    }
+
+    public void setPreviousYLoc(int previousYLoc) {
+        PreviousYLoc = previousYLoc;
+    }
+
+    protected int PreviousYLoc;
+
     public int getxLoc() {
         return xLoc;
     }
