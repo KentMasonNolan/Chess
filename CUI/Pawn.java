@@ -22,6 +22,7 @@ public class Pawn extends Piece {
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
         boolean isDestinationInBounds = false;
 
+        //todo this should be a try/catch because it will error if it is out of bounds
         if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)){
             isDestinationInBounds = true;
         }
