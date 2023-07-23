@@ -10,28 +10,23 @@ public class Game {
     private boolean playerAbort = false;
 
 
-
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         GameState gameState = new GameState();
         Game game = new Game();
         game.start();
 
-        System.out.println("Welcome to the game of chess.\n\n" +
-                "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" +
-                "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" +
-                "At any point in this game, you can type 'EXIT' to quit.\n\n" +
-                "You are playing black. Good luck.\n");
+        System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit.\n\n" + "You are playing black. Good luck.\n");
 
 
-        while (!gameState.isCheckmate() && !game.playerAbort){
+        while (!gameState.isCheckmate() && !game.playerAbort) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
             try {
                 String userInputCommand = input.nextLine();
                 game.userInput(userInputCommand, gameState);
-            } catch (Exception e){
+            } catch (Exception e) {
                 System.out.println("Please input a valid command. e.g. C2 C4");
             }
 
@@ -93,6 +88,7 @@ public class Game {
 
     private void userInput(String input, GameState gameState) {
 
+
         try {
             // expected input to be something like "C4 C5"
             String[] squares = input.split(" ");
@@ -108,14 +104,17 @@ public class Game {
             int destRow = Character.getNumericValue(destSquare.charAt(1)) - 1;
             int destCol = letterToNumber(destSquare.charAt(0));
 
-            movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
+            if (chessboard[destRow][destCol].isTileFilled()) {
+                capturePiece(sourceRow, sourceCol, destRow, destCol, gameState);
+            } else {
+                movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
+            }
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
             System.out.println("An unexpected error occurred in the userInput method. Please try again.");
         }
     }
-
 
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
@@ -168,38 +167,37 @@ public class Game {
 
     }
 
-        private int letterToNumber(char inputLetter){
+    private int letterToNumber(char inputLetter) {
 
         int outputInt = -1; // allows for error checking.
 
-        if (inputLetter == 'A'){
+        if (inputLetter == 'A') {
             outputInt = 7;
         }
-        if (inputLetter == 'B'){
+        if (inputLetter == 'B') {
             outputInt = 6;
         }
-        if (inputLetter == 'C'){
+        if (inputLetter == 'C') {
             outputInt = 5;
         }
-        if (inputLetter == 'D'){
+        if (inputLetter == 'D') {
             outputInt = 4;
         }
-        if (inputLetter == 'E'){
+        if (inputLetter == 'E') {
             outputInt = 3;
         }
-        if (inputLetter == 'F'){
+        if (inputLetter == 'F') {
             outputInt = 2;
         }
-        if (inputLetter == 'G'){
+        if (inputLetter == 'G') {
             outputInt = 1;
         }
-        if (inputLetter == 'H'){
+        if (inputLetter == 'H') {
             outputInt = 0;
         }
 
         return outputInt;
     }
-
 
 
     private String getPieceSymbol(Piece piece) {
@@ -218,18 +216,20 @@ public class Game {
         return colourPrefix + pieceType;
     }
 
-    private void clearBlackCaptureflag(ChessTile[][] chessboard){
+    private void clearBlackCaptureflag(ChessTile[][] chessboard) {
         //TODO loop through all tiles and set flag to false
     }
-    private void clearWhiteCaptureflag(ChessTile[][] chessboard){
+
+    private void clearWhiteCaptureflag(ChessTile[][] chessboard) {
 
         //TODO loop through all tiles and set flag to false
     }
 
-    private void setBlackCaptureflag(ChessTile[][] chessboard){
+    private void setBlackCaptureflag(ChessTile[][] chessboard) {
         //TODO loop through all tiles if they have a piece, check where they can capture and set flag
     }
-    private void setWhiteCaptureflag(ChessTile[][] chessboard){
+
+    private void setWhiteCaptureflag(ChessTile[][] chessboard) {
 
         //TODO loop through all tiles if they have a piece, check where they can capture and set flag
     }

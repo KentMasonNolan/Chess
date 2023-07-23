@@ -51,16 +51,17 @@ public class Pawn extends Piece {
 
 
         if (isDestinationOccupied && isOpponentColour) {
-            if (colour.equals("black")) { //I might not need this because if the flag is the oppoentcolour is flase, it won't make it into the next if statement.
+            if (colour.equals("black")) { //I might not need this because if the flag is the opponent colour is false, it won't make it into the next if statement.
                 if (destCol > 0 && destCol < 8 && (destRow == sourceRow + 1 || destRow == sourceRow - 1) && destCol == sourceCol - 1) {
                     return true;
                 }
             } else if (colour.equals("white")) {
-                if (destCol > 0 && destCol < 8 && (destRow == sourceRow - 1 || destRow == sourceRow + 1) && destCol == sourceCol + 1) {
+                if (destCol > 0 && destCol < 8 && (destRow == sourceRow - 1 || destRow == sourceRow + 1) && destCol == sourceCol - 1) {
                     return true;
                 }
             }
         }
+        System.out.println("Invalid capture");
         return false;
     }
 
