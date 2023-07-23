@@ -45,13 +45,17 @@ public class Pawn extends Piece {
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
-        //TODO if a piece can capture the tile, the tile's flag must be changed.
-
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+        boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
 
-        if (!isDestinationOccupied) {
+
+
+        if (!isDestinationOccupied && isOpponentColour) {
+            if (colour.equals("black")){
+                //todo check for valid captures
+            }
             return false;
-        } else {
+        } else { // must be white
             return false;
         }
 
@@ -61,6 +65,7 @@ public class Pawn extends Piece {
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
         if (colour.equals("black")) { // remember, black pieces are moving down
+            //todo update to black moving up the board.
             if (sourceCol > 0 && sourceCol < 8) {
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
                 chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right

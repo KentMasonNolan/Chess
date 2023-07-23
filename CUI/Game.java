@@ -155,6 +155,8 @@ public class Game {
                 chessboard[destRow][destCol].setPreviousPiece(capturedPiece);
                 chessboard[destRow][destCol].removePiece();
 
+                piece.setPreviousCol(sourceCol);
+                piece.setPreviousRow(sourceRow);
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
