@@ -63,30 +63,23 @@ public class Pawn extends Piece {
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-
-        if (colour.equals("black")) { // remember, black pieces are moving down
-            //todo update to black moving up the board.
-            if (sourceCol > 0 && sourceCol < 6) {
-                chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
-                chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
-            } else if (sourceCol == 0) {
-                chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //only capture down right (left will be off the board)
-            } else {
-                chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //only capture down left (right will be off the board)
-
+        if (colour.equals("black")) {
+            if (sourceRow > 0 && sourceCol > 0) {
+                chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); // capture down left
             }
-        } else if (colour.equals("white")) { //white are moving up
-            if (sourceCol > 0 && sourceCol < 6) {
-                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
-                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
-            } else if (sourceCol == 0) {
-                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //only capture up right (left will be off the board)
-            } else {
-                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //only capture up left (right will be off the board)
-
+            if (sourceRow > 0 && sourceCol < 7) {
+                chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); // capture down right
+            }
+        } else if (colour.equals("white")) {
+            if (sourceRow < 7 && sourceCol > 0) {
+                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); // capture up left
+            }
+            if (sourceRow < 7 && sourceCol < 7) {
+                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); // capture up right
             }
         }
     }
+
 
     protected Pawn(String colour, int xLoc, int yLoc) {
         super(colour, "Pawn");
