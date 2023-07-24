@@ -36,7 +36,25 @@ public class Game {
     }
 
     private void start() {
-        setupInitialPieces(chessboard);
+
+        System.out.println("What board would you like to play?");
+        System.out.println("1. normal chessboard");
+        System.out.println("2. test chessboard");
+
+        Scanner input = new Scanner(System.in);
+        int menu = input.nextInt();
+
+        switch (menu){
+            case 1:
+                setupInitialPieces(chessboard);
+                break;
+            case 2:
+                setupTestPieces(chessboard);
+                break;
+            default:
+                System.out.println("Please choose a valid option");
+                break;
+        }
 //        drawChessboard(chessboard);
     }
 
@@ -67,6 +85,13 @@ public class Game {
             }
             chessboard[kingRow][4].setPiece(new King(colour, kingRow, 4));
         }
+    }
+    private void setupTestPieces(ChessTile[][] chessboard) { //this is for testing
+        //black king in the usual spot
+        chessboard[7][4].setPiece(new King("black", 0, 4));
+
+        //white pawn one move away
+        chessboard[5][3].setPiece(new Pawn("white", 1, 3));
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
