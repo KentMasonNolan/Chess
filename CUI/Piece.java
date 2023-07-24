@@ -48,7 +48,7 @@ abstract class Piece {
         this.type = type;
     }
 
-    public String getcolour() {
+    public String getColour() {
         return colour;
     }
 

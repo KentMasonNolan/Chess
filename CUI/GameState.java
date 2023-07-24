@@ -6,6 +6,38 @@ public class GameState {
     private boolean isCheck;
     protected boolean isCheckmate;
 
+    private int whiteKingRow;
+    private int whiteKingCol;
+    private int blackKingRow;
+    private int blackKingCol;
+
+
+    public int getWhiteKingRow() {
+        return whiteKingRow;
+    }
+
+    public int getWhiteKingCol() {
+        return whiteKingCol;
+    }
+
+    public int getBlackKingRow() {
+        return blackKingRow;
+    }
+
+    public int getBlackKingCol() {
+        return blackKingCol;
+    }
+
+    public void setWhiteKingPosition(int row, int col) {
+        whiteKingRow = row;
+        whiteKingCol = col;
+    }
+
+    public void setBlackKingPosition(int row, int col) {
+        blackKingRow = row;
+        blackKingCol = col;
+    }
+
 
     public boolean isCheckmate() {
         return isCheckmate;

@@ -19,7 +19,7 @@ class ChessTile {
         return canWhiteCapture;
     }
 
-    public void setCanWhiteCapture(ChessTile chessTiles) {
+    public void setCanWhiteCapture(boolean chessTiles) {
         this.canWhiteCapture = true;
     }
 

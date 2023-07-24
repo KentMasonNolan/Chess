@@ -121,7 +121,7 @@ public class Game {
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
-        if (piece != null && piece.getcolour().equals(gameState.currentPlayer)) {
+        if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
@@ -148,7 +148,7 @@ public class Game {
         Piece capturedPiece = chessboard[destRow][destCol].getPiece();
 
 
-        if (piece != null && capturedPiece != null && piece.getcolour().equals(gameState.currentPlayer)) {
+        if (piece != null && capturedPiece != null && piece.getColour().equals(gameState.currentPlayer)) {
             if (piece.isValidCapture(sourceRow, sourceCol, destRow, destCol, chessboard)) {
 
                 chessboard[destRow][destCol].setPreviousPiece(capturedPiece);
@@ -204,7 +204,7 @@ public class Game {
         // not sure if I need this
 
         String colourPrefix;
-        if (piece.getcolour().equals("white")) {
+        if (piece.getColour().equals("white")) {
             colourPrefix = "w";
         } else {
             colourPrefix = "b";
@@ -214,6 +214,38 @@ public class Game {
 
 
         return colourPrefix + pieceType;
+    }
+
+    private void setAllCaptureFlags() {
+
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                Piece piece = chessboard[row][col].getPiece();
+                if (piece != null) {
+                    piece.canCapture(row, col, chessboard);
+                }
+            }
+        }
+    }
+
+    private boolean isBlackKingInCheck(){
+        if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()){
+            return true;
+        } else return false;
+    }
+    private boolean isWhiteKingInCheck(){
+        if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()){
+            return true;
+        } else return false;
+    }
+    
+    private void clearAllCaptureFlags(){
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                chessboard[row][col].setCanBlackCapture(false);
+                chessboard[row][col].setCanWhiteCapture(false);
+            }
+        }
     }
 
     private void clearBlackCaptureflag(ChessTile[][] chessboard) {

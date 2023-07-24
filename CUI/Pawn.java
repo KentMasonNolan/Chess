@@ -10,10 +10,6 @@ public class Pawn extends Piece {
         isFirstMove = firstMove;
     }
 
-    private boolean isFirstMove() {
-        return !isFirstMove;
-    }
-
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
@@ -27,7 +23,7 @@ public class Pawn extends Piece {
             isDestinationInBounds = true;
         }
 
-        if (Objects.equals(this.getcolour(), "black")) {
+        if (Objects.equals(this.getColour(), "black")) {
             if (isFirstMove && (destRow == sourceRow - 1 || destRow == sourceRow - 2) && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             } else if (!isFirstMove && destRow == sourceRow - 1 && !isDestinationOccupied && isDestinationInBounds) {
