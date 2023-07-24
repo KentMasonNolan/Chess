@@ -74,9 +74,11 @@ public class Pawn extends Piece {
         } else if (colour.equals("white")) {
             if (sourceRow < 7 && sourceCol > 0) {
                 chessboard[sourceRow + 1][sourceCol - 1].setCanWhiteCapture(true); // capture up left
+                System.out.println("Pawn can capture" + (sourceRow+1) + (sourceCol-1));
             }
             if (sourceRow < 7 && sourceCol < 7) {
                 chessboard[sourceRow + 1][sourceCol + 1].setCanWhiteCapture(true); // capture up right
+                System.out.println("Pawn can capture" + (sourceRow+1) + (sourceCol+1));
             }
         }
     }
