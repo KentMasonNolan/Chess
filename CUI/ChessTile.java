@@ -12,7 +12,7 @@ class ChessTile {
     }
 
     public void setCanBlackCapture(boolean chessTiles) {
-        this.canBlackCapture = true;
+        this.canBlackCapture = chessTiles;
     }
 
     public boolean getCanWhiteCapture() {
@@ -20,7 +20,7 @@ class ChessTile {
     }
 
     public void setCanWhiteCapture(boolean chessTiles) {
-        this.canWhiteCapture = true;
+        this.canWhiteCapture = chessTiles;
     }
 
     public void removePiece() {

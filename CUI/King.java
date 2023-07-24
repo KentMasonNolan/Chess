@@ -35,7 +35,7 @@ public class King extends Piece {
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
-        if (sourceRow > 0 && sourceRow < 7 && sourceCol > 0 && sourceCol < 7) {
+        if (sourceRow > 0 && sourceRow < 7 && sourceCol > 0 && sourceCol < 7) { // not edge and can capture all around
 
             chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
             chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
@@ -48,11 +48,11 @@ public class King extends Piece {
             chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
             chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture up
 
-        } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 7) {
+        } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 7) { //top rank and not on edge
 
-            chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
-            chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
-            chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true); //capture down
+            chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
+            chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
+            chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture down
 
             chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
             chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left

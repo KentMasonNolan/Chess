@@ -119,6 +119,8 @@ public class Game {
 
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
 
+        clearAllCaptureFlags();
+
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
@@ -129,6 +131,9 @@ public class Game {
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
                 }
+                setAllCaptureFlags();
+                isBlackKingInCheck();
+                isWhiteKingInCheck();
 
                 gameState.switchPlayer();
 
@@ -230,11 +235,13 @@ public class Game {
 
     private boolean isBlackKingInCheck(){
         if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()){
+            System.out.println("Black King is in check");
             return true;
         } else return false;
     }
     private boolean isWhiteKingInCheck(){
         if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()){
+            System.out.println("White King is in check");
             return true;
         } else return false;
     }
@@ -246,24 +253,6 @@ public class Game {
                 chessboard[row][col].setCanWhiteCapture(false);
             }
         }
-    }
-
-    private void clearBlackCaptureflag(ChessTile[][] chessboard) {
-        //TODO loop through all tiles and set flag to false
-    }
-
-    private void clearWhiteCaptureflag(ChessTile[][] chessboard) {
-
-        //TODO loop through all tiles and set flag to false
-    }
-
-    private void setBlackCaptureflag(ChessTile[][] chessboard) {
-        //TODO loop through all tiles if they have a piece, check where they can capture and set flag
-    }
-
-    private void setWhiteCaptureflag(ChessTile[][] chessboard) {
-
-        //TODO loop through all tiles if they have a piece, check where they can capture and set flag
     }
 
 }
