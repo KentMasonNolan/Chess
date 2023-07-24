@@ -99,9 +99,9 @@ public class Game {
             String sourceSquare = squares[0].toUpperCase();
             String destSquare = squares[1].toUpperCase();
 
-            int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) - 1;
+            int sourceRow = Character.getNumericValue(sourceSquare.charAt(1) - 1);
             int sourceCol = letterToNumber(sourceSquare.charAt(0));
-            int destRow = Character.getNumericValue(destSquare.charAt(1)) - 1;
+            int destRow = Character.getNumericValue(destSquare.charAt(1) - 1);
             int destCol = letterToNumber(destSquare.charAt(0));
 
             if (chessboard[destRow][destCol].isTileFilled()) {

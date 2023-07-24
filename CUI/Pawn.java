@@ -47,14 +47,15 @@ public class Pawn extends Piece {
 
 
         if (isDestinationOccupied && isOpponentColour) {
-            if (colour.equals("black")) { //I might not need this because if the flag is the opponent colour is false, it won't make it into the next if statement.
-                if (destCol > 0 && destCol < 8 && (destRow == sourceRow + 1 || destRow == sourceRow - 1) && destCol == sourceCol - 1) {
+            if (colour.equals("black")) {
+                if (destCol > 0 && destCol < 8 && (destRow == sourceRow + 1 || destRow == sourceRow - 1) && (destCol == sourceCol - 1 || destCol == sourceCol + 1)) {
                     return true;
                 }
             } else if (colour.equals("white")) {
-                if (destCol > 0 && destCol < 8 && (destRow == sourceRow - 1 || destRow == sourceRow + 1) && destCol == sourceCol - 1) {
+                if (destCol > 0 && destCol < 8 && (destRow == sourceRow - 1 || destRow == sourceRow + 1) && (destCol == sourceCol - 1 || destCol == sourceCol + 1)) {
                     return true;
                 }
+
             }
         }
         System.out.println("Invalid capture");
@@ -72,10 +73,10 @@ public class Pawn extends Piece {
             }
         } else if (colour.equals("white")) {
             if (sourceRow < 7 && sourceCol > 0) {
-                chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); // capture up left
+                chessboard[sourceRow + 1][sourceCol - 1].setCanWhiteCapture(true); // capture up left
             }
             if (sourceRow < 7 && sourceCol < 7) {
-                chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); // capture up right
+                chessboard[sourceRow + 1][sourceCol + 1].setCanWhiteCapture(true); // capture up right
             }
         }
     }
