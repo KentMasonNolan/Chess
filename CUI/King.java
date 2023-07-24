@@ -34,38 +34,12 @@ public class King extends Piece {
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-
-        if (sourceRow > 0 && sourceRow < 7 && sourceCol > 0 && sourceCol < 7) { // not edge and can capture all around
-
-            chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
-            chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
-            chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true); //capture down
-
-            chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
-            chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
-
-            chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
-            chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
-            chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture up
-
-        } else if (sourceRow == 0 && sourceCol != 0 || sourceCol != 7) { //top rank and not on edge
-
-            chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture down left
-            chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture down right
-            chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture down
-
-            chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
-            chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
-
-        } else if (sourceRow == 7 && sourceCol != 0 && sourceCol != 7) {
-
-            chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true); //capture up left
-            chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true); //capture up right
-            chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true); //capture up
-
-            chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true); //capture right
-            chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true); //capture left
-
-        } //TODO add testing to find out why I'm getting errors saying this will always be true/false
+        for (int row = sourceRow - 1; row <= sourceRow + 1; row++) {
+            for (int col = sourceCol - 1; col <= sourceCol + 1; col++) {
+                if (row >= 0 && row < 8 && col >= 0 && col < 8 && !(row == sourceRow && col == sourceCol)) {
+                    chessboard[row][col].setCanBlackCapture(true);
+                }
+            }
+        }
     }
 }
