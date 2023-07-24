@@ -1,5 +1,6 @@
 package CUI;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
@@ -156,7 +157,12 @@ public class Game {
 
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
+                } else if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
+                    gameState.setBlackKingPosition(destRow, destCol);
+                } else if (piece instanceof King && Objects.equals(piece.getColour(), "white")) {
+                    gameState.setWhiteKingPosition(destRow, destCol);
                 }
+
                 setAllCaptureFlags();
                 isBlackKingInCheck();
                 isWhiteKingInCheck();
