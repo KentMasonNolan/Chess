@@ -20,5 +20,15 @@ public class Queen extends Piece{
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
+        canCaptureRight(sourceRow, sourceCol, chessboard);
+        canCaptureLeft(sourceRow, sourceCol, chessboard);
+        canCaptureUp(sourceRow, sourceCol, chessboard);
+        canCaptureDown(sourceRow, sourceCol, chessboard);
+
+        canCaptureUpRight(sourceRow, sourceCol, chessboard);
+        canCaptureDownRight(sourceRow, sourceCol, chessboard);
+        canCaptureUpLeft(sourceRow, sourceCol, chessboard);
+        canCaptureDownLeft(sourceRow, sourceCol, chessboard);
+
     }
 }

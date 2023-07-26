@@ -107,9 +107,9 @@ public class Game {
         gameState.setBlackKingPosition(7,4);
 
         //white pawn one move away
-        chessboard[5][3].setPiece(new Pawn("white", 1, 3));
+        chessboard[0][0].setPiece(new Pawn("white", 1, 3));
 
-        chessboard[0][7].setPiece(new Rook("white", 0,7));
+        chessboard[5][5].setPiece(new Queen("white", 0,7));
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
@@ -254,7 +254,6 @@ public class Game {
 
 
     private String getPieceSymbol(Piece piece) {
-        // not sure if I need this
 
         String colourPrefix;
         if (piece.getColour().equals("white")) {

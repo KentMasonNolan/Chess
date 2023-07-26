@@ -111,6 +111,58 @@ abstract class Piece {
             }
         }
     }
+    protected void canCaptureUpRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol < 7 && sourceRow > 0) {
+            if (colour.equals("white")) {
+                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+            } else {
+                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
+            }
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureUpRight(sourceRow - 1, sourceCol + 1, chessboard);
+            }
+        }
+    }
+
+    protected void canCaptureUpLeft(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol > 0 && sourceRow > 0) {
+            if (colour.equals("white")) {
+                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+            } else {
+                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
+            }
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureUpLeft(sourceRow - 1, sourceCol - 1, chessboard);
+            }
+        }
+    }
+
+    protected void canCaptureDownRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol < 7 && sourceRow < 7) {
+            if (colour.equals("white")) {
+                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+            } else {
+                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
+            }
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureDownRight(sourceRow + 1, sourceCol + 1, chessboard);
+            }
+        }
+    }
+
+    protected void canCaptureDownLeft(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol > 0 && sourceRow < 7) {
+            if (colour.equals("white")) {
+                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+            } else {
+                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
+            }
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureDownLeft(sourceRow + 1, sourceCol - 1, chessboard);
+            }
+        }
+    }
+
 
 
 }
