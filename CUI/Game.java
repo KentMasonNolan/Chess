@@ -109,7 +109,7 @@ public class Game {
         //white pawn one move away
         chessboard[0][0].setPiece(new Pawn("white", 1, 3));
 
-        chessboard[5][5].setPiece(new Queen("white", 0,7));
+        chessboard[5][5].setPiece(new Rook("white", 5,5));
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
