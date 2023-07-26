@@ -20,5 +20,10 @@ public class Bishop extends Piece{
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
 
+        canCaptureUpRight(sourceRow, sourceCol, chessboard);
+        canCaptureUpLeft(sourceRow, sourceCol, chessboard);
+        canCaptureDownRight(sourceRow, sourceCol, chessboard);
+        canCaptureDownLeft(sourceRow, sourceCol, chessboard);
+
     }
 }

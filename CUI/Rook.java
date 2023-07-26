@@ -2,6 +2,9 @@ package CUI;
 
 public class Rook extends Piece {
 
+    private boolean isFirstMove = true;
+
+
     protected Rook(String colour, int xLoc, int yLoc) {
         super(colour, "Rook");
         this.xLoc = xLoc;
