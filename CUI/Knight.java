@@ -1,8 +1,10 @@
 package CUI;
 
 public class Knight extends Piece{
-    public Knight(String colour, String type) {
-        super(colour, type);
+    protected Knight(String colour, int xLoc, int yLoc) {
+        super(colour, "Night");
+        this.xLoc = xLoc;
+        this.yLoc = yLoc;
     }
 
     @Override

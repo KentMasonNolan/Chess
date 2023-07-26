@@ -1,8 +1,10 @@
 package CUI;
 
 public class Queen extends Piece{
-    public Queen(String colour, String type) {
-        super(colour, type);
+    protected Queen(String colour, int xLoc, int yLoc) {
+        super(colour, "Queen");
+        this.xLoc = xLoc;
+        this.yLoc = yLoc;
     }
 
     @Override

@@ -70,27 +70,37 @@ public class Game {
     }
 
     private void setupInitialPieces(ChessTile[][] chessboard) {
-        String[] colours = {"white", "black"};
-        for (String colour : colours) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                chessboard[1][col].setPiece(new Pawn("white", 1, col));
-            }
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                chessboard[6][col].setPiece(new Pawn("black", 6, col)); // Filling the second-to-last row as well
-            }
-            int kingRow;
-            if (colour.equals("black")) {
-                kingRow = BOARD_SIZE - 1;
-            } else {
-                kingRow = 0;
-            }
-            chessboard[kingRow][4].setPiece(new King(colour, kingRow, 4));
+        // Set white pieces
+        chessboard[0][0].setPiece(new Rook("white", 0, 0));
+        chessboard[0][1].setPiece(new Knight("white", 0, 1));
+        chessboard[0][2].setPiece(new Bishop("white", 0, 2));
+        chessboard[0][3].setPiece(new Queen("white", 0, 3));
+        chessboard[0][4].setPiece(new King("white", 0, 4));
+        chessboard[0][5].setPiece(new Bishop("white", 0, 5));
+        chessboard[0][6].setPiece(new Knight("white", 0, 6));
+        chessboard[0][7].setPiece(new Rook("white", 0, 7));
+
+        // Set white pawns in the second row
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            chessboard[1][col].setPiece(new Pawn("white", 1, col));
         }
-        chessboard[0][0].setPiece(new Rook("white",0,0));
-        chessboard[0][7].setPiece(new Rook("white",0,7));
+
+        // Set black pieces
         chessboard[7][0].setPiece(new Rook("black", 7, 0));
+        chessboard[7][1].setPiece(new Knight("black", 7, 1));
+        chessboard[7][2].setPiece(new Bishop("black", 7, 2));
+        chessboard[7][3].setPiece(new Queen("black", 7, 3));
+        chessboard[7][4].setPiece(new King("black", 7, 4));
+        chessboard[7][5].setPiece(new Bishop("black", 7, 5));
+        chessboard[7][6].setPiece(new Knight("black", 7, 6));
         chessboard[7][7].setPiece(new Rook("black", 7, 7));
+
+        // Set black pawns in the second-to-last row
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            chessboard[6][col].setPiece(new Pawn("black", 6, col));
+        }
     }
+
     private void setupTestPieces(ChessTile[][] chessboard) { //this is for testing
         //black king in the usual spot
         chessboard[7][4].setPiece(new King("black", 0, 4));

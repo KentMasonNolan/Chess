@@ -1,8 +1,10 @@
 package CUI;
 
 public class Bishop extends Piece{
-    public Bishop(String colour, String type) {
-        super(colour, type);
+    protected Bishop(String colour, int xLoc, int yLoc) {
+        super(colour, "Bishop");
+        this.xLoc = xLoc;
+        this.yLoc = yLoc;
     }
 
     @Override
