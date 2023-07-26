@@ -121,7 +121,7 @@ public class Game {
                     // Print the piece symbol based on the piece type
                     System.out.print(getPieceSymbol(tile.getPiece()) + " ");
                 } else {
-                    System.out.print("-  "); // Empty tile symbol
+                    System.out.print(" - "); // Empty tile symbol
                 }
             }
             System.out.println();

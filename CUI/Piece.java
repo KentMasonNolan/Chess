@@ -64,26 +64,25 @@ abstract class Piece {
     public abstract void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard);
 
     protected void canCaptureRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceRow < 8) {
+        if (sourceRow < 7) {
             if (colour.equals("white")) {
                 chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
             } else {
                 chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
             }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) { //need to make sure that it is not because your own piece is standing on it
-                canCaptureRight(sourceRow + 1, sourceCol, chessboard);
-            }
+            canCaptureRight(sourceRow + 1, sourceCol, chessboard);
         }
     }
+
     protected void canCaptureLeft(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceRow >=0) {
+        if (sourceRow >= 0) {
             if (colour.equals("white")) {
                 chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
             } else {
                 chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
             }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) { //need to make sure that it is not because your own piece is standing on it
-                canCaptureRight(sourceRow - 1, sourceCol, chessboard);
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureLeft(sourceRow - 1, sourceCol, chessboard);
             }
         }
     }
@@ -94,22 +93,24 @@ abstract class Piece {
             } else {
                 chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
             }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) { //need to make sure that it is not because your own piece is standing on it
-                canCaptureRight(sourceRow , sourceCol +1, chessboard);
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureDown(sourceRow, sourceCol + 1, chessboard);
             }
         }
     }
+
     protected void canCaptureUp(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceCol <= 0) {
+        if (sourceCol >= 0) {
             if (colour.equals("white")) {
                 chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
             } else {
                 chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
             }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) { //need to make sure that it is not because your own piece is standing on it
-                canCaptureRight(sourceRow, sourceCol - 1, chessboard);
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureUp(sourceRow, sourceCol - 1, chessboard);
             }
         }
     }
+
 
 }

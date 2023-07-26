@@ -19,6 +19,5 @@ public class Knight extends Piece{
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-
     }
 }
