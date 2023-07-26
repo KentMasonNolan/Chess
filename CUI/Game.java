@@ -86,6 +86,10 @@ public class Game {
             }
             chessboard[kingRow][4].setPiece(new King(colour, kingRow, 4));
         }
+        chessboard[0][0].setPiece(new Rook("white",0,0));
+        chessboard[0][7].setPiece(new Rook("white",0,7));
+        chessboard[7][0].setPiece(new Rook("black", 7, 0));
+        chessboard[7][7].setPiece(new Rook("black", 7, 7));
     }
     private void setupTestPieces(ChessTile[][] chessboard) { //this is for testing
         //black king in the usual spot
@@ -94,6 +98,8 @@ public class Game {
 
         //white pawn one move away
         chessboard[5][3].setPiece(new Pawn("white", 1, 3));
+
+        chessboard[0][7].setPiece(new Rook("white", 0,7));
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
