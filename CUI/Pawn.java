@@ -16,6 +16,8 @@ public class Pawn extends Piece {
         //TODO add error detection for going out of bounds
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+        boolean isSquareAboveOccupied = chessboard[destRow][destCol+1].isTileFilled(); // we need this because a pawn cannot jump a piece.
+        boolean isSquareBelowOccupied = chessboard[destRow][destCol+1].isTileFilled(); // we need this because a pawn cannot jump a piece.
         boolean isDestinationInBounds = false;
 
         //todo this should be a try/catch because it will error if it is out of bounds
@@ -24,13 +26,13 @@ public class Pawn extends Piece {
         }
 
         if (Objects.equals(this.getColour(), "black")) {
-            if (isFirstMove && (destRow == sourceRow - 1 || destRow == sourceRow - 2) && !isDestinationOccupied && isDestinationInBounds) {
+            if (isFirstMove && (destRow == sourceRow - 1 || destRow == sourceRow - 2) && !isDestinationOccupied && isDestinationInBounds && !isSquareAboveOccupied) {
                 return true;
             } else if (!isFirstMove && destRow == sourceRow - 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
             }
         } else /* colour will be white */ {
-            if (isFirstMove && (destRow == sourceRow + 1 || destRow == sourceRow + 2) && !isDestinationOccupied && isDestinationInBounds) {
+            if (isFirstMove && (destRow == sourceRow + 1 || destRow == sourceRow + 2) && !isDestinationOccupied && isDestinationInBounds && !isSquareBelowOccupied) {
                 return true;
             } else if (!isFirstMove && destRow == sourceRow + 1 && !isDestinationOccupied && isDestinationInBounds) {
                 return true;
