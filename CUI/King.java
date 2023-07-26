@@ -4,10 +4,15 @@ public class King extends Piece {
 
     private boolean isFirstMove = true;
 
-    protected King(String colour, int xLoc, int yLoc) {
+    protected King(String colour, int xLoc, int yLoc, GameState gameState) {
         super(colour, "King");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
+        if (colour.equals("white")){
+            gameState.setWhiteKingPosition(xLoc,yLoc);
+        } else {
+            gameState.setBlackKingPosition(xLoc, yLoc);
+        }
     }
 
     @Override

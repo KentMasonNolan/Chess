@@ -15,7 +15,7 @@ public class Game {
         Scanner input = new Scanner(System.in);
         GameState gameState = new GameState();
         Game game = new Game();
-        game.start();
+        game.start(gameState);
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit.\n\n" + "You are playing black. Good luck.\n");
 
@@ -36,7 +36,7 @@ public class Game {
 
     }
 
-    private void start() {
+    private void start(GameState gameState) {
 
         System.out.println("What board would you like to play?");
         System.out.println("1. normal chessboard");
@@ -45,12 +45,12 @@ public class Game {
         Scanner input = new Scanner(System.in);
         int menu = input.nextInt();
 
-        switch (menu){
+        switch (menu) {
             case 1:
-                setupInitialPieces(chessboard);
+                setupInitialPieces(chessboard, gameState);
                 break;
             case 2:
-                setupTestPieces(chessboard);
+                setupTestPieces(chessboard, gameState);
                 break;
             default:
                 System.out.println("Please choose a valid option");
@@ -69,13 +69,13 @@ public class Game {
         return chessboard;
     }
 
-    private void setupInitialPieces(ChessTile[][] chessboard) {
+    private void setupInitialPieces(ChessTile[][] chessboard, GameState gameState) {
         // Set white pieces
         chessboard[0][0].setPiece(new Rook("white", 0, 0));
         chessboard[0][1].setPiece(new Knight("white", 0, 1));
         chessboard[0][2].setPiece(new Bishop("white", 0, 2));
         chessboard[0][3].setPiece(new Queen("white", 0, 3));
-        chessboard[0][4].setPiece(new King("white", 0, 4));
+        chessboard[0][4].setPiece(new King("white", 0, 4, gameState));
         chessboard[0][5].setPiece(new Bishop("white", 0, 5));
         chessboard[0][6].setPiece(new Knight("white", 0, 6));
         chessboard[0][7].setPiece(new Rook("white", 0, 7));
@@ -90,7 +90,7 @@ public class Game {
         chessboard[7][1].setPiece(new Knight("black", 7, 1));
         chessboard[7][2].setPiece(new Bishop("black", 7, 2));
         chessboard[7][3].setPiece(new Queen("black", 7, 3));
-        chessboard[7][4].setPiece(new King("black", 7, 4));
+        chessboard[7][4].setPiece(new King("black", 7, 4, gameState));
         chessboard[7][5].setPiece(new Bishop("black", 7, 5));
         chessboard[7][6].setPiece(new Knight("black", 7, 6));
         chessboard[7][7].setPiece(new Rook("black", 7, 7));
@@ -101,15 +101,15 @@ public class Game {
         }
     }
 
-    private void setupTestPieces(ChessTile[][] chessboard) { //this is for testing
+    private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) { //this is for testing
         //black king in the usual spot
-        chessboard[7][4].setPiece(new King("black", 0, 4));
-        gameState.setBlackKingPosition(7,4);
+        chessboard[7][4].setPiece(new King("black", 0, 4, this.gameState));
+        this.gameState.setBlackKingPosition(7, 4);
 
         //white pawn one move away
         chessboard[0][0].setPiece(new Pawn("white", 1, 3));
 
-        chessboard[5][5].setPiece(new Rook("white", 5,5));
+        chessboard[5][5].setPiece(new Rook("white", 5, 5));
     }
 
     private void drawChessboard(ChessTile[][] chessboard) {
@@ -183,7 +183,17 @@ public class Game {
                 isBlackKingInCheck();
                 isWhiteKingInCheck();
 
-                gameState.switchPlayer();
+                //I need to check to make sure that if a piece is pinned, revert to previous location
+
+                if (piece.colour.equals("white") && isWhiteKingInCheck()) {
+                    //revert
+                    revertBoard(sourceRow, sourceCol, destRow, destCol);
+                } else if (piece.colour.equals("black") && isBlackKingInCheck()) {
+                    revertBoard(sourceRow, sourceCol, destRow, destCol);
+                } else {
+                    gameState.switchPlayer();
+                }
+
 
                 // TODO: check for captures, check/checkmate
 
@@ -193,6 +203,17 @@ public class Game {
         } else {
             System.out.println("No piece found or it's not your turn. Please try again.");
         }
+    }
+
+    private void revertBoard(int sourceRow, int sourceCol, int destRow, int destCol) {
+
+        Piece currentPiece = chessboard[destRow][destCol].getPiece();
+        Piece previousPiece = chessboard[destRow][destCol].getPreviousPiece();
+
+        chessboard[destRow][destCol].removePiece();
+        chessboard[destRow][destCol].setPiece(previousPiece);
+        chessboard[sourceRow][sourceCol].setPiece(currentPiece);
+
     }
 
     private void capturePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
@@ -280,20 +301,21 @@ public class Game {
         }
     }
 
-    private boolean isBlackKingInCheck(){
-        if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()){
+    private boolean isBlackKingInCheck() {
+        if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()) {
             System.out.println("Black King is in check");
             return true;
         } else return false;
     }
-    private boolean isWhiteKingInCheck(){
-        if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()){
+
+    private boolean isWhiteKingInCheck() {
+        if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()) {
             System.out.println("White King is in check");
             return true;
         } else return false;
     }
-    
-    private void clearAllCaptureFlags(){
+
+    private void clearAllCaptureFlags() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 chessboard[row][col].setCanBlackCapture(false);
