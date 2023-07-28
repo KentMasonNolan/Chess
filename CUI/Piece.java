@@ -163,6 +163,32 @@ abstract class Piece {
         }
     }
 
+    protected boolean canMoveHorizontal(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+        if (sourceRow != destRow) {
+            return false; // The movement should be in the same row
+        }
+
+        int colStep;
+        if (destCol > sourceCol) {
+            colStep = 1;
+        } else {
+            colStep = -1;
+        }
+
+        int col = sourceCol + colStep;
+        while (col != destCol) {
+            if (chessboard[sourceRow][col].isTileFilled()) {
+                return false;
+            }
+            col += colStep;
+        }
+
+        return true;
+    }
+
+
+
+
     protected boolean canMoveDiagonal(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
         int rowStep;
         int colStep;
