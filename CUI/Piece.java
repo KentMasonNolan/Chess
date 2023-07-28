@@ -86,6 +86,7 @@ abstract class Piece {
             }
         }
     }
+
     protected void canCaptureDown(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
         if (sourceCol < 8) {
             if (colour.equals("white")) {
@@ -111,6 +112,7 @@ abstract class Piece {
             }
         }
     }
+
     protected void canCaptureUpRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
         if (sourceCol < 7 && sourceRow > 0) {
             if (colour.equals("white")) {
@@ -187,6 +189,28 @@ abstract class Piece {
     }
 
 
+    protected boolean canMoveVertical(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+        if (sourceCol != destCol) {
+            return false; // The movement should be in the same column
+        }
+
+        int rowStep;
+        if (destRow > sourceRow) {
+            rowStep = 1;
+        } else {
+            rowStep = -1;
+        }
+
+        int row = sourceRow + rowStep;
+        while (row != destRow) {
+            if (chessboard[row][sourceCol].isTileFilled()) {
+                return false;
+            }
+            row += rowStep;
+        }
+
+        return true;
+    }
 
 
     protected boolean canMoveDiagonal(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
@@ -218,8 +242,6 @@ abstract class Piece {
 
         return row == destRow && col == destCol;
     }
-
-
 
 
 }
