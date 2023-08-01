@@ -17,23 +17,27 @@ public class King extends Piece {
 
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+        int rowDiff = Math.abs(destRow - sourceRow);
+        int colDiff = Math.abs(destCol - sourceCol);
 
-        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
-        boolean isDestinationInBounds = false;
+        // The King can move one square in any direction
+        if (rowDiff <= 1 && colDiff <= 1) {
+            boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+            boolean isDestinationInBounds = (destCol >= 0 && destCol < 8 && destRow >= 0 && destRow < 8);
 
-        if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)) {
-            isDestinationInBounds = true;
+            if (!isDestinationOccupied && isDestinationInBounds) {
+                isFirstMove = false; // Set isFirstMove to false once the King moves for the first time.
+                return true;
+            }
         }
 
-        if (destCol == sourceCol + 1 || destCol == sourceCol - 1 || destCol == sourceCol && destRow == sourceRow + 1 || destRow == sourceRow - 1 || destRow == sourceRow && !isDestinationOccupied && isDestinationInBounds) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+        // TODO: Implement valid capture for the King (if different from valid moves).
+
         return false;
     }
 
