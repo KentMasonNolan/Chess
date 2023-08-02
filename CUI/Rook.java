@@ -11,46 +11,16 @@ public class Rook extends Piece {
         this.yLoc = yLoc;
     }
 
+
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-
-            boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
-            boolean isDestinationInBounds = (destCol >= 0 && destCol < 8 && destRow >= 0 && destRow < 8);
-
-            if (sourceRow == destRow && sourceCol != destCol) {
-                int colStep;
-                if (sourceCol < destCol) {
-                    colStep = 1;
-                } else {
-                    colStep = -1;
-                }
-
-                for (int col = sourceCol + colStep; col != destCol; col += colStep) {
-                    if (chessboard[sourceRow][col].isTileFilled()) {
-                        return false;
-                    }
-                }
-                return !isDestinationOccupied && isDestinationInBounds;
-
-            } else if (sourceCol == destCol && sourceRow != destRow) {
-                int rowStep;
-                if (sourceRow < destRow) {
-                    rowStep = 1;
-                } else {
-                    rowStep = -1;
-                }
-
-                for (int row = sourceRow + rowStep; row != destRow; row += rowStep) {
-                    if (chessboard[row][sourceCol].isTileFilled()) {
-                        return false;
-                    }
-                }
-                return !isDestinationOccupied && isDestinationInBounds;
-            }
-
+        if (canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard)
+                || canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+            return true;
+        } else {
             return false;
         }
-
+    }
 
 
     @Override
