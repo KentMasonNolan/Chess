@@ -16,8 +16,8 @@ public class Pawn extends Piece {
         //TODO add error detection for going out of bounds
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
-        boolean isSquareAboveOccupied = chessboard[destRow][destCol+1].isTileFilled(); // we need this because a pawn cannot jump a piece.
-        boolean isSquareBelowOccupied = chessboard[destRow][destCol+1].isTileFilled(); // we need this because a pawn cannot jump a piece.
+        boolean isSquareAboveOccupied = chessboard[destRow+1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
+        boolean isSquareBelowOccupied = chessboard[destRow-1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
         boolean isDestinationInBounds = false;
 
         //todo this should be a try/catch because it will error if it is out of bounds

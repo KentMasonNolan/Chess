@@ -11,6 +11,15 @@ public class Game {
     private boolean playerAbort = false;
 
 
+    // TODO: Piece Promotion Options (set)
+// When a pawn reaches the opposite end of the board, it can be promoted to another piece (e.g., queen, rook).
+// Implement a List or Set to store the available promotion options for a player, and allow the player to choose one when promoting the pawn.
+
+    // TODO: Move History (list)
+// Keep track of the moves played during the game using a List to store each move as an object representing the source and destination squares.
+// This will enable you to easily track the move history and implement features like undoing moves or reviewing the game's progression.
+
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         GameState gameState = new GameState();
@@ -107,7 +116,9 @@ public class Game {
         this.gameState.setBlackKingPosition(7, 4);
 
         //white pawn one move away
-        chessboard[0][0].setPiece(new Pawn("white", 1, 3));
+        chessboard[0][0].setPiece(new Pawn("white", 0, 0));
+        chessboard[1][0].setPiece(new Pawn("white", 0, 0));
+        chessboard[1][3].setPiece(new Queen("white", 1, 3));
 
         chessboard[5][5].setPiece(new Rook("white", 5, 5));
     }
