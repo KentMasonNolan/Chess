@@ -22,6 +22,11 @@ public class Knight extends Piece {
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        // TODO: Implement a method to determine squares that the Knight can capture.
+        if (sourceRow -2 > 0){
+            if (sourceCol - 1 >0){
+                chessboard[sourceRow-2][sourceCol-1].setCanWhiteCapture(true);
+                //still adding
+            }
+        }
     }
 }

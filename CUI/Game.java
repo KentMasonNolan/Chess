@@ -113,6 +113,8 @@ public class Game {
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) { //this is for testing
         //black king in the usual spot
         chessboard[7][4].setPiece(new King("black", 0, 4, this.gameState));
+        chessboard[1][5].setPiece(new Pawn("black", 1, 5));
+
         this.gameState.setBlackKingPosition(7, 4);
 
         //white pawn one move away
