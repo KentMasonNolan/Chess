@@ -70,7 +70,9 @@ abstract class Piece {
             } else {
                 chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
             }
-            canCaptureRight(sourceRow + 1, sourceCol, chessboard);
+            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
+                canCaptureRight(sourceRow + 1, sourceCol, chessboard);
+            }
         }
     }
 
