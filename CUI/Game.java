@@ -184,6 +184,8 @@ public class Game {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
+                //todo update with king and rook first moves because they can't castle.
+
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
                 } else if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
@@ -197,6 +199,8 @@ public class Game {
                 isWhiteKingInCheck();
 
                 //I need to check to make sure that if a piece is pinned, revert to previous location
+
+                //todo implement reverting board code below.
 
 //                if (piece.colour.equals("white") && isWhiteKingInCheck()) {
 //                    //revert
