@@ -13,14 +13,12 @@ public class Pawn extends Piece {
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
-        //TODO add error detection for going out of bounds
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
         boolean isSquareAboveOccupied = chessboard[destRow+1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
         boolean isSquareBelowOccupied = chessboard[destRow-1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
         boolean isDestinationInBounds = false;
 
-        //todo this should be a try/catch because it will error if it is out of bounds
         if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)) {
             isDestinationInBounds = true;
         }
