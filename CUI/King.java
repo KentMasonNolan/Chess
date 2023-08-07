@@ -1,5 +1,7 @@
 package CUI;
 
+import java.util.Objects;
+
 public class King extends Piece {
 
     private boolean isFirstMove = true;
@@ -8,8 +10,8 @@ public class King extends Piece {
         super(colour, "King");
         this.xLoc = xLoc;
         this.yLoc = yLoc;
-        if (colour.equals("white")){
-            gameState.setWhiteKingPosition(xLoc,yLoc);
+        if (colour.equals("white")) {
+            gameState.setWhiteKingPosition(xLoc, yLoc);
         } else {
             gameState.setBlackKingPosition(xLoc, yLoc);
         }
@@ -36,7 +38,17 @@ public class King extends Piece {
 
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-        // TODO: Implement valid capture for the King (if different from valid moves).
+
+        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+        boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
+
+        if (isDestinationOccupied && isOpponentColour) {
+            if ((Math.abs(destCol - sourceCol) == 1 && destRow == sourceRow)
+                    || (Math.abs(destCol - sourceCol) == 1 && Math.abs(destRow - sourceRow) == 1)
+                    || (Math.abs(destRow - sourceRow) == 1 && destCol == sourceCol)) {
+                return true;
+            }
+        }
 
         return false;
     }
