@@ -3,6 +3,13 @@ package CUI;
 import java.util.Objects;
 
 public class King extends Piece {
+    public boolean isFirstMove() {
+        return isFirstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
+    }
 
     private boolean isFirstMove = true;
 

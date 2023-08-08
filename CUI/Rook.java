@@ -5,6 +5,14 @@ public class Rook extends Piece {
     private boolean isFirstMove = true;
 
 
+    public boolean isFirstMove() {
+        return isFirstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
+    }
+
     protected Rook(String colour, int xLoc, int yLoc) {
         super(colour, "Rook");
         this.xLoc = xLoc;

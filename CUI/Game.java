@@ -188,6 +188,14 @@ public class Game {
 
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
+                }
+                if (piece instanceof Rook) {
+                    ((Rook) piece).setFirstMove(false);
+                }
+                if (piece instanceof King) {
+                    ((King) piece).setFirstMove(false);
+
+                    // this needs to be upadted because the king's first move will now not trigger the else if statement
                 } else if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
                     gameState.setBlackKingPosition(destRow, destCol);
                 } else if (piece instanceof King && Objects.equals(piece.getColour(), "white")) {
