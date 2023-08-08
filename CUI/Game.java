@@ -50,6 +50,7 @@ public class Game {
         System.out.println("What board would you like to play?");
         System.out.println("1. normal chessboard");
         System.out.println("2. test chessboard");
+        // todo setup a showcase board for markers to test
 
         Scanner input = new Scanner(System.in);
         int menu = input.nextInt();
@@ -195,8 +196,7 @@ public class Game {
                 if (piece instanceof King) {
                     ((King) piece).setFirstMove(false);
 
-                    // this needs to be upadted because the king's first move will now not trigger the else if statement
-                } else if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
+                } if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
                     gameState.setBlackKingPosition(destRow, destCol);
                 } else if (piece instanceof King && Objects.equals(piece.getColour(), "white")) {
                     gameState.setWhiteKingPosition(destRow, destCol);
@@ -206,7 +206,6 @@ public class Game {
                 isBlackKingInCheck();
                 isWhiteKingInCheck();
 
-                //I need to check to make sure that if a piece is pinned, revert to previous location
 
                 //todo implement reverting board code below.
 

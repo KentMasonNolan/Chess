@@ -1,5 +1,7 @@
 package CUI;
 
+import java.util.Objects;
+
 public class Bishop extends Piece {
     protected Bishop(String colour, int xLoc, int yLoc) {
         super(colour, "Bishop");
@@ -18,6 +20,10 @@ public class Bishop extends Piece {
 
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+
+        boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+        boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
+
         if (Math.abs(sourceRow - destRow) == Math.abs(sourceCol - destCol)) { // diagonal movement
             int rowStep, colStep;
 
@@ -44,11 +50,14 @@ public class Bishop extends Piece {
                 col += colStep;
             }
 
-            return true; // The diagonal path is clear
+            if (isDestinationOccupied && isOpponentColour) {
+                return true;
+            }
         }
 
         return false;
     }
+
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
