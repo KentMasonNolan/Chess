@@ -119,7 +119,7 @@ public class Game {
         this.gameState.setBlackKingPosition(7, 4);
 
         //white pawn one move away
-        chessboard[5][3].setPiece(new Pawn("white", 3, 5));
+        chessboard[3][2].setPiece(new Bishop("white", 2, 3));
         chessboard[1][0].setPiece(new Pawn("white", 0, 0));
         chessboard[1][3].setPiece(new Queen("white", 1, 3));
 
