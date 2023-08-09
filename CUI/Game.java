@@ -193,6 +193,12 @@ public class Game {
                 }
                 if (piece instanceof King) {
                     ((King) piece).setFirstMove(false);
+                    if (Objects.equals(piece.getColour(), "black")){
+                        this.gameState.setBlackKingPosition(destRow, destCol);
+                    } else {
+                        this.gameState.setWhiteKingPosition(destRow, destCol);
+                    }
+
 
                 } if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
                     gameState.setBlackKingPosition(destRow, destCol);
@@ -216,8 +222,9 @@ public class Game {
                     System.out.println("Black piece is pinned!");
                 } else {
                     System.out.println("Player is switched.");
+                    gameState.switchPlayer();
                 }
-                gameState.switchPlayer();
+
 
 
 
