@@ -1,5 +1,7 @@
 package CUI;
 
+import java.util.Objects;
+
 abstract class Piece {
     protected String colour;
     protected String type;
@@ -63,54 +65,74 @@ abstract class Piece {
 
     public abstract void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard);
 
-    protected void canCaptureRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceRow < 7) {
-            if (colour.equals("white")) {
-                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
-            } else {
-                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
-            }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
-                canCaptureRight(sourceRow + 1, sourceCol, chessboard);
-            }
-        }
-    }
-
-    protected void canCaptureLeft(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceRow >= 0) {
-            if (colour.equals("white")) {
-                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
-            } else {
-                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
-            }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
-                canCaptureLeft(sourceRow - 1, sourceCol, chessboard);
-            }
-        }
-    }
-
     protected void canCaptureDown(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceCol < 8) {
+        if (sourceRow + 1 < 8) { // Check if next row is within bounds
             if (colour.equals("white")) {
-                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+                if (!chessboard[sourceRow + 1][sourceCol].isTileFilled()) {
+                    canCaptureDown(sourceRow + 1, sourceCol, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow + 1][sourceCol].getPiece().getColour())) {
+                    chessboard[sourceRow + 1][sourceCol].setCanWhiteCapture(true);
+                }
             } else {
-                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
-            }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
-                canCaptureDown(sourceRow, sourceCol + 1, chessboard);
+                if (!chessboard[sourceRow + 1][sourceCol].isTileFilled()) {
+                    canCaptureDown(sourceRow + 1, sourceCol, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow + 1][sourceCol].getPiece().getColour())) {
+                    chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true);
+                }
             }
         }
     }
 
     protected void canCaptureUp(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        if (sourceCol >= 0) {
+        if (sourceRow - 1 >= 0) { // Check if previous row is within bounds
             if (colour.equals("white")) {
-                chessboard[sourceRow][sourceCol].setCanWhiteCapture(true);
+                if (!chessboard[sourceRow - 1][sourceCol].isTileFilled()) {
+                    canCaptureUp(sourceRow - 1, sourceCol, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow - 1][sourceCol].getPiece().getColour())) {
+                    chessboard[sourceRow - 1][sourceCol].setCanWhiteCapture(true);
+                }
             } else {
-                chessboard[sourceRow][sourceCol].setCanBlackCapture(true);
+                if (!chessboard[sourceRow - 1][sourceCol].isTileFilled()) {
+                    canCaptureUp(sourceRow - 1, sourceCol, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow - 1][sourceCol].getPiece().getColour())) {
+                    chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true);
+                }
             }
-            if (!chessboard[sourceRow][sourceCol].isTileFilled()) {
-                canCaptureUp(sourceRow, sourceCol - 1, chessboard);
+        }
+    }
+
+    protected void canCaptureRight(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol + 1 < 8) { // Check if next column is within bounds
+            if (colour.equals("white")) {
+                if (!chessboard[sourceRow][sourceCol + 1].isTileFilled()) {
+                    canCaptureRight(sourceRow, sourceCol + 1, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow][sourceCol + 1].getPiece().getColour())) {
+                    chessboard[sourceRow][sourceCol + 1].setCanWhiteCapture(true);
+                }
+            } else {
+                if (!chessboard[sourceRow][sourceCol + 1].isTileFilled()) {
+                    canCaptureRight(sourceRow, sourceCol + 1, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow][sourceCol + 1].getPiece().getColour())) {
+                    chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true);
+                }
+            }
+        }
+    }
+
+    protected void canCaptureLeft(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+        if (sourceCol - 1 >= 0) { // Check if previous column is within bounds
+            if (colour.equals("white")) {
+                if (!chessboard[sourceRow][sourceCol - 1].isTileFilled()) {
+                    canCaptureLeft(sourceRow, sourceCol - 1, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow][sourceCol - 1].getPiece().getColour())) {
+                    chessboard[sourceRow][sourceCol - 1].setCanWhiteCapture(true);
+                }
+            } else {
+                if (!chessboard[sourceRow][sourceCol - 1].isTileFilled()) {
+                    canCaptureLeft(sourceRow, sourceCol - 1, chessboard);
+                } else if (!Objects.equals(this.colour, chessboard[sourceRow][sourceCol - 1].getPiece().getColour())) {
+                    chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true);
+                }
             }
         }
     }
