@@ -126,6 +126,14 @@ public class Game {
         chessboard[5][5].setPiece(new Rook("white", 5, 5));
     }
 
+//  todo create a set that holds what pieces can be captured.
+//    If the piece attacking the king is in that set, it won't be checkmate,
+
+//  todo  Identify the piece attacking the king
+
+//   todo Find the path it is taking to attack the king, if the opponent controls one of those squares,
+//    the checkmate can be stopped. The king cannot contribute to this list
+
     private void drawChessboard(ChessTile[][] chessboard) {
         for (int row = 0; row < BOARD_SIZE; row++) {
             System.out.print((row + 1) + " "); // Row label
