@@ -209,16 +209,16 @@ public class Game {
 
                 //todo implement reverting board code below.
 
-//                if (piece.colour.equals("white") && isWhiteKingInCheck()) {
-//                    //revert
-//                    revertBoard(sourceRow, sourceCol, destRow, destCol);
-//                    System.out.println("White piece is pinned!");
-//                } else if (piece.colour.equals("black") && isBlackKingInCheck()) {
-//                    revertBoard(sourceRow, sourceCol, destRow, destCol);
-//                    System.out.println("Black piece is pinned!");
-//                } else {
-//                    System.out.println("Player is switched.");
-//                }
+                if (piece.colour.equals("white") && isWhiteKingInCheck()) {
+                    //revert
+                    revertBoard(sourceRow, sourceCol, destRow, destCol);
+                    System.out.println("White piece is pinned!");
+                } else if (piece.colour.equals("black") && isBlackKingInCheck()) {
+                    revertBoard(sourceRow, sourceCol, destRow, destCol);
+                    System.out.println("Black piece is pinned!");
+                } else {
+                    System.out.println("Player is switched.");
+                }
                 gameState.switchPlayer();
 
 

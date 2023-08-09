@@ -38,7 +38,7 @@ public class Knight extends Piece {
                 return true;
             }
         }
-            return false;
+        return false;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Knight extends Piece {
                 if (sourceRow - 1 >= 0) {
                     chessboard[sourceRow - 1][sourceCol - 2].setCanBlackCapture(true);
                 }
-                if (sourceCol + 1 <= 7) {
+                if (sourceRow + 1 <= 7) {
                     chessboard[sourceRow + 1][sourceCol - 2].setCanBlackCapture(true);
                 }
             }
@@ -107,7 +107,7 @@ public class Knight extends Piece {
                 if (sourceRow - 1 >= 0) {
                     chessboard[sourceRow - 1][sourceCol + 2].setCanBlackCapture(true);
                 }
-                if (sourceCol + 1 <= 7) {
+                if (sourceRow + 1 <= 7) {
                     chessboard[sourceRow + 1][sourceCol + 2].setCanBlackCapture(true);
                 }
             }
