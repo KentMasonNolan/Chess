@@ -113,13 +113,13 @@ public class Game {
 
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) { //this is for testing
         //black king in the usual spot
-        chessboard[7][4].setPiece(new King("black", 0, 4, this.gameState));
+        chessboard[7][4].setPiece(new King("black", 7, 4, this.gameState));
         chessboard[1][5].setPiece(new Pawn("black", 1, 5));
 
         this.gameState.setBlackKingPosition(7, 4);
 
         //white pawn one move away
-        chessboard[0][0].setPiece(new Pawn("white", 0, 0));
+        chessboard[5][3].setPiece(new Pawn("white", 3, 5));
         chessboard[1][0].setPiece(new Pawn("white", 0, 0));
         chessboard[1][3].setPiece(new Queen("white", 1, 3));
 
@@ -185,8 +185,6 @@ public class Game {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
-                //todo update with king and rook first moves because they can't castle.
-
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
                 }
@@ -222,7 +220,6 @@ public class Game {
                 gameState.switchPlayer();
 
 
-                // TODO: check for captures, check/checkmate
 
             } else {
                 System.out.println("Invalid move. Please try again.");
