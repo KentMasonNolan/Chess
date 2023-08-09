@@ -262,7 +262,7 @@ public class Game {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
-                //todo check for checkmate here
+                // todo check for checkmate here
 
                 gameState.switchPlayer();
             }
