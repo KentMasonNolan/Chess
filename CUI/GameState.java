@@ -56,7 +56,7 @@ public class GameState {
     }
 
     public GameState() {
-      currentPlayer = "white";
+        currentPlayer = "white";
     }
 
 
