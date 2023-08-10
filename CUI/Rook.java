@@ -23,8 +23,7 @@ public class Rook extends Piece {
 
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-        if (canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard)
-                || canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+        if (canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard) || canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard)) {
             return true;
         } else {
             return false;

@@ -50,9 +50,7 @@ public class King extends Piece {
         boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
 
         if (isDestinationOccupied && isOpponentColour) {
-            if ((Math.abs(destCol - sourceCol) == 1 && destRow == sourceRow)
-                    || (Math.abs(destCol - sourceCol) == 1 && Math.abs(destRow - sourceRow) == 1)
-                    || (Math.abs(destRow - sourceRow) == 1 && destCol == sourceCol)) {
+            if ((Math.abs(destCol - sourceCol) == 1 && destRow == sourceRow) || (Math.abs(destCol - sourceCol) == 1 && Math.abs(destRow - sourceRow) == 1) || (Math.abs(destRow - sourceRow) == 1 && destCol == sourceCol)) {
                 return true;
             }
         }

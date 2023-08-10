@@ -15,8 +15,8 @@ public class Pawn extends Piece {
 
 
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
-        boolean isSquareAboveOccupied = chessboard[destRow-1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
-        boolean isSquareBelowOccupied = chessboard[destRow+1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
+        boolean isSquareAboveOccupied = chessboard[destRow - 1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
+        boolean isSquareBelowOccupied = chessboard[destRow + 1][destCol].isTileFilled(); // we need this because a pawn cannot jump a piece.
         boolean isDestinationInBounds = false;
 
         if ((destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8)) {

@@ -201,14 +201,15 @@ public class Game {
                 }
                 if (piece instanceof King) {
                     ((King) piece).setFirstMove(false);
-                    if (Objects.equals(piece.getColour(), "black")){
+                    if (Objects.equals(piece.getColour(), "black")) {
                         this.gameState.setBlackKingPosition(destRow, destCol);
                     } else {
                         this.gameState.setWhiteKingPosition(destRow, destCol);
                     }
 
 
-                } if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
+                }
+                if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
                     gameState.setBlackKingPosition(destRow, destCol);
                 } else if (piece instanceof King && Objects.equals(piece.getColour(), "white")) {
                     gameState.setWhiteKingPosition(destRow, destCol);
@@ -230,8 +231,6 @@ public class Game {
                     System.out.println("Player is switched.");
                     gameState.switchPlayer();
                 }
-
-
 
 
             } else {
@@ -342,14 +341,16 @@ public class Game {
         if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()) {
             System.out.println("Black King is in check");
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
     private boolean isWhiteKingInCheck() {
         if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()) {
             System.out.println("White King is in check");
             return true;
-        } else return false;
+        } else
+            return false;
     }
 
     private void clearAllCaptureFlags() {
