@@ -41,21 +41,20 @@ public class Game implements Serializable {
             try {
                 String userInputCommand = input.nextLine();
 
-                if (userInputCommand.equalsIgnoreCase("SAVE")) {
-                    // Prompt the user for a filename or use a default filename
-                    System.out.print("Enter the filename to save the game (or press Enter to use default): ");
-                    String filename = input.nextLine().trim();
-                    if (filename.isEmpty()) {
-                        filename = "savedGame.ser"; // Default filename
-                    }
-
-                    // Call the saveGame method
+                if (userInputCommand.equalsIgnoreCase("save")) {
+                    System.out.println("Enter the filename to save the game:");
+                    String filename = input.nextLine();
                     game.saveGame(filename);
-
-                    continue;
+                } else if (userInputCommand.equalsIgnoreCase("load")) {
+                    System.out.println("Enter the filename to load the game:");
+                    String filename = input.nextLine();
+                    Game loadedGame = Game.loadGameFromFile(filename);
+                    if (loadedGame != null) {
+                        game = loadedGame; // Update the game instance with the loaded game
+                    }
+                } else {
+                    game.userInput(userInputCommand, gameState);
                 }
-
-                game.userInput(userInputCommand, gameState);
             } catch (Exception e) {
                 System.out.println("Please input a valid command. e.g. C2 C4");
             }
@@ -391,18 +390,18 @@ public class Game implements Serializable {
         }
     }
 
-    public static Game loadGame(String filename) {
-        Game loadedGame = null;
+    public static Game loadGameFromFile(String filename) {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
-            loadedGame = (Game) inputStream.readObject();
+            Game loadedGame = (Game) inputStream.readObject();
             System.out.println("Game loaded successfully.");
+            return loadedGame;
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Failed to load the game: " + e.getMessage());
+            return null;
         }
-        return loadedGame;
     }
 
-    private class MoveInfo {
+    private class MoveInfo implements Serializable{
         private int sourceRow;
         private int sourceCol;
         private int destRow;
