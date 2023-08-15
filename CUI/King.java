@@ -1,8 +1,9 @@
 package CUI;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class King extends Piece {
+public class King extends Piece implements Serializable {
     public boolean isFirstMove() {
         return isFirstMove;
     }

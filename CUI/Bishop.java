@@ -1,8 +1,9 @@
 package CUI;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Bishop extends Piece {
+public class Bishop extends Piece implements Serializable {
     protected Bishop(String colour, int xLoc, int yLoc) {
         super(colour, "Bishop");
         this.xLoc = xLoc;

@@ -1,6 +1,8 @@
 package CUI;
 
-public class GameState {
+import java.io.Serializable;
+
+public class GameState implements Serializable {
 
     private ChessTile[][] chessboard;
     public String currentPlayer;

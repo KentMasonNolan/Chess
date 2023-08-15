@@ -1,6 +1,8 @@
 package CUI;
 
-public class Queen extends Piece {
+import java.io.Serializable;
+
+public class Queen extends Piece implements Serializable {
 
     protected Queen(String colour, int xLoc, int yLoc) {
         super(colour, "Queen");

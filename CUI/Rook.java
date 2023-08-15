@@ -1,6 +1,8 @@
 package CUI;
 
-public class Rook extends Piece {
+import java.io.Serializable;
+
+public class Rook extends Piece implements Serializable {
 
     private boolean isFirstMove = true;
 

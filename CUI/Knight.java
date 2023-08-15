@@ -1,8 +1,9 @@
 package CUI;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Knight extends Piece {
+public class Knight extends Piece implements Serializable {
 
     protected Knight(String colour, int xLoc, int yLoc) {
         super(colour, "Knight");

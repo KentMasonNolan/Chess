@@ -1,9 +1,10 @@
 package CUI;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Pawn extends Piece {
+public class Pawn extends Piece implements Serializable {
 
     private boolean isFirstMove = true;
 

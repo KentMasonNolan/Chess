@@ -1,8 +1,9 @@
 package CUI;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-abstract class Piece {
+abstract class Piece implements Serializable {
     protected String colour;
     protected String type;
 
