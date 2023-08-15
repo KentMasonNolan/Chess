@@ -1,6 +1,7 @@
 package CUI;
 
 public class GameState {
+
     private ChessTile[][] chessboard;
     public String currentPlayer;
     private boolean isCheck;

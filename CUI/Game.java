@@ -1,19 +1,21 @@
 package CUI;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Serializable {
+
+    private List<MoveInfo> moveHistory = new ArrayList<>();
+
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
     private GameState gameState = new GameState();
 
     private boolean playerAbort = false;
 
-
-    // TODO: Piece Promotion Options (set)
-// When a pawn reaches the opposite end of the board, it can be promoted to another piece (e.g., queen, rook).
-// Implement a List or Set to store the available promotion options for a player, and allow the player to choose one when promoting the pawn.
 
     // TODO: Move History (list)
 // Keep track of the moves played during the game using a List to store each move as an object representing the source and destination squares.
@@ -186,6 +188,7 @@ public class Game {
 
         clearAllCaptureFlags();
 
+
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
@@ -230,6 +233,8 @@ public class Game {
                 } else {
                     System.out.println("Player is switched.");
                     gameState.switchPlayer();
+                    MoveInfo moveInfo = new MoveInfo(sourceRow, sourceCol, destRow, destCol);
+                    moveHistory.add(moveInfo);
                 }
 
 
@@ -359,6 +364,20 @@ public class Game {
                 chessboard[row][col].setCanBlackCapture(false);
                 chessboard[row][col].setCanWhiteCapture(false);
             }
+        }
+    }
+
+    private class MoveInfo {
+        private int sourceRow;
+        private int sourceCol;
+        private int destRow;
+        private int destCol;
+
+        public MoveInfo(int sourceRow, int sourceCol, int destRow, int destCol) {
+            this.sourceRow = sourceRow;
+            this.sourceCol = sourceCol;
+            this.destRow = destRow;
+            this.destCol = destCol;
         }
     }
 
