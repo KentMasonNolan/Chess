@@ -1,6 +1,6 @@
 package CUI;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -365,6 +365,26 @@ public class Game implements Serializable {
                 chessboard[row][col].setCanWhiteCapture(false);
             }
         }
+    }
+
+    public void saveGame(String filename) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
+            outputStream.writeObject(this);
+            System.out.println("Game saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save the game: " + e.getMessage());
+        }
+    }
+
+    public static Game loadGame(String filename) {
+        Game loadedGame = null;
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
+            loadedGame = (Game) inputStream.readObject();
+            System.out.println("Game loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Failed to load the game: " + e.getMessage());
+        }
+        return loadedGame;
     }
 
     private class MoveInfo {
