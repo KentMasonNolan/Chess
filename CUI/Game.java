@@ -28,8 +28,11 @@ public class Game implements Serializable {
         Game game = new Game();
         game.start(gameState);
 
-        System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit.\n\n" + "You are playing black. Good luck.\n");
-
+        System.out.println("Welcome to the game of chess.\n\n" +
+                "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" +
+                "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" +
+                "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" +
+                "You are playing black. Good luck.\n");
 
         while (!gameState.isCheckmate() && !game.playerAbort) {
             game.drawChessboard(game.chessboard);
@@ -37,14 +40,26 @@ public class Game implements Serializable {
 
             try {
                 String userInputCommand = input.nextLine();
+
+                if (userInputCommand.equalsIgnoreCase("SAVE")) {
+                    // Prompt the user for a filename or use a default filename
+                    System.out.print("Enter the filename to save the game (or press Enter to use default): ");
+                    String filename = input.nextLine().trim();
+                    if (filename.isEmpty()) {
+                        filename = "savedGame.ser"; // Default filename
+                    }
+
+                    // Call the saveGame method
+                    game.saveGame(filename);
+
+                    continue;
+                }
+
                 game.userInput(userInputCommand, gameState);
             } catch (Exception e) {
                 System.out.println("Please input a valid command. e.g. C2 C4");
             }
-
         }
-
-
     }
 
     private void start(GameState gameState) {

@@ -1,6 +1,8 @@
 package CUI;
 
-class ChessTile {
+import java.io.Serializable;
+
+class ChessTile implements Serializable {
     private int row;
     private int col;
 
