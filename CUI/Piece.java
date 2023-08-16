@@ -10,6 +10,16 @@ abstract class Piece implements Serializable {
     protected int xLoc;
     protected int yLoc;
 
+    protected boolean isAttackingOpponentsKing = false;
+
+    public boolean isAttackingOpponentsKing() {
+        return isAttackingOpponentsKing;
+    }
+
+    public void setAttackingOpponentsKing(boolean attackingOpponentsKing) {
+        isAttackingOpponentsKing = attackingOpponentsKing;
+    }
+
     protected int previousCol;
 
     protected int previousRow;

@@ -142,8 +142,6 @@ public class Game implements Serializable {
         chessboard[5][5].setPiece(new Rook("white", 5, 5));
     }
 
-//  todo create a set that holds what pieces can be captured.
-//    If the piece attacking the king is in that set, it won't be checkmate,
 
 //  todo  Identify the piece attacking the king
 
