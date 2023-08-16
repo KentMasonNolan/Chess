@@ -399,6 +399,47 @@ public class Game implements Serializable {
         }
     }
 
+    public List<ChessTile> getPathBetweenAttackingPieceAndKing(GameState gameState, Piece attackingPiece) {
+        List<ChessTile> path = new ArrayList<>();
+
+        int kingRow;
+        int kingCol;
+
+        if (attackingPiece.getColour().equals("white")){
+            kingRow = gameState.getWhiteKingRow();
+            kingCol = gameState.getWhiteKingCol();
+        } else {
+            kingRow = gameState.getBlackKingRow();
+            kingCol = gameState.getBlackKingCol();
+        }
+
+        // Determine the direction of the path based on piece's position relative to the king
+        int rowDirection = Integer.compare(kingRow, attackingPiece.getyLoc());
+        int colDirection = Integer.compare(kingCol, attackingPiece.getxLoc());
+
+        int currentRow = attackingPiece.getyLoc() + rowDirection;
+        int currentCol = attackingPiece.getxLoc() + colDirection;
+
+        while (currentRow != kingRow || currentCol != kingCol) {
+            path.add(chessboard[currentRow][currentCol]);
+            currentRow += rowDirection;
+            currentCol += colDirection;
+        }
+
+        return path;
+    }
+
+    public boolean isCheckmate(GameState gameState) {
+        for (int row = 0; row < BOARD_SIZE; row++) {
+            for (int col = 0; col < BOARD_SIZE; col++) {
+                Piece piece = chessboard[row][col].getPiece();
+
+                return false;
+            }
+        }
+        return false;
+    }
+
     private class MoveInfo implements Serializable{
         private int sourceRow;
         private int sourceCol;

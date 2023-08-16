@@ -7,6 +7,7 @@ abstract class Piece implements Serializable {
     protected String colour;
     protected String type;
 
+
     protected int xLoc;
     protected int yLoc;
 
