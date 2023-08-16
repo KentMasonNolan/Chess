@@ -43,7 +43,7 @@ public class Knight extends Piece implements Serializable {
     }
 
     @Override
-    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
         if (colour.equals("white")) {
 
             if (sourceRow - 2 >= 0) {

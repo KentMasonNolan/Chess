@@ -1,8 +1,13 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 public class GameState implements Serializable {
+
+    Set<Piece> whiteCapturablePieces = new HashSet<>();
+    Set<Piece> blackCapturablePieces = new HashSet<>();
 
     private ChessTile[][] chessboard;
     public String currentPlayer;

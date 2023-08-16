@@ -71,7 +71,7 @@ public class Pawn extends Piece implements Serializable {
     }
 
     @Override
-    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
         if (colour.equals("black")) {
             if (sourceRow > 0 && sourceCol > 0) {
                 chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true); // capture down left

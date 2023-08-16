@@ -87,14 +87,14 @@ public class Queen extends Piece implements Serializable {
     }
 
     @Override
-    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
-        canCaptureRight(sourceRow, sourceCol, chessboard);
-        canCaptureLeft(sourceRow, sourceCol, chessboard);
-        canCaptureUp(sourceRow, sourceCol, chessboard);
-        canCaptureDown(sourceRow, sourceCol, chessboard);
-        canCaptureUpRight(sourceRow, sourceCol, chessboard);
-        canCaptureDownRight(sourceRow, sourceCol, chessboard);
-        canCaptureUpLeft(sourceRow, sourceCol, chessboard);
-        canCaptureDownLeft(sourceRow, sourceCol, chessboard);
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
+        canCaptureRight(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureLeft(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureUp(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureDown(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureUpRight(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureDownRight(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureUpLeft(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureDownLeft(sourceRow, sourceCol, chessboard, gameState);
     }
 }

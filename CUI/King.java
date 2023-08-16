@@ -60,7 +60,7 @@ public class King extends Piece implements Serializable {
     }
 
     @Override
-    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
         for (int row = sourceRow - 1; row <= sourceRow + 1; row++) {
             for (int col = sourceCol - 1; col <= sourceCol + 1; col++) {
                 if (row >= 0 && row < 8 && col >= 0 && col < 8 && !(row == sourceRow && col == sourceCol)) {

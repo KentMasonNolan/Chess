@@ -232,7 +232,7 @@ public class Game implements Serializable {
                     gameState.setWhiteKingPosition(destRow, destCol);
                 }
 
-                setAllCaptureFlags();
+                setAllCaptureFlags(gameState);
                 isBlackKingInCheck();
                 isWhiteKingInCheck();
 
@@ -344,13 +344,13 @@ public class Game implements Serializable {
         return colourPrefix + pieceType;
     }
 
-    private void setAllCaptureFlags() {
+    private void setAllCaptureFlags(GameState gameState) {
 
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 Piece piece = chessboard[row][col].getPiece();
                 if (piece != null) {
-                    piece.canCapture(row, col, chessboard);
+                    piece.canCapture(row, col, chessboard, gameState);
                 }
             }
         }

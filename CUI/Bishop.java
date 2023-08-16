@@ -61,12 +61,12 @@ public class Bishop extends Piece implements Serializable {
 
 
     @Override
-    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard) {
+    public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
 
-        canCaptureUpRight(sourceRow, sourceCol, chessboard);
-        canCaptureUpLeft(sourceRow, sourceCol, chessboard);
-        canCaptureDownRight(sourceRow, sourceCol, chessboard);
-        canCaptureDownLeft(sourceRow, sourceCol, chessboard);
+        canCaptureUpRight(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureUpLeft(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureDownRight(sourceRow, sourceCol, chessboard, gameState);
+        canCaptureDownLeft(sourceRow, sourceCol, chessboard, gameState);
 
     }
 }
