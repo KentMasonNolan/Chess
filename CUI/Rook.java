@@ -1,6 +1,7 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Rook extends Piece implements Serializable {
 
@@ -30,6 +31,11 @@ public class Rook extends Piece implements Serializable {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {
+        return null;
     }
 
 

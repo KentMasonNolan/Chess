@@ -1,6 +1,8 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class King extends Piece implements Serializable {
@@ -42,6 +44,35 @@ public class King extends Piece implements Serializable {
         }
 
         return false;
+    }
+
+    @Override
+    public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {
+        return null;
+    }
+
+    public boolean hasValidMoveToEscape(ChessTile[][] chessboard) {
+        int kingRow = this.getyLoc();
+        int kingCol = this.getxLoc();
+
+        for (int row = kingRow - 1; row <= kingRow + 1; row++) {
+            for (int col = kingCol - 1; col <= kingCol + 1; col++) {
+                if (row >= 0 && row < 8 && col >= 0 && col < 8 && !(row == kingRow && col == kingCol)) {
+                    if (this.getColour().equals("white")) {
+                        if (!chessboard[row][col].getCanBlackCapture() && !chessboard[row][col].isTileFilled()) {
+                            return true; // At least one valid move found, no checkmate
+                        }
+                    } else if (this.getColour().equals("black")){
+                        if (!chessboard[row][col].getCanWhiteCapture() && !chessboard[row][col].isTileFilled()) {
+                            return true; // At least one valid move found, no checkmate
+                        }
+                    }
+                }
+            }
+        }
+
+
+        return false; // No valid moves found, potential checkmate
     }
 
     @Override

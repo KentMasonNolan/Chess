@@ -1,6 +1,7 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -45,6 +46,11 @@ public class Pawn extends Piece implements Serializable {
             }
         }
         return false;
+    }
+
+    @Override
+    public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {
+        return null;
     }
 
     @Override

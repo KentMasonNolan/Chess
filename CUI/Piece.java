@@ -1,6 +1,8 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 abstract class Piece implements Serializable {
@@ -72,6 +74,8 @@ abstract class Piece implements Serializable {
 
 
     public abstract boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard);
+
+    public abstract List<ChessTile> getValidMoves(ChessTile[][] chessboard);
 
     public abstract boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard);
 
@@ -381,5 +385,7 @@ abstract class Piece implements Serializable {
         return row == destRow && col == destCol;
     }
 
-
+    public boolean hasValidMoveToEscape(ChessTile[][] chessboard) {
+        return false;
+    }
 }

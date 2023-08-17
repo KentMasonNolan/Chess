@@ -1,6 +1,7 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 public class Bishop extends Piece implements Serializable {
@@ -17,6 +18,11 @@ public class Bishop extends Piece implements Serializable {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {
+        return null;
     }
 
     @Override

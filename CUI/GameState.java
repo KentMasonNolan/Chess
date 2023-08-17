@@ -1,13 +1,35 @@
 package CUI;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class GameState implements Serializable {
 
     Set<Piece> whiteCapturablePieces = new HashSet<>();
     Set<Piece> blackCapturablePieces = new HashSet<>();
+
+    List<Piece> blackPieces = new ArrayList<>();
+    List<Piece> whitePieces = new ArrayList<>(); // Initialize the list here
+
+
+    public List<Piece> getBlackPieces() {
+        return blackPieces;
+    }
+
+    public void setBlackPieces(List<Piece> blackPieces) {
+        this.blackPieces = blackPieces;
+    }
+
+    public List<Piece> getWhitePieces() {
+        return whitePieces;
+    }
+
+    public void setWhitePieces(List<Piece> whitePieces) {
+        this.whitePieces = whitePieces;
+    }
 
     private ChessTile[][] chessboard;
     public String currentPlayer;
