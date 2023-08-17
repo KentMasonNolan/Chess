@@ -388,4 +388,8 @@ abstract class Piece implements Serializable {
     public boolean hasValidMoveToEscape(ChessTile[][] chessboard) {
         return false;
     }
+
+    public boolean isFirstMove() {
+        return false;
+    }
 }

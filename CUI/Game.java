@@ -238,9 +238,18 @@ public class Game implements Serializable {
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
+
+            if (piece.type.equals("king") && Math.abs(destCol-sourceCol) == 2){
+                if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)){
+                    performCastling();
+                    return;
+                }
+            }
+
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
+
 
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
@@ -290,6 +299,38 @@ public class Game implements Serializable {
         } else {
             System.out.println("No piece found or it's not your turn. Please try again.");
         }
+    }
+
+    public boolean canCastle(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard){
+
+        Piece rook;
+
+        // make sure we get the correct pieces
+        if (king.getColour().equals("white")){
+            if (destCol < sourceCol){
+                rook = chessboard[0][0].getPiece();
+            } else {
+                rook = chessboard[0][7].getPiece();
+            }
+        } else { //king is black
+            if (destCol < sourceCol){
+                rook = chessboard[7][0].getPiece();
+            } else {
+                rook = chessboard[7][7].getPiece();
+            }
+        }
+
+        if (king.isFirstMove() && rook.isFirstMove()){ // is this fails, they have moved before.
+            return true;
+        }
+
+        //todo up to here. continue here in the morning.
+
+        return false;
+    }
+
+    public void performCastling(){
+
     }
 
     private void revertBoard(int sourceRow, int sourceCol, int destRow, int destCol) {
