@@ -24,7 +24,7 @@ public class Game implements Serializable {
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" + "You are playing black. Good luck.\n");
 
-        while (!game.isCheckmate(game.chessboard, game.gameState) || !game.playerAbort) {
+        while (!game.isCheckmate(game.gameState) || !game.playerAbort) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
@@ -328,7 +328,7 @@ public class Game implements Serializable {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
-                if (isCheckmate(chessboard, gameState)){
+                if (isCheckmate(gameState)){
                     System.out.println("Checkmate");
                 }
 
@@ -387,14 +387,12 @@ public class Game implements Serializable {
     }
 
     private void setAllCaptureFlags(GameState gameState) {
+        for (Piece piece : gameState.getWhitePieces()) {
+            piece.canCapture(piece.getyLoc(), piece.getxLoc(), chessboard, gameState);
+        }
 
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                Piece piece = chessboard[row][col].getPiece();
-                if (piece != null) {
-                    piece.canCapture(row, col, chessboard, gameState);
-                }
-            }
+        for (Piece piece : gameState.getBlackPieces()) {
+            piece.canCapture(piece.getyLoc(), piece.getxLoc(), chessboard, gameState);
         }
     }
 
@@ -478,42 +476,46 @@ public class Game implements Serializable {
         return path;
     }
 
-    public boolean isCheckmate(ChessTile[][] chessboard, GameState gameState) {
-        for (int row = 0; row < BOARD_SIZE; row++) {
-            for (int col = 0; col < BOARD_SIZE; col++) {
-                Piece piece = chessboard[row][col].getPiece();
-
-                if (piece != null && piece.isAttackingOpponentsKing) { // found a piece attacking the king
-
-
-                    // Checking if the king can escape
-                    if (piece.getColour().equals("white") && chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getPiece().hasValidMoveToEscape(chessboard)) {
-                        return false;
-                    } else if (piece.getColour().equals("black") && chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getPiece().hasValidMoveToEscape(chessboard)) {
-                        return false;
-                    }
-                    // The King can't get away
-
-                    // Checking if the piece attacking the king can be captured
-                    if (piece.getColour().equals("white") && gameState.whiteCapturablePieces.contains(piece)) {
-                        return false;
-                    } else if (piece.getColour().equals("black") && gameState.blackCapturablePieces.contains(piece)) {
-                        return false;
-                    }
-                    // the attacking piece can't be captured.
-
-
-                    //check if the path can be blocked.
-                    List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
-
+    public boolean isCheckmate(GameState gameState) {
+        for (Piece piece : gameState.getWhitePieces()) {
+            if (piece.isAttackingOpponentsKing) { // found a white piece attacking the black king
+                // Checking if the black king can escape
+                if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getPiece().hasValidMoveToEscape(chessboard)) {
+                    return false;
                 }
 
+                // Checking if the attacking white piece can be captured
+                if (gameState.blackCapturablePieces.contains(piece)) {
+                    return false;
+                }
 
-                return false;
+                // Check if the path can be blocked.
+                List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
+                // Implement your logic to check if the path can be blocked
             }
         }
-        return false;
+
+        for (Piece piece : gameState.getBlackPieces()) {
+            if (piece.isAttackingOpponentsKing) { // found a black piece attacking the white king
+                // Checking if the white king can escape
+                if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getPiece().hasValidMoveToEscape(chessboard)) {
+                    return false;
+                }
+
+                // Checking if the attacking black piece can be captured
+                if (gameState.whiteCapturablePieces.contains(piece)) {
+                    return false;
+                }
+
+                // Check if the path can be blocked.
+                List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
+                // Implement your logic to check if the path can be blocked
+            }
+        }
+
+        return true;
     }
+
 
     private class MoveInfo implements Serializable {
         private int sourceRow;
