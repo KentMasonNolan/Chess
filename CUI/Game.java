@@ -160,6 +160,7 @@ public class Game implements Serializable {
             chessboard[6][col].setPiece(blackPawn);
         }
     }
+
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) { //this is for testing
         //black king in the usual spot
         chessboard[7][4].setPiece(new King("black", 7, 4, this.gameState));

@@ -62,7 +62,7 @@ public class King extends Piece implements Serializable {
                         if (!chessboard[row][col].getCanBlackCapture() && !chessboard[row][col].isTileFilled()) {
                             return true; // At least one valid move found, no checkmate
                         }
-                    } else if (this.getColour().equals("black")){
+                    } else if (this.getColour().equals("black")) {
                         if (!chessboard[row][col].getCanWhiteCapture() && !chessboard[row][col].isTileFilled()) {
                             return true; // At least one valid move found, no checkmate
                         }

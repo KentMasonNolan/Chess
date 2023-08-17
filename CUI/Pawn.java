@@ -96,9 +96,6 @@ public class Pawn extends Piece implements Serializable {
     }
 
 
-
-
-
     private void promotePawn(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
         // Prompt the user to choose a promotion piece (you can modify this part as needed)
         System.out.println("Pawn promotion: Choose a promotion piece (Q/R/N/B):");

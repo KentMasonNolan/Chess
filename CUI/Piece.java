@@ -90,7 +90,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow + 1][sourceCol].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
 
@@ -102,7 +102,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow + 1][sourceCol].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -119,7 +119,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow - 1][sourceCol].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -130,7 +130,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow - 1][sourceCol].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -147,7 +147,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow][sourceCol + 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -158,7 +158,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -175,7 +175,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow][sourceCol - 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -186,7 +186,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -203,7 +203,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol + 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow - 1][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -214,7 +214,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow - 1][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -231,7 +231,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol - 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow - 1][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -242,7 +242,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow - 1][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -259,7 +259,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol + 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow + 1][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -270,7 +270,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow + 1][sourceCol + 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -287,7 +287,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol - 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow + 1][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
@@ -298,7 +298,7 @@ abstract class Piece implements Serializable {
                     chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true);
                     gameState.whiteCapturablePieces.add(chessboard[sourceRow + 1][sourceCol - 1].getPiece());
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
-                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")){
+                    if (targetPiece.type.equals("King") && targetPiece.colour.equals("white")) {
                         this.isAttackingOpponentsKing = true;
                     }
                 }
