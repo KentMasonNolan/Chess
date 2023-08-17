@@ -68,15 +68,6 @@ public class GameState implements Serializable {
         blackKingCol = col;
     }
 
-
-    public boolean isCheckmate() {
-        return isCheckmate;
-    }
-
-    public void setCheckmate(boolean checkmate) {
-        isCheckmate = checkmate;
-    }
-
     public void switchPlayer() {
         if (currentPlayer.equals("white")) {
             currentPlayer = "black";

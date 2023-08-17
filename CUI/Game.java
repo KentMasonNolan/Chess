@@ -24,7 +24,7 @@ public class Game implements Serializable {
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" + "You are playing black. Good luck.\n");
 
-        while (!gameState.isCheckmate() && !game.playerAbort) {
+        while (!game.isCheckmate(game.chessboard, game.gameState) || !game.playerAbort) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
@@ -299,6 +299,12 @@ public class Game implements Serializable {
 
         chessboard[destRow][destCol].removePiece();
         chessboard[destRow][destCol].setPiece(previousPiece);
+
+        if (previousPiece.getColour().equals("white")){ //adding the piece back to the list after it was removed.
+            gameState.getWhitePieces().add(previousPiece);
+        } else
+            gameState.getBlackPieces().add(previousPiece);
+
         chessboard[sourceRow][sourceCol].setPiece(currentPiece);
 
     }
@@ -314,13 +320,17 @@ public class Game implements Serializable {
 
                 chessboard[destRow][destCol].setPreviousPiece(capturedPiece);
                 chessboard[destRow][destCol].removePiece();
+                gameState.getWhitePieces().remove(chessboard[destRow][destCol].getPiece()); //removes the piece from the list now
+                gameState.getBlackPieces().remove(chessboard[destRow][destCol].getPiece());
 
                 piece.setPreviousCol(sourceCol);
                 piece.setPreviousRow(sourceRow);
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
-                // todo check for checkmate here
+                if (isCheckmate(chessboard, gameState)){
+                    System.out.println("Checkmate");
+                }
 
                 gameState.switchPlayer();
             }
