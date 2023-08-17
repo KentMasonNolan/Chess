@@ -477,6 +477,7 @@ public class Game implements Serializable {
     }
 
     public boolean isCheckmate(GameState gameState) {
+
         for (Piece piece : gameState.getWhitePieces()) {
             if (piece.isAttackingOpponentsKing) { // found a white piece attacking the black king
                 // Checking if the black king can escape
@@ -485,13 +486,22 @@ public class Game implements Serializable {
                 }
 
                 // Checking if the attacking white piece can be captured
-                if (gameState.blackCapturablePieces.contains(piece)) {
+                if (gameState.whiteCapturablePieces.contains(piece)) {
                     return false;
                 }
 
                 // Check if the path can be blocked.
                 List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
-                // Implement your logic to check if the path can be blocked
+
+                for (Piece otherPiece : gameState.getBlackPieces()) {
+                    if (!otherPiece.equals(piece)) {
+                        for (ChessTile tile : path) {
+                            if (otherPiece.isValidMove(otherPiece.getyLoc(), otherPiece.getxLoc(), tile.getRow(), tile.getCol(), chessboard)) {
+                                return false; // There's a white piece that can block the path
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -503,13 +513,22 @@ public class Game implements Serializable {
                 }
 
                 // Checking if the attacking black piece can be captured
-                if (gameState.whiteCapturablePieces.contains(piece)) {
+                if (gameState.blackCapturablePieces.contains(piece)) {
                     return false;
                 }
 
                 // Check if the path can be blocked.
                 List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
-                // Implement your logic to check if the path can be blocked
+
+                for (Piece otherPiece : gameState.getWhitePieces()) {
+                    if (!otherPiece.equals(piece)) {
+                        for (ChessTile tile : path) {
+                            if (otherPiece.isValidMove(otherPiece.getyLoc(), otherPiece.getxLoc(), tile.getRow(), tile.getCol(), chessboard)) {
+                                return false; // There's a white piece that can block the path
+                            }
+                        }
+                    }
+                }
             }
         }
 

@@ -32,6 +32,22 @@ class ChessTile implements Serializable {
     private Piece piece;
     private Piece previousPiece;
 
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
     public ChessTile(int row, int col) {
         this.row = row;
         this.col = col;
