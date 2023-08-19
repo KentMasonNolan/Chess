@@ -177,11 +177,6 @@ public class Game implements Serializable {
     }
 
 
-//  todo  Identify the piece attacking the king
-
-//   todo Find the path it is taking to attack the king, if the opponent controls one of those squares,
-//    the checkmate can be stopped. The king cannot contribute to this list
-
     private void drawChessboard(ChessTile[][] chessboard) {
         for (int row = 0; row < BOARD_SIZE; row++) {
             System.out.print((row + 1) + " "); // Row label
@@ -261,16 +256,15 @@ public class Game implements Serializable {
                 chessboard[destRow][destCol].setPiece(piece);
 
 
-
                 // updating any pieces that have had their first move
                 if (piece instanceof Pawn) {
-                    ((Pawn) piece).setFirstMove(false);
+                    piece.setFirstMove(false);
                 }
                 if (piece instanceof Rook) {
-                    ((Rook) piece).setFirstMove(false);
+                    piece.setFirstMove(false);
                 }
                 if (piece instanceof King) {
-                    ((King) piece).setFirstMove(false);
+                    piece.setFirstMove(false);
                     if (Objects.equals(piece.getColour(), "black")) {
                         this.gameState.setBlackKingPosition(destRow, destCol);
                     } else {
@@ -388,7 +382,7 @@ public class Game implements Serializable {
         chessboard[sourceRow][sourceCol].removePiece();
         chessboard[destRow][destCol].setPiece(king);
 
-        switch (rookOption){ //starting top left to bottom right
+        switch (rookOption) { //starting top left to bottom right
             case QUEENSIDE_WHITE: //
                 chessboard[0][0].removePiece();
                 chessboard[0][2].setPiece(rook);
