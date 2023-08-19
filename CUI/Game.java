@@ -236,6 +236,7 @@ public class Game implements Serializable {
 
             if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) { // castling check
                 if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                    clearAllCaptureFlags();
                     performCastling(piece, sourceRow, sourceCol, destRow, destCol, chessboard);
 
                     setAllCaptureFlags(gameState);
