@@ -9,6 +9,16 @@ public class Pawn extends Piece implements Serializable {
 
     private boolean isFirstMove = true;
 
+    private boolean justMovedTwoSquares = false;
+
+    public boolean isJustMovedTwoSquares() {
+        return justMovedTwoSquares;
+    }
+
+    public void setJustMovedTwoSquares(boolean justMovedTwoSquares) {
+        this.justMovedTwoSquares = justMovedTwoSquares;
+    }
+
     public void setFirstMove(boolean firstMove) {
         isFirstMove = firstMove;
     }

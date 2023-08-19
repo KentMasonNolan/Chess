@@ -28,6 +28,12 @@ public class Game implements Serializable {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
+            if (gameState.currentPlayer.equals("white")) {
+                game.resetEnPassantFlags(gameState.getWhitePieces());
+            } else {
+                game.resetEnPassantFlags(gameState.getBlackPieces());
+            }
+
             try {
                 String userInputCommand = input.nextLine();
 
@@ -42,6 +48,8 @@ public class Game implements Serializable {
                     if (loadedGame != null) {
                         game = loadedGame; // Update the game instance with the loaded game
                     }
+                } else if (userInputCommand.equalsIgnoreCase("history")) {
+                    game.printMoveHistory(game.moveHistory);
                 } else {
                     game.userInput(userInputCommand, gameState);
                 }
@@ -212,11 +220,16 @@ public class Game implements Serializable {
             int destRow = Character.getNumericValue(destSquare.charAt(1) - 1);
             int destCol = letterToNumber(destSquare.charAt(0));
 
-            if (chessboard[destRow][destCol].isTileFilled()) {
+
+            if (chessboard[sourceRow][destCol].isTileFilled() && ((Pawn) chessboard[sourceRow][destCol].getPiece()).isJustMovedTwoSquares()) {
+                enPassantCapture(sourceRow, sourceCol, destRow, destCol, gameState);
+            } else if (chessboard[destRow][destCol].isTileFilled()){
                 capturePiece(sourceRow, sourceCol, destRow, destCol, gameState);
             } else {
                 movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
             }
+
+
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
@@ -260,6 +273,9 @@ public class Game implements Serializable {
                 // updating any pieces that have had their first move
                 if (piece instanceof Pawn) {
                     piece.setFirstMove(false);
+                    if (Math.abs(destRow - sourceRow) == 2) {
+                        ((Pawn) piece).setJustMovedTwoSquares(true);
+                    }
                 }
                 if (piece instanceof Rook) {
                     piece.setFirstMove(false);
@@ -462,6 +478,42 @@ public class Game implements Serializable {
 
     }
 
+    private void enPassantCapture(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
+        Piece piece = chessboard[sourceRow][sourceCol].getPiece();
+        Piece capturedPiece = chessboard[sourceRow][destCol].getPiece(); // Captured pawn is on the same row as the destination column
+
+        if (piece != null && capturedPiece != null && piece.getColour().equals(gameState.currentPlayer)) {
+            if (piece.isValidCapture(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                chessboard[destRow][destCol].setPreviousPiece(capturedPiece);
+                chessboard[destRow][destCol].removePiece();
+                gameState.getWhitePieces().remove(chessboard[destRow][destCol].getPiece());
+                gameState.getBlackPieces().remove(chessboard[destRow][destCol].getPiece());
+
+                piece.setPreviousCol(sourceCol);
+                piece.setPreviousRow(sourceRow);
+                chessboard[sourceRow][sourceCol].removePiece();
+                chessboard[destRow][destCol].setPiece(piece);
+
+                if (isCheckmate(gameState)) {
+                    System.out.println("Checkmate");
+                }
+
+                gameState.switchPlayer();
+            }
+        }
+    }
+
+
+    public void resetEnPassantFlags(List<Piece> pieces) {
+        for (Piece piece : pieces) {
+            if (piece instanceof Pawn) {
+                ((Pawn) piece).setJustMovedTwoSquares(false);
+            }
+        }
+    }
+
+
+
     private int letterToNumber(char inputLetter) {
 
         int outputInt = -1; // allows for error checking.
@@ -658,6 +710,15 @@ public class Game implements Serializable {
 
         return true;
     }
+
+    public void printMoveHistory(List<MoveInfo> moveHistory) {
+        System.out.println("Move History:");
+
+        for (int i = 0; i < moveHistory.size(); i++) {
+            System.out.printf("%d. %s%n", i + 1, moveHistory.get(i));
+        }
+    }
+
 
 
     private class MoveInfo implements Serializable {
