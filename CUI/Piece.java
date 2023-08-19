@@ -47,6 +47,12 @@ abstract class Piece implements Serializable {
         return xLoc;
     }
 
+    public boolean isFirstMove;
+
+    public void setFirstMove(boolean firstMove) {
+        isFirstMove = firstMove;
+    }
+
     public void setxLoc(int xLoc) {
         this.xLoc = xLoc;
     }

@@ -239,18 +239,30 @@ public class Game implements Serializable {
 
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
 
-            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) {
+            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) { // castling check
                 if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)) {
-                    performCastling();
+                    performCastling(piece, sourceRow, sourceCol, destRow, destCol, chessboard);
+
+                    setAllCaptureFlags(gameState);
+                    isBlackKingInCheck();
+                    isWhiteKingInCheck();
+
+                    System.out.println("Player is switched.");
+                    gameState.switchPlayer();
+                    MoveInfo moveInfo = new MoveInfo(sourceRow, sourceCol, destRow, destCol);
+                    moveHistory.add(moveInfo);
+
                     return;
                 }
             }
 
-            if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+            if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) { //move method
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
 
+
+                // updating any pieces that have had their first move
                 if (piece instanceof Pawn) {
                     ((Pawn) piece).setFirstMove(false);
                 }
@@ -277,6 +289,8 @@ public class Game implements Serializable {
                 isBlackKingInCheck();
                 isWhiteKingInCheck();
 
+
+                // this maybe should be its own method
 
                 if (piece.colour.equals("white") && isWhiteKingInCheck()) {
                     //revert
@@ -342,7 +356,68 @@ public class Game implements Serializable {
         return false;
     }
 
-    public void performCastling() {
+    public void performCastling(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+
+        Piece rook;
+        int rookOption;
+
+        final int QUEENSIDE_WHITE = 1;
+        final int KINGSIDE_WHITE = 2;
+        final int QUEENSIDE_BLACK = 3;
+        final int KINGSIDE_BLACK = 4;
+
+        // make sure we get the correct pieces
+        if (king.getColour().equals("white")) {
+            if (destCol < sourceCol) {
+                rook = chessboard[0][0].getPiece();
+                rookOption = QUEENSIDE_WHITE; // moving left
+            } else {
+                rook = chessboard[0][7].getPiece();
+                rookOption = KINGSIDE_WHITE; // moving right
+            }
+        } else { //king is black
+            if (destCol < sourceCol) {
+                rook = chessboard[7][0].getPiece();
+                rookOption = QUEENSIDE_BLACK;
+            } else {
+                rook = chessboard[7][7].getPiece();
+                rookOption = KINGSIDE_BLACK;
+            }
+        }
+
+        chessboard[sourceRow][sourceCol].removePiece();
+        chessboard[destRow][destCol].setPiece(king);
+
+        switch (rookOption){ //starting top left to bottom right
+            case QUEENSIDE_WHITE: //
+                chessboard[0][0].removePiece();
+                chessboard[0][2].setPiece(rook);
+                break;
+            case KINGSIDE_WHITE:
+                chessboard[0][7].removePiece();
+                chessboard[0][5].setPiece(rook);
+                break;
+            case QUEENSIDE_BLACK: //
+                chessboard[7][0].removePiece();
+                chessboard[7][2].setPiece(rook);
+                break;
+            case KINGSIDE_BLACK:
+                chessboard[7][7].removePiece();
+                chessboard[7][5].setPiece(rook);
+                break;
+            default:
+                System.out.println("Something went wrong in the performing castling method switch case");
+        }
+
+
+        if (king.getColour().equals("black")) {
+            gameState.setBlackKingPosition(destRow, destCol);
+        } else if (king.getColour().equals("white")) {
+            gameState.setWhiteKingPosition(destRow, destCol);
+        }
+
+        king.setFirstMove(false);
+        rook.setFirstMove(false);
 
     }
 
