@@ -304,23 +304,33 @@ public class Game implements Serializable {
     public boolean canCastle(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard){
 
         Piece rook;
+        int direction;
 
         // make sure we get the correct pieces
         if (king.getColour().equals("white")){
             if (destCol < sourceCol){
                 rook = chessboard[0][0].getPiece();
+                direction = -1;
             } else {
                 rook = chessboard[0][7].getPiece();
+                direction = 1;
             }
         } else { //king is black
             if (destCol < sourceCol){
                 rook = chessboard[7][0].getPiece();
+                direction = -1;
             } else {
                 rook = chessboard[7][7].getPiece();
+                direction = 1;
             }
         }
 
         if (king.isFirstMove() && rook.isFirstMove()){ // is this fails, they have moved before.
+            for (int i = sourceCol; i != destCol; i = i+direction) {
+                if (chessboard[sourceRow][i].isTileFilled() || chessboard[sourceRow][i].canBlackCapture){
+                    return false;
+                }
+            }
             return true;
         }
 
