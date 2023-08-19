@@ -7,7 +7,7 @@ class ChessTile implements Serializable {
     private int col;
 
     protected boolean canBlackCapture = false;
-    private boolean canWhiteCapture = false;
+    protected boolean canWhiteCapture = false;
 
     public boolean getCanBlackCapture() {
         return canBlackCapture;

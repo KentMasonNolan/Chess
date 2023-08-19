@@ -239,8 +239,8 @@ public class Game implements Serializable {
 
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
 
-            if (piece.type.equals("king") && Math.abs(destCol-sourceCol) == 2){
-                if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)){
+            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) {
+                if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)) {
                     performCastling();
                     return;
                 }
@@ -301,22 +301,22 @@ public class Game implements Serializable {
         }
     }
 
-    public boolean canCastle(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard){
+    public boolean canCastle(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
         Piece rook;
         int direction;
 
         // make sure we get the correct pieces
-        if (king.getColour().equals("white")){
-            if (destCol < sourceCol){
+        if (king.getColour().equals("white")) {
+            if (destCol < sourceCol) {
                 rook = chessboard[0][0].getPiece();
-                direction = -1;
+                direction = -1; // moving left
             } else {
                 rook = chessboard[0][7].getPiece();
-                direction = 1;
+                direction = 1; // moving right
             }
         } else { //king is black
-            if (destCol < sourceCol){
+            if (destCol < sourceCol) {
                 rook = chessboard[7][0].getPiece();
                 direction = -1;
             } else {
@@ -325,21 +325,24 @@ public class Game implements Serializable {
             }
         }
 
-        if (king.isFirstMove() && rook.isFirstMove()){ // is this fails, they have moved before.
-            for (int i = sourceCol; i != destCol; i = i+direction) {
-                if (chessboard[sourceRow][i].isTileFilled() || chessboard[sourceRow][i].canBlackCapture){
-                    return false;
+        if (king.isFirstMove() && rook.isFirstMove()) { // is this fails, they have moved before.
+            for (int i = sourceCol + direction; i != destCol; i += direction) {
+                if (king.getColour().equals("white")) {
+                    if (chessboard[sourceRow][i].isTileFilled() || chessboard[sourceRow][i].canBlackCapture) {
+                        return false;
+                    }
+                } else {
+                    if (chessboard[sourceRow][i].isTileFilled() || chessboard[sourceRow][i].canWhiteCapture) {
+                        return false;
+                    }
                 }
             }
             return true;
         }
-
-        //todo up to here. continue here in the morning.
-
         return false;
     }
 
-    public void performCastling(){
+    public void performCastling() {
 
     }
 
@@ -351,7 +354,7 @@ public class Game implements Serializable {
         chessboard[destRow][destCol].removePiece();
         chessboard[destRow][destCol].setPiece(previousPiece);
 
-        if (previousPiece.getColour().equals("white")){ //adding the piece back to the list after it was removed.
+        if (previousPiece.getColour().equals("white")) { //adding the piece back to the list after it was removed.
             gameState.getWhitePieces().add(previousPiece);
         } else
             gameState.getBlackPieces().add(previousPiece);
@@ -379,7 +382,7 @@ public class Game implements Serializable {
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
 
-                if (isCheckmate(gameState)){
+                if (isCheckmate(gameState)) {
                     System.out.println("Checkmate");
                 }
 
