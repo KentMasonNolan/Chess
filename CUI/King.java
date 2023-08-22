@@ -1,7 +1,6 @@
 package CUI;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,8 +17,8 @@ public class King extends Piece implements Serializable {
 
     protected King(String colour, int xLoc, int yLoc, GameState gameState) {
         super(colour, "King");
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
+        this.pieceCol = xLoc;
+        this.pieceRow = yLoc;
         if (colour.equals("white")) {
             gameState.setWhiteKingPosition(xLoc, yLoc);
         } else {
@@ -52,8 +51,8 @@ public class King extends Piece implements Serializable {
     }
 
     public boolean hasValidMoveToEscape(ChessTile[][] chessboard) {
-        int kingRow = this.getyLoc();
-        int kingCol = this.getxLoc();
+        int kingRow = this.getPieceRow();
+        int kingCol = this.getPieceCol();
 
         for (int row = kingRow - 1; row <= kingRow + 1; row++) {
             for (int col = kingCol - 1; col <= kingCol + 1; col++) {

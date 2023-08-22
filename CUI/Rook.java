@@ -18,8 +18,8 @@ public class Rook extends Piece implements Serializable {
 
     protected Rook(String colour, int xLoc, int yLoc) {
         super(colour, "Rook");
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
+        this.pieceCol = xLoc;
+        this.pieceRow = yLoc;
     }
 
     //todo Castling

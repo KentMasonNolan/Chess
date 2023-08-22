@@ -221,9 +221,11 @@ public class Game implements Serializable {
             int destCol = letterToNumber(destSquare.charAt(0));
 
 
-            if (chessboard[sourceRow][destCol].isTileFilled() && ((Pawn) chessboard[sourceRow][destCol].getPiece()).isJustMovedTwoSquares()) {
+
+
+            if (chessboard[sourceRow][destCol].isTileFilled() && chessboard[sourceRow][destCol].getPiece().isJustMovedTwoSquares()) {
                 enPassantCapture(sourceRow, sourceCol, destRow, destCol, gameState);
-            } else if (chessboard[destRow][destCol].isTileFilled()){
+            } else if (chessboard[destRow][destCol].isTileFilled()) {
                 capturePiece(sourceRow, sourceCol, destRow, destCol, gameState);
             } else {
                 movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
@@ -233,7 +235,7 @@ public class Game implements Serializable {
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred in the userInput method. Please try again.");
+            System.out.println("An unexpected error occurred in the userInput method. Please try again. - Catch is UserInput");
         }
     }
 
@@ -513,7 +515,6 @@ public class Game implements Serializable {
     }
 
 
-
     private int letterToNumber(char inputLetter) {
 
         int outputInt = -1; // allows for error checking.
@@ -564,11 +565,11 @@ public class Game implements Serializable {
 
     private void setAllCaptureFlags(GameState gameState) {
         for (Piece piece : gameState.getWhitePieces()) {
-            piece.canCapture(piece.getyLoc(), piece.getxLoc(), chessboard, gameState);
+            piece.canCapture(piece.getPieceRow(), piece.getPieceCol(), chessboard, gameState);
         }
 
         for (Piece piece : gameState.getBlackPieces()) {
-            piece.canCapture(piece.getyLoc(), piece.getxLoc(), chessboard, gameState);
+            piece.canCapture(piece.getPieceRow(), piece.getPieceCol(), chessboard, gameState);
         }
     }
 
@@ -634,14 +635,14 @@ public class Game implements Serializable {
         }
 
         // Determine the direction of the path based on piece's position relative to the king
-        int rowDirection = Integer.compare(kingRow, attackingPiece.getyLoc());
-        int colDirection = Integer.compare(kingCol, attackingPiece.getxLoc());
+        int rowDirection = Integer.compare(kingRow, attackingPiece.getPieceRow());
+        int colDirection = Integer.compare(kingCol, attackingPiece.getPieceCol());
 
         // The naming convention here is a bit off but currentRow is referring to a
         // row location, rather than an entire rank or file.
 
-        int currentRow = attackingPiece.getyLoc() + rowDirection;
-        int currentCol = attackingPiece.getxLoc() + colDirection;
+        int currentRow = attackingPiece.getPieceRow() + rowDirection;
+        int currentCol = attackingPiece.getPieceCol() + colDirection;
 
         while (currentRow != kingRow || currentCol != kingCol) {
             path.add(chessboard[currentRow][currentCol]);
@@ -672,7 +673,7 @@ public class Game implements Serializable {
                 for (Piece otherPiece : gameState.getBlackPieces()) {
                     if (!otherPiece.equals(piece)) {
                         for (ChessTile tile : path) {
-                            if (otherPiece.isValidMove(otherPiece.getyLoc(), otherPiece.getxLoc(), tile.getRow(), tile.getCol(), chessboard)) {
+                            if (otherPiece.isValidMove(otherPiece.getPieceRow(), otherPiece.getPieceCol(), tile.getRow(), tile.getCol(), chessboard)) {
                                 return false; // There's a white piece that can block the path
                             }
                         }
@@ -699,7 +700,7 @@ public class Game implements Serializable {
                 for (Piece otherPiece : gameState.getWhitePieces()) {
                     if (!otherPiece.equals(piece)) {
                         for (ChessTile tile : path) {
-                            if (otherPiece.isValidMove(otherPiece.getyLoc(), otherPiece.getxLoc(), tile.getRow(), tile.getCol(), chessboard)) {
+                            if (otherPiece.isValidMove(otherPiece.getPieceRow(), otherPiece.getPieceCol(), tile.getRow(), tile.getCol(), chessboard)) {
                                 return false; // There's a white piece that can block the path
                             }
                         }
@@ -718,7 +719,6 @@ public class Game implements Serializable {
             System.out.printf("%d. %s%n", i + 1, moveHistory.get(i));
         }
     }
-
 
 
     private class MoveInfo implements Serializable {

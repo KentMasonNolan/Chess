@@ -1,7 +1,6 @@
 package CUI;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,8 +9,8 @@ abstract class Piece implements Serializable {
     protected String type;
 
 
-    protected int xLoc;
-    protected int yLoc;
+    protected int pieceCol;
+    protected int pieceRow;
 
     protected boolean isAttackingOpponentsKing = false;
 
@@ -43,8 +42,8 @@ abstract class Piece implements Serializable {
         this.previousRow = previousRow;
     }
 
-    public int getxLoc() {
-        return xLoc;
+    public int getPieceCol() {
+        return pieceCol;
     }
 
     public boolean isFirstMove;
@@ -53,16 +52,16 @@ abstract class Piece implements Serializable {
         isFirstMove = firstMove;
     }
 
-    public void setxLoc(int xLoc) {
-        this.xLoc = xLoc;
+    public void setPieceCol(int pieceCol) {
+        this.pieceCol = pieceCol;
     }
 
-    public int getyLoc() {
-        return yLoc;
+    public int getPieceRow() {
+        return pieceRow;
     }
 
-    public void setyLoc(int yLoc) {
-        this.yLoc = yLoc;
+    public void setPieceRow(int pieceRow) {
+        this.pieceRow = pieceRow;
     }
 
     public Piece(String colour, String type) {
@@ -396,6 +395,10 @@ abstract class Piece implements Serializable {
     }
 
     public boolean isFirstMove() {
+        return false;
+    }
+
+    public boolean isJustMovedTwoSquares() {
         return false;
     }
 }

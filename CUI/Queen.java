@@ -7,8 +7,8 @@ public class Queen extends Piece implements Serializable {
 
     protected Queen(String colour, int xLoc, int yLoc) {
         super(colour, "Queen");
-        this.xLoc = xLoc;
-        this.yLoc = yLoc;
+        this.pieceCol = xLoc;
+        this.pieceRow = yLoc;
     }
 
     @Override
