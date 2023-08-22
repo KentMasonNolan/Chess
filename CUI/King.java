@@ -15,14 +15,14 @@ public class King extends Piece implements Serializable {
 
     private boolean isFirstMove = true;
 
-    protected King(String colour, int xLoc, int yLoc, GameState gameState) {
+    protected King(String colour, int row, int col, GameState gameState) {
         super(colour, "King");
-        this.pieceCol = xLoc;
-        this.pieceRow = yLoc;
+        this.pieceCol = row;
+        this.pieceRow = col;
         if (colour.equals("white")) {
-            gameState.setWhiteKingPosition(xLoc, yLoc);
+            gameState.setWhiteKingPosition(row, col);
         } else {
-            gameState.setBlackKingPosition(xLoc, yLoc);
+            gameState.setBlackKingPosition(row, col);
         }
     }
 

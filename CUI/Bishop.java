@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class Bishop extends Piece implements Serializable {
-    protected Bishop(String colour, int xLoc, int yLoc) {
+    protected Bishop(String colour, int row, int col) {
         super(colour, "Bishop");
-        this.pieceCol = xLoc;
-        this.pieceRow = yLoc;
+        this.pieceCol = row;
+        this.pieceRow = col;
     }
 
     @Override

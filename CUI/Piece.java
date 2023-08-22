@@ -151,9 +151,11 @@ abstract class Piece implements Serializable {
                 } else if (!Objects.equals(this.colour, chessboard[sourceRow][sourceCol + 1].getPiece().getColour())) {
                     chessboard[sourceRow][sourceCol + 1].setCanWhiteCapture(true);
                     gameState.blackCapturablePieces.add(chessboard[sourceRow][sourceCol + 1].getPiece());
+                    if (sourceRow+1 < 8){
                     Piece targetPiece = chessboard[sourceRow + 1][sourceCol].getPiece();
                     if (targetPiece.type.equals("King") && targetPiece.colour.equals("black")) {
                         this.isAttackingOpponentsKing = true;
+                    }
                     }
                 }
             } else {

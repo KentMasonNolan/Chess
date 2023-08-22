@@ -6,10 +6,10 @@ import java.util.Objects;
 
 public class Knight extends Piece implements Serializable {
 
-    protected Knight(String colour, int xLoc, int yLoc) {
+    protected Knight(String colour, int row, int col) {
         super(colour, "Knight");
-        this.pieceCol = xLoc;
-        this.pieceRow = yLoc;
+        this.pieceCol = row;
+        this.pieceRow = col;
     }
 
     @Override

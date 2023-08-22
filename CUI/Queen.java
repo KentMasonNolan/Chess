@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Queen extends Piece implements Serializable {
 
-    protected Queen(String colour, int xLoc, int yLoc) {
+    protected Queen(String colour, int row, int col) {
         super(colour, "Queen");
-        this.pieceCol = xLoc;
-        this.pieceRow = yLoc;
+        this.pieceCol = row;
+        this.pieceRow = col;
     }
 
     @Override

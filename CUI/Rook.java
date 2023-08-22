@@ -16,10 +16,10 @@ public class Rook extends Piece implements Serializable {
         isFirstMove = firstMove;
     }
 
-    protected Rook(String colour, int xLoc, int yLoc) {
+    protected Rook(String colour, int row, int col) {
         super(colour, "Rook");
-        this.pieceCol = xLoc;
-        this.pieceRow = yLoc;
+        this.pieceCol = row;
+        this.pieceRow = col;
     }
 
     //todo Castling

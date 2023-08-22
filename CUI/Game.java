@@ -270,6 +270,8 @@ public class Game implements Serializable {
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) { //move method
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
+                piece.setPieceCol(destCol);
+                piece.setPieceRow(destRow);
 
 
                 // updating any pieces that have had their first move
