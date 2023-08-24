@@ -141,7 +141,7 @@ public class Pawn extends Piece implements Serializable {
 
     protected Pawn(String colour, int row, int col) {
         super(colour, "Pawn");
-        this.pieceCol = row;
-        this.pieceRow = col;
+        this.pieceRow = row;
+        this.pieceCol = col;
     }
 }

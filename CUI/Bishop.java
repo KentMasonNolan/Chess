@@ -7,8 +7,8 @@ import java.util.Objects;
 public class Bishop extends Piece implements Serializable {
     protected Bishop(String colour, int row, int col) {
         super(colour, "Bishop");
-        this.pieceCol = row;
-        this.pieceRow = col;
+        this.pieceRow = row;
+        this.pieceCol = col;
     }
 
     @Override

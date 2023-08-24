@@ -8,8 +8,8 @@ public class Knight extends Piece implements Serializable {
 
     protected Knight(String colour, int row, int col) {
         super(colour, "Knight");
-        this.pieceCol = row;
-        this.pieceRow = col;
+        this.pieceRow = row;
+        this.pieceCol = col;
     }
 
     @Override

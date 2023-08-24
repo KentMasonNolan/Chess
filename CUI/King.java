@@ -17,8 +17,8 @@ public class King extends Piece implements Serializable {
 
     protected King(String colour, int row, int col, GameState gameState) {
         super(colour, "King");
-        this.pieceCol = row;
-        this.pieceRow = col;
+        this.pieceRow = row;
+        this.pieceCol = col;
         if (colour.equals("white")) {
             gameState.setWhiteKingPosition(row, col);
         } else {
