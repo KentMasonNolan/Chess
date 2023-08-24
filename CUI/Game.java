@@ -24,7 +24,7 @@ public class Game implements Serializable {
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" + "You are playing black. Good luck.\n");
 
-        while (!game.isCheckmate(gameState) || !game.playerAbort) {
+        while (!game.isCheckmate(gameState)) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
@@ -642,11 +642,11 @@ public class Game implements Serializable {
         int kingCol;
 
         if (attackingPiece.getColour().equals("white")) {
-            kingRow = gameState.getWhiteKingRow();
-            kingCol = gameState.getWhiteKingCol();
-        } else {
             kingRow = gameState.getBlackKingRow();
             kingCol = gameState.getBlackKingCol();
+        } else {
+            kingRow = gameState.getWhiteKingRow();
+            kingCol = gameState.getWhiteKingCol();
         }
 
         // Determine the direction of the path based on piece's position relative to the king
@@ -694,6 +694,8 @@ public class Game implements Serializable {
                         }
                     }
                 }
+                System.out.println("Checkmate");
+                return true;
             }
         }
 
@@ -721,10 +723,12 @@ public class Game implements Serializable {
                         }
                     }
                 }
+                System.out.println("Checkmate");
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 
     public void printMoveHistory(List<MoveInfo> moveHistory) {
