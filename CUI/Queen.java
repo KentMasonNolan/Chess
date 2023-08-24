@@ -13,12 +13,17 @@ public class Queen extends Piece implements Serializable {
 
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-        if (canMoveDiagonal(sourceRow, sourceCol, destRow, destCol, chessboard) || canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard) || canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard)) {
-            return true;
+        if (sourceRow == destRow) {
+            return canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard);
+        } else if (sourceCol == destCol) {
+            return canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard);
         } else {
-            return false;
+            return canMoveDiagonal(sourceRow, sourceCol, destRow, destCol, chessboard) ||
+                    canMoveVertical(sourceRow, sourceCol, destRow, destCol, chessboard) ||
+                    canMoveHorizontal(sourceRow, sourceCol, destRow, destCol, chessboard);
         }
     }
+
 
     @Override
     public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {

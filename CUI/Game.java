@@ -454,14 +454,17 @@ public class Game implements Serializable {
         chessboard[destRow][destCol].removePiece();
         chessboard[destRow][destCol].setPiece(previousPiece);
 
-        if (previousPiece.getColour().equals("white")) { //adding the piece back to the list after it was removed.
-            gameState.getWhitePieces().add(previousPiece);
-        } else
-            gameState.getBlackPieces().add(previousPiece);
+        if (previousPiece != null) {
+            if (previousPiece.getColour().equals("white")) {
+                gameState.getWhitePieces().add(previousPiece);
+            } else {
+                gameState.getBlackPieces().add(previousPiece);
+            }
+        }
 
         chessboard[sourceRow][sourceCol].setPiece(currentPiece);
-
     }
+
 
     private void capturePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
 
