@@ -14,9 +14,18 @@ public class Game implements Serializable {
     ChessTile[][] chessboard = createEmptyChessboard();
     private GameState gameState = new GameState();
 
+    static FileIOManager fileIOManager = new FileIOManager();
+    List<String> savedGamesList = fileIOManager.getSavedGamesList("saved_games_metadata.txt");
+
     private boolean playerAbort = false;
 
-    public static void main(String[] args) {
+    private List<User> userList = new ArrayList<>();
+
+
+    public Game() throws IOException {
+    }
+
+    public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         GameState gameState = new GameState();
         Game game = new Game();
@@ -41,7 +50,19 @@ public class Game implements Serializable {
                     System.out.println("Enter the filename to save the game:");
                     String filename = input.nextLine();
                     game.saveGame(filename);
+                    fileIOManager.writeSavedGameMetadata("saved_games_metadata.txt", filename);
+
                 } else if (userInputCommand.equalsIgnoreCase("load")) {
+                    System.out.println("List of Saved Games:");
+
+                    // Retrieve the list of saved games
+                    List<String> savedGamesList = fileIOManager.getSavedGamesList("saved_games_metadata.txt");
+
+                    // Display the list of saved games
+                    for (String gameInfo : savedGamesList) {
+                        System.out.println(gameInfo);
+                    }
+
                     System.out.println("Enter the filename to load the game:");
                     String filename = input.nextLine();
                     Game loadedGame = Game.loadGameFromFile(filename);
@@ -59,7 +80,9 @@ public class Game implements Serializable {
         }
     }
 
+
     private void start(GameState gameState) {
+        loadUserList(); // Load the list of users at the start
 
         System.out.println("What board would you like to play?");
         System.out.println("1. normal chessboard");
@@ -84,13 +107,76 @@ public class Game implements Serializable {
 
         switch (menu) {
             case 1:
+                setupPlayersAndInitialPieces(gameState);
                 setupInitialPieces(chessboard, gameState);
                 break;
             case 2:
+                setupPlayersAndInitialPieces(gameState);
                 setupTestPieces(chessboard, gameState);
                 break;
         }
     }
+
+    private void setupPlayersAndInitialPieces(GameState gameState) {
+        String whitePlayerName = selectUser("White");
+        String blackPlayerName = selectUser("Black");
+
+    }
+
+    private String selectUser(String color) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Select " + color + " player:");
+
+        for (int i = 0; i < userList.size(); i++) {
+            System.out.println((i + 1) + ". " + userList.get(i).getName());
+        }
+
+        System.out.println((userList.size() + 1) + ". Enter a new name");
+
+        while (true) {
+            String userInput = input.nextLine();
+            try {
+                int selection = Integer.parseInt(userInput);
+                if (selection >= 1 && selection <= userList.size() + 1) {
+                    if (selection <= userList.size()) {
+                        return userList.get(selection - 1).getName();
+                    } else {
+                        System.out.println("Enter the new " + color + " player's name:");
+                        String newName = input.nextLine();
+                        addUser(newName); // Add the new user to the list
+                        return newName;
+                    }
+                } else {
+                    System.out.println("Please enter a valid option.");
+                }
+            } catch (NumberFormatException e) {
+                if (!userInput.isEmpty()) {
+                    addUser(userInput); // Add the new user to the list
+                    return userInput;
+                } else {
+                    System.out.println("Please enter a valid option or a new name.");
+                }
+            }
+        }
+    }
+
+
+    private void addUser(String name) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Enter " + name + " player's ELO rating:");
+        int elo = input.nextInt();
+        input.nextLine(); // Consume the newline
+
+        User newUser = new User(name, elo);
+        userList.add(newUser);
+
+        System.out.println("Player " + name + " added with ELO rating " + elo + ".");
+
+        saveUserList(); // Save the user list after adding a new user
+    }
+
 
     private ChessTile[][] createEmptyChessboard() {
         ChessTile[][] chessboard = new ChessTile[BOARD_SIZE][BOARD_SIZE];
@@ -641,6 +727,49 @@ public class Game implements Serializable {
             return null;
         }
     }
+
+    private void loadUserList() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            List<String> userLines = fileIOManager.readUserList("user_list.txt");
+
+            for (String userLine : userLines) {
+                String[] userFields = userLine.split(",");
+                if (userFields.length >= 2) {
+                    String name = userFields[0];
+                    int elo = Integer.parseInt(userFields[1]);
+
+                    User user = new User(name, elo);
+                    userList.add(user);
+                }
+            }
+
+            System.out.println("User list loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to load user list: " + e.getMessage());
+        }
+    }
+
+
+    private void saveUserList() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            List<String> userLines = new ArrayList<>();
+
+            for (User user : userList) {
+                String userLine = user.getName() + "," + user.getElo();
+                userLines.add(userLine);
+            }
+
+            fileIOManager.writeUserList("user_list.txt", userLines);
+
+            System.out.println("User list saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save user list: " + e.getMessage());
+        }
+    }
+
+
 
     public List<ChessTile> getPathBetweenAttackingPieceAndKing(GameState gameState, Piece attackingPiece) {
         List<ChessTile> path = new ArrayList<>();
