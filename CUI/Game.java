@@ -24,7 +24,7 @@ public class Game implements Serializable {
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" + "You are playing black. Good luck.\n");
 
-        while (!game.isCheckmate(game.gameState) || !game.playerAbort) {
+        while (!game.isCheckmate(gameState) || !game.playerAbort) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
@@ -178,19 +178,19 @@ public class Game implements Serializable {
         // Set white pawn one move away
         Bishop whiteBishop = new Bishop("white", 2, 3);
         Pawn whitePawn = new Pawn("white", 0, 0);
-        Queen whiteQueen = new Queen("white", 1, 3);
+        Queen whiteQueen = new Queen("white", 2, 0);
 
         gameState.getWhitePieces().add(whiteBishop);
         gameState.getWhitePieces().add(whitePawn);
         gameState.getWhitePieces().add(whiteQueen);
 
-        chessboard[3][2].setPiece(whiteBishop);
-        chessboard[1][0].setPiece(whitePawn);
-        chessboard[1][3].setPiece(whiteQueen);
+        chessboard[2][3].setPiece(whiteBishop);
+        chessboard[0][0].setPiece(whitePawn);
+        chessboard[2][0].setPiece(whiteQueen);
 
         Rook whiteRook = new Rook("white", 5, 5);
         gameState.getWhitePieces().add(whiteRook);
-        chessboard[5][5].setPiece(whiteRook);
+        chessboard[6][5].setPiece(whiteRook);
     }
 
 
