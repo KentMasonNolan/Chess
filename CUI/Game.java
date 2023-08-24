@@ -24,7 +24,7 @@ public class Game implements Serializable {
 
         System.out.println("Welcome to the game of chess.\n\n" + "This is a two-player game with no AI or game engine, so you are expected to play two-player or play both sides.\n" + "The expected inputs are the square you want to move followed by the destination square. e.g. C2 C4.\n" + "At any point in this game, you can type 'EXIT' to quit or 'SAVE' to save the game.\n\n" + "You are playing black. Good luck.\n");
 
-        while (!game.isCheckmate(gameState)) {
+        while (!game.isCheckmate(gameState) && !game.playerAbort) {
             game.drawChessboard(game.chessboard);
             System.out.println("\nIt is " + gameState.currentPlayer + "'s turn. Please input your command.");
 
