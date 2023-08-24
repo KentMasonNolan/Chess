@@ -26,10 +26,6 @@ abstract class Piece implements Serializable {
 
     protected int previousRow;
 
-    public int getPreviousCol() {
-        return previousCol;
-    }
-
     public void setPreviousCol(int previousCol) {
         this.previousCol = previousCol;
     }

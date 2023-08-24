@@ -67,7 +67,20 @@ public class Game implements Serializable {
         // todo setup a showcase board for markers to test
 
         Scanner input = new Scanner(System.in);
-        int menu = input.nextInt();
+        int menu = 0;
+
+        while (true) {
+            try {
+                menu = Integer.parseInt(input.nextLine());
+                if (menu >= 1 && menu <= 2) {
+                    break;
+                } else {
+                    System.out.println("Please enter a valid option (1 or 2).");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer.");
+            }
+        }
 
         switch (menu) {
             case 1:
@@ -76,11 +89,7 @@ public class Game implements Serializable {
             case 2:
                 setupTestPieces(chessboard, gameState);
                 break;
-            default:
-                System.out.println("Please choose a valid option");
-                break;
         }
-//        drawChessboard(chessboard);
     }
 
     private ChessTile[][] createEmptyChessboard() {
