@@ -102,7 +102,9 @@ abstract class Piece implements Serializable {
 
                 }
             } else {
+                canCaptureDown(sourceRow + 1, sourceCol, chessboard, gameState);
                 if (!chessboard[sourceRow + 1][sourceCol].isTileFilled()) {
+                    chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true);
                     canCaptureDown(sourceRow + 1, sourceCol, chessboard, gameState);
                 } else if (chessboard[sourceRow + 1][sourceCol].getPiece().getColour().equals("white")) {
                     chessboard[sourceRow + 1][sourceCol].setCanBlackCapture(true);
@@ -132,6 +134,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow - 1][sourceCol].isTileFilled()) {
+                    chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true);
                     canCaptureUp(sourceRow - 1, sourceCol, chessboard, gameState);
                 } else if (chessboard[sourceRow - 1][sourceCol].getPiece().getColour().equals("white")) {
                     chessboard[sourceRow - 1][sourceCol].setCanBlackCapture(true);
@@ -163,6 +166,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow][sourceCol + 1].isTileFilled()) {
+                    chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true);
                     canCaptureRight(sourceRow, sourceCol + 1, chessboard, gameState);
                 } else if (chessboard[sourceRow][sourceCol+1].getPiece().getColour().equals("white")) {
                     chessboard[sourceRow][sourceCol + 1].setCanBlackCapture(true);
@@ -192,6 +196,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow][sourceCol - 1].isTileFilled()) {
+                    chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true);
                     canCaptureLeft(sourceRow, sourceCol - 1, chessboard, gameState);
                 } else if (chessboard[sourceRow][sourceCol-1].getPiece().getColour().equals("white")) {
                     chessboard[sourceRow][sourceCol - 1].setCanBlackCapture(true);
@@ -221,6 +226,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow - 1][sourceCol + 1].isTileFilled()) {
+                    chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true);
                     canCaptureUpRight(sourceRow - 1, sourceCol + 1, chessboard, gameState);
                 } else if (!Objects.equals(this.colour, chessboard[sourceRow - 1][sourceCol + 1].getPiece().getColour())) {
                     chessboard[sourceRow - 1][sourceCol + 1].setCanBlackCapture(true);
@@ -250,6 +256,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow - 1][sourceCol - 1].isTileFilled()) {
+                    chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true);
                     canCaptureUpLeft(sourceRow - 1, sourceCol - 1, chessboard, gameState);
                 } else if (!Objects.equals(this.colour, chessboard[sourceRow - 1][sourceCol - 1].getPiece().getColour())) {
                     chessboard[sourceRow - 1][sourceCol - 1].setCanBlackCapture(true);
@@ -279,6 +286,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow + 1][sourceCol + 1].isTileFilled()) {
+                    chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true);
                     canCaptureDownRight(sourceRow + 1, sourceCol + 1, chessboard, gameState);
                 } else if (!Objects.equals(this.colour, chessboard[sourceRow + 1][sourceCol + 1].getPiece().getColour())) {
                     chessboard[sourceRow + 1][sourceCol + 1].setCanBlackCapture(true);
@@ -308,6 +316,7 @@ abstract class Piece implements Serializable {
                 }
             } else {
                 if (!chessboard[sourceRow + 1][sourceCol - 1].isTileFilled()) {
+                    chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true);
                     canCaptureDownLeft(sourceRow + 1, sourceCol - 1, chessboard, gameState);
                 } else if (!Objects.equals(this.colour, chessboard[sourceRow + 1][sourceCol - 1].getPiece().getColour())) {
                     chessboard[sourceRow + 1][sourceCol - 1].setCanBlackCapture(true);
