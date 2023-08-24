@@ -169,20 +169,30 @@ public class Game implements Serializable {
         }
     }
 
-    private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) { //this is for testing
-        //black king in the usual spot
-        chessboard[7][4].setPiece(new King("black", 7, 4, this.gameState));
-        chessboard[1][5].setPiece(new Pawn("black", 1, 5));
+    private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) {
+        // Set black king in the usual spot
+        King blackKing = new King("black", 7, 4, gameState);
+        chessboard[7][4].setPiece(blackKing);
+        gameState.setBlackKingPosition(7, 4);
 
-        this.gameState.setBlackKingPosition(7, 4);
+        // Set white pawn one move away
+        Bishop whiteBishop = new Bishop("white", 2, 3);
+        Pawn whitePawn = new Pawn("white", 0, 0);
+        Queen whiteQueen = new Queen("white", 1, 3);
 
-        //white pawn one move away
-        chessboard[3][2].setPiece(new Bishop("white", 2, 3));
-        chessboard[1][0].setPiece(new Pawn("white", 0, 0));
-        chessboard[1][3].setPiece(new Queen("white", 1, 3));
+        gameState.getWhitePieces().add(whiteBishop);
+        gameState.getWhitePieces().add(whitePawn);
+        gameState.getWhitePieces().add(whiteQueen);
 
-        chessboard[5][5].setPiece(new Rook("white", 5, 5));
+        chessboard[3][2].setPiece(whiteBishop);
+        chessboard[1][0].setPiece(whitePawn);
+        chessboard[1][3].setPiece(whiteQueen);
+
+        Rook whiteRook = new Rook("white", 5, 5);
+        gameState.getWhitePieces().add(whiteRook);
+        chessboard[5][5].setPiece(whiteRook);
     }
+
 
 
     private void drawChessboard(ChessTile[][] chessboard) {
@@ -255,8 +265,8 @@ public class Game implements Serializable {
                     performCastling(piece, sourceRow, sourceCol, destRow, destCol, chessboard);
 
                     setAllCaptureFlags(gameState);
-                    isBlackKingInCheck();
-                    isWhiteKingInCheck();
+                    isBlackKingInCheck(gameState);
+                    isWhiteKingInCheck(gameState);
 
                     System.out.println("Player is switched.");
                     gameState.switchPlayer();
@@ -301,17 +311,17 @@ public class Game implements Serializable {
                 }
 
                 setAllCaptureFlags(gameState);
-                isBlackKingInCheck();
-                isWhiteKingInCheck();
+                isBlackKingInCheck(gameState);
+                isWhiteKingInCheck(gameState);
 
 
                 // this maybe should be its own method
 
-                if (piece.colour.equals("white") && isWhiteKingInCheck()) {
+                if (piece.colour.equals("white") && isWhiteKingInCheck(gameState)) {
                     //revert
                     revertBoard(sourceRow, sourceCol, destRow, destCol);
                     System.out.println("That move resulted in the white king being in check and therefore illegal ");
-                } else if (piece.colour.equals("black") && isBlackKingInCheck()) {
+                } else if (piece.colour.equals("black") && isBlackKingInCheck(gameState)) {
                     revertBoard(sourceRow, sourceCol, destRow, destCol);
                     System.out.println("That move resulted in the black king being in check and therefore illegal ");
                 } else {
@@ -575,7 +585,7 @@ public class Game implements Serializable {
         }
     }
 
-    private boolean isBlackKingInCheck() {
+    private boolean isBlackKingInCheck(GameState gameState) {
         if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()) {
             System.out.println("Black King is in check");
             return true;
@@ -583,7 +593,7 @@ public class Game implements Serializable {
             return false;
     }
 
-    private boolean isWhiteKingInCheck() {
+    private boolean isWhiteKingInCheck(GameState gameState) {
         if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()) {
             System.out.println("White King is in check");
             return true;
