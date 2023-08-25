@@ -91,7 +91,7 @@ public class Game implements Serializable {
         // todo setup a showcase board for markers to test
 
         Scanner input = new Scanner(System.in);
-        int menu = 0;
+        int menu;
 
         while (true) {
             try {
@@ -179,6 +179,7 @@ public class Game implements Serializable {
     }
 
 
+    // creates a 2d array of tiles for our board.
     private ChessTile[][] createEmptyChessboard() {
         ChessTile[][] chessboard = new ChessTile[BOARD_SIZE][BOARD_SIZE];
         for (int row = 0; row < BOARD_SIZE; row++) {
@@ -290,7 +291,6 @@ public class Game implements Serializable {
     }
 
 
-
     private void drawChessboard(ChessTile[][] chessboard) {
         for (int row = 0; row < BOARD_SIZE; row++) {
             System.out.print((row + 1) + " "); // Row label
@@ -308,79 +308,85 @@ public class Game implements Serializable {
         System.out.println("  h  g  f  e  d  c  b  a"); // Column labels
     }
 
+// processes user input to perform chess moves
+
     private void userInput(String input, GameState gameState) {
-
-
         try {
-            // expected input to be something like "C4 C5"
+            // expected input format: "c4 c5"
             String[] squares = input.split(" ");
+
+            // check if the input consists of two squares
             if (squares.length != 2) {
-                throw new IllegalArgumentException("Invalid input. Please enter two squares separated by a space.");
+                throw new IllegalArgumentException("invalid input. please enter two squares separated by a space.");
             }
 
+            // convert squares to uppercase for consistency
             String sourceSquare = squares[0].toUpperCase();
             String destSquare = squares[1].toUpperCase();
 
-            int sourceRow = Character.getNumericValue(sourceSquare.charAt(1) - 1);
+            // convert characters to row and column indices
+            int sourceRow = Character.getNumericValue(sourceSquare.charAt(1)) - 1;
             int sourceCol = letterToNumber(sourceSquare.charAt(0));
-            int destRow = Character.getNumericValue(destSquare.charAt(1) - 1);
+            int destRow = Character.getNumericValue(destSquare.charAt(1)) - 1;
             int destCol = letterToNumber(destSquare.charAt(0));
 
-
-
-
+            // check for en passant capture
             if (chessboard[sourceRow][destCol].isTileFilled() && chessboard[sourceRow][destCol].getPiece().isJustMovedTwoSquares()) {
                 enPassantCapture(sourceRow, sourceCol, destRow, destCol, gameState);
-            } else if (chessboard[destRow][destCol].isTileFilled()) {
+            }
+            // check for regular capture
+            else if (chessboard[destRow][destCol].isTileFilled()) {
                 capturePiece(sourceRow, sourceCol, destRow, destCol, gameState);
-            } else {
+            }
+            // perform a standard move
+            else {
                 movePiece(sourceRow, sourceCol, destRow, destCol, gameState);
             }
 
-
         } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("error: " + e.getMessage());
         } catch (Exception e) {
-            System.out.println("An unexpected error occurred in the userInput method. Please try again. - Catch is UserInput");
+            System.out.println("an unexpected error occurred in the userInput method. please try again. - catch is userInput");
         }
     }
 
 
+// moves a chess piece and handles related game mechanics
+
     private void movePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
 
-        clearAllCaptureFlags();
-
-
+        // get the piece from the source square
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
 
+        // check if the piece exists and belongs to the current player
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
 
-            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) { // castling check
+            // check for castling
+            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) {
                 if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                    // perform castling
                     clearAllCaptureFlags();
                     performCastling(piece, sourceRow, sourceCol, destRow, destCol, chessboard);
-
                     setAllCaptureFlags(gameState);
                     isBlackKingInCheck(gameState);
                     isWhiteKingInCheck(gameState);
-
-                    System.out.println("Player is switched.");
+                    System.out.println("player is switched.");
                     gameState.switchPlayer();
                     MoveInfo moveInfo = new MoveInfo(sourceRow, sourceCol, destRow, destCol);
                     moveHistory.add(moveInfo);
-
                     return;
                 }
             }
 
-            if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) { //move method
+            // check if the move is valid
+            if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                // move the piece
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
                 piece.setPieceCol(destCol);
                 piece.setPieceRow(destRow);
 
-
-                // updating any pieces that have had their first move
+                // update special cases for pieces' first moves
                 if (piece instanceof Pawn) {
                     piece.setFirstMove(false);
                     if (Math.abs(destRow - sourceRow) == 2) {
@@ -397,8 +403,6 @@ public class Game implements Serializable {
                     } else {
                         this.gameState.setWhiteKingPosition(destRow, destCol);
                     }
-
-
                 }
                 if (piece instanceof King && Objects.equals(piece.getColour(), "black")) {
                     gameState.setBlackKingPosition(destRow, destCol);
@@ -406,36 +410,38 @@ public class Game implements Serializable {
                     gameState.setWhiteKingPosition(destRow, destCol);
                 }
 
+                // update game state
                 setAllCaptureFlags(gameState);
                 isBlackKingInCheck(gameState);
                 isWhiteKingInCheck(gameState);
 
-
-                // this maybe should be its own method
-
+                // check if the move results in check
                 if (piece.colour.equals("white") && isWhiteKingInCheck(gameState)) {
-                    //revert
                     revertBoard(sourceRow, sourceCol, destRow, destCol);
-                    System.out.println("That move resulted in the white king being in check and therefore illegal ");
+                    System.out.println("that move resulted in the white king being in check and therefore illegal ");
                 } else if (piece.colour.equals("black") && isBlackKingInCheck(gameState)) {
                     revertBoard(sourceRow, sourceCol, destRow, destCol);
-                    System.out.println("That move resulted in the black king being in check and therefore illegal ");
+                    System.out.println("that move resulted in the black king being in check and therefore illegal ");
                 } else {
-                    System.out.println("Player is switched.");
+                    System.out.println("player is switched.");
                     gameState.switchPlayer();
                     MoveInfo moveInfo = new MoveInfo(sourceRow, sourceCol, destRow, destCol);
                     moveHistory.add(moveInfo);
                     saveMoveHistory();
+
+                    // check for checkmate
+                    if (isCheckmate(gameState)) {
+                        System.out.println("checkmate");
+                    }
                 }
-
-
             } else {
-                System.out.println("Invalid move. Please try again.");
+                System.out.println("invalid move. please try again.");
             }
         } else {
-            System.out.println("No piece found or it's not your turn. Please try again.");
+            System.out.println("no piece found or it's not your turn. please try again.");
         }
     }
+
 
     public boolean canCastle(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
@@ -477,7 +483,6 @@ public class Game implements Serializable {
         }
         return false;
     }
-
     public void performCastling(Piece king, int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
 
         Piece rook;
@@ -488,7 +493,7 @@ public class Game implements Serializable {
         final int QUEENSIDE_BLACK = 3;
         final int KINGSIDE_BLACK = 4;
 
-        // make sure we get the correct pieces
+        // ensure the correct pieces are obtained
         if (king.getColour().equals("white")) {
             if (destCol < sourceCol) {
                 rook = chessboard[0][0].getPiece();
@@ -497,7 +502,7 @@ public class Game implements Serializable {
                 rook = chessboard[0][7].getPiece();
                 rookOption = KINGSIDE_WHITE; // moving right
             }
-        } else { //king is black
+        } else { // king is black
             if (destCol < sourceCol) {
                 rook = chessboard[7][0].getPiece();
                 rookOption = QUEENSIDE_BLACK;
@@ -507,11 +512,12 @@ public class Game implements Serializable {
             }
         }
 
+        // move the pieces for castling
         chessboard[sourceRow][sourceCol].removePiece();
         chessboard[destRow][destCol].setPiece(king);
 
-        switch (rookOption) { //starting top left to bottom right
-            case QUEENSIDE_WHITE: //
+        switch (rookOption) { // starting top left to bottom right
+            case QUEENSIDE_WHITE:
                 chessboard[0][0].removePiece();
                 chessboard[0][2].setPiece(rook);
                 break;
@@ -519,7 +525,7 @@ public class Game implements Serializable {
                 chessboard[0][7].removePiece();
                 chessboard[0][5].setPiece(rook);
                 break;
-            case QUEENSIDE_BLACK: //
+            case QUEENSIDE_BLACK:
                 chessboard[7][0].removePiece();
                 chessboard[7][2].setPiece(rook);
                 break;
@@ -528,10 +534,10 @@ public class Game implements Serializable {
                 chessboard[7][5].setPiece(rook);
                 break;
             default:
-                System.out.println("Something went wrong in the performing castling method switch case");
+                System.out.println("something went wrong in the performing castling method switch case");
         }
 
-
+        // update king's position and first move status
         if (king.getColour().equals("black")) {
             gameState.setBlackKingPosition(destRow, destCol);
         } else if (king.getColour().equals("white")) {
@@ -540,17 +546,22 @@ public class Game implements Serializable {
 
         king.setFirstMove(false);
         rook.setFirstMove(false);
-
     }
+
+
+// reverts the chessboard after a move. this happens if the player moves a piece and puts itself into check.
 
     private void revertBoard(int sourceRow, int sourceCol, int destRow, int destCol) {
 
+        // holding pieces
         Piece currentPiece = chessboard[destRow][destCol].getPiece();
         Piece previousPiece = chessboard[destRow][destCol].getPreviousPiece();
 
+        // moves the piece
         chessboard[destRow][destCol].removePiece();
         chessboard[destRow][destCol].setPiece(previousPiece);
 
+        // null check and re-add to player's list
         if (previousPiece != null) {
             if (previousPiece.getColour().equals("white")) {
                 gameState.getWhitePieces().add(previousPiece);
@@ -559,10 +570,13 @@ public class Game implements Serializable {
             }
         }
 
+        // restore original piece position
         chessboard[sourceRow][sourceCol].setPiece(currentPiece);
     }
 
 
+    // captures the piece by moving the current piece into the tiles previous piece object. removes the piece from the
+    // list of available pieces then checks if that move puts the king into checkmate.
     private void capturePiece(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
 
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
@@ -592,9 +606,11 @@ public class Game implements Serializable {
 
     }
 
+
+    // special method as a pawn can capture a piece that is not on its capture square.
     private void enPassantCapture(int sourceRow, int sourceCol, int destRow, int destCol, GameState gameState) {
         Piece piece = chessboard[sourceRow][sourceCol].getPiece();
-        Piece capturedPiece = chessboard[sourceRow][destCol].getPiece(); // Captured pawn is on the same row as the destination column
+        Piece capturedPiece = chessboard[sourceRow][destCol].getPiece(); // captured pawn is on the same row as the destination column
 
         if (piece != null && capturedPiece != null && piece.getColour().equals(gameState.currentPlayer)) {
             if (piece.isValidCapture(sourceRow, sourceCol, destRow, destCol, chessboard)) {
@@ -618,6 +634,7 @@ public class Game implements Serializable {
     }
 
 
+    // because the move can only be done directly after the pawn has moved, we need to reset the flags for each colour after its own move
     public void resetEnPassantFlags(List<Piece> pieces) {
         for (Piece piece : pieces) {
             if (piece instanceof Pawn) {
@@ -627,6 +644,7 @@ public class Game implements Serializable {
     }
 
 
+    // changes the board letters to number system used in the boards array
     private int letterToNumber(char inputLetter) {
 
         int outputInt = -1; // allows for error checking.
@@ -660,6 +678,7 @@ public class Game implements Serializable {
     }
 
 
+    // displays the pieces as white + piece type. e.g. wP is white pawn.
     private String getPieceSymbol(Piece piece) {
 
         String colourPrefix;
@@ -675,6 +694,28 @@ public class Game implements Serializable {
         return colourPrefix + pieceType;
     }
 
+
+    // checking if a white piece can capture the tile the black king is standing on
+
+    private boolean isBlackKingInCheck(GameState gameState) {
+        if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()) {
+            System.out.println("Black King is in check");
+            return true;
+        } else
+            return false;
+    }
+
+    // checking if a black piece can capture the tile the white king is standing on
+
+    private boolean isWhiteKingInCheck(GameState gameState) {
+        if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()) {
+            System.out.println("White King is in check");
+            return true;
+        } else
+            return false;
+    }
+
+    //loops through all pieces and ensures if they are able to attack a tile, the tiles flag is set.
     private void setAllCaptureFlags(GameState gameState) {
         for (Piece piece : gameState.getWhitePieces()) {
             piece.canCapture(piece.getPieceRow(), piece.getPieceCol(), chessboard, gameState);
@@ -685,22 +726,7 @@ public class Game implements Serializable {
         }
     }
 
-    private boolean isBlackKingInCheck(GameState gameState) {
-        if (chessboard[gameState.getBlackKingRow()][gameState.getBlackKingCol()].getCanWhiteCapture()) {
-            System.out.println("Black King is in check");
-            return true;
-        } else
-            return false;
-    }
-
-    private boolean isWhiteKingInCheck(GameState gameState) {
-        if (chessboard[gameState.getWhiteKingRow()][gameState.getWhiteKingCol()].getCanBlackCapture()) {
-            System.out.println("White King is in check");
-            return true;
-        } else
-            return false;
-    }
-
+    // resets all capture flags. this is then
     private void clearAllCaptureFlags() {
         for (int row = 0; row < BOARD_SIZE; row++) {
             for (int col = 0; col < BOARD_SIZE; col++) {
@@ -709,68 +735,6 @@ public class Game implements Serializable {
             }
         }
     }
-
-    public void saveGame(String filename) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
-            outputStream.writeObject(this);
-            System.out.println("Game saved successfully.");
-        } catch (IOException e) {
-            System.out.println("Failed to save the game: " + e.getMessage());
-        }
-    }
-
-    public static Game loadGameFromFile(String filename) {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
-            Game loadedGame = (Game) inputStream.readObject();
-            System.out.println("Game loaded successfully.");
-            return loadedGame;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Failed to load the game: " + e.getMessage());
-            return null;
-        }
-    }
-
-    private void loadUserList() {
-        try {
-            FileIOManager fileIOManager = new FileIOManager();
-            List<String> userLines = fileIOManager.readUserList("user_list.txt");
-
-            for (String userLine : userLines) {
-                String[] userFields = userLine.split(",");
-                if (userFields.length >= 2) {
-                    String name = userFields[0];
-                    int elo = Integer.parseInt(userFields[1]);
-
-                    User user = new User(name, elo);
-                    userList.add(user);
-                }
-            }
-
-            System.out.println("User list loaded successfully.");
-        } catch (IOException e) {
-            System.out.println("Failed to load user list: " + e.getMessage());
-        }
-    }
-
-
-    private void saveUserList() {
-        try {
-            FileIOManager fileIOManager = new FileIOManager();
-            List<String> userLines = new ArrayList<>();
-
-            for (User user : userList) {
-                String userLine = user.getName() + "," + user.getElo();
-                userLines.add(userLine);
-            }
-
-            fileIOManager.writeUserList("user_list.txt", userLines);
-
-            System.out.println("User list saved successfully.");
-        } catch (IOException e) {
-            System.out.println("Failed to save user list: " + e.getMessage());
-        }
-    }
-
 
 
     public List<ChessTile> getPathBetweenAttackingPieceAndKing(GameState gameState, Piece attackingPiece) {
@@ -871,6 +835,8 @@ public class Game implements Serializable {
         return false;
     }
 
+
+    //prints the move history by printing each line.
     public void printMoveHistory(List<String> moveHistory) {
         System.out.println("Move History:");
 
@@ -879,47 +845,98 @@ public class Game implements Serializable {
         }
     }
 
+// saves the move history to a file
+
     private void saveMoveHistory() {
         try {
             FileIOManager fileIOManager = new FileIOManager();
             fileIOManager.writeMoveHistory("move_history.txt", moveHistory);
-            System.out.println("Move history saved successfully.");
+            System.out.println("move history saved successfully.");
         } catch (IOException e) {
-            System.out.println("Failed to save move history: " + e.getMessage());
+            System.out.println("failed to save move history: " + e.getMessage());
         }
     }
+
+// loads the move history from a file
 
     private List<String> loadMoveHistory() {
         try {
             FileIOManager fileIOManager = new FileIOManager();
             return fileIOManager.readMoveHistory("move_history.txt");
         } catch (IOException e) {
-            System.out.println("Failed to load move history: " + e.getMessage());
+            System.out.println("failed to load move history: " + e.getMessage());
             return new ArrayList<>();
         }
     }
 
+// saves the game state to a file
 
-
-
-    class MoveInfo implements Serializable {
-        private int sourceRow;
-        private int sourceCol;
-        private int destRow;
-        private int destCol;
-
-        @Override
-        public String toString() {
-            return String.format("(%d, %d) -> (%d, %d)", sourceRow, sourceCol, destRow, destCol);
-        }
-
-        public MoveInfo(int sourceRow, int sourceCol, int destRow, int destCol) {
-            this.sourceRow = sourceRow;
-            this.sourceCol = sourceCol;
-            this.destRow = destRow;
-            this.destCol = destCol;
+    public void saveGame(String filename) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
+            outputStream.writeObject(this);
+            System.out.println("game saved successfully.");
+        } catch (IOException e) {
+            System.out.println("failed to save the game: " + e.getMessage());
         }
     }
+
+// loads a game state from a file
+
+    public static Game loadGameFromFile(String filename) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
+            Game loadedGame = (Game) inputStream.readObject();
+            System.out.println("game loaded successfully.");
+            return loadedGame;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("failed to load the game: " + e.getMessage());
+            return null;
+        }
+    }
+
+// loads the user list from a file
+
+    private void loadUserList() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            List<String> userLines = fileIOManager.readUserList("user_list.txt");
+
+            for (String userLine : userLines) {
+                String[] userFields = userLine.split(",");
+                if (userFields.length >= 2) {
+                    String name = userFields[0];
+                    int elo = Integer.parseInt(userFields[1]);
+
+                    User user = new User(name, elo);
+                    userList.add(user);
+                }
+            }
+
+            System.out.println("user list loaded successfully.");
+        } catch (IOException e) {
+            System.out.println("failed to load user list: " + e.getMessage());
+        }
+    }
+
+// saves the user list to a file
+
+    private void saveUserList() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            List<String> userLines = new ArrayList<>();
+
+            for (User user : userList) {
+                String userLine = user.getName() + "," + user.getElo();
+                userLines.add(userLine);
+            }
+
+            fileIOManager.writeUserList("user_list.txt", userLines);
+
+            System.out.println("user list saved successfully.");
+        } catch (IOException e) {
+            System.out.println("failed to save user list: " + e.getMessage());
+        }
+    }
+
 
 }
 

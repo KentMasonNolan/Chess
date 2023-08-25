@@ -52,9 +52,9 @@ public class FileIOManager {
         return userLines;
     }
 
-    public void writeMoveHistory(String moveHistoryFilePath, List<Game.MoveInfo> moveHistoryLines) throws IOException {
+    public void writeMoveHistory(String moveHistoryFilePath, List<MoveInfo> moveHistoryLines) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(moveHistoryFilePath))) {
-            for (Game.MoveInfo moveHistoryLine : moveHistoryLines) {
+            for (MoveInfo moveHistoryLine : moveHistoryLines) {
                 writer.write(moveHistoryLine.toString());
                 writer.newLine();
             }
