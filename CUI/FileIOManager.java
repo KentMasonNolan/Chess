@@ -52,5 +52,26 @@ public class FileIOManager {
         return userLines;
     }
 
+    public void writeMoveHistory(String moveHistoryFilePath, List<Game.MoveInfo> moveHistoryLines) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(moveHistoryFilePath))) {
+            for (Game.MoveInfo moveHistoryLine : moveHistoryLines) {
+                writer.write(moveHistoryLine.toString());
+                writer.newLine();
+            }
+        }
+    }
+
+    public List<String> readMoveHistory(String moveHistoryFilePath) throws IOException {
+        List<String> moveHistoryLines = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(moveHistoryFilePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                moveHistoryLines.add(line);
+            }
+        }
+        return moveHistoryLines;
+    }
 }
+
+
 

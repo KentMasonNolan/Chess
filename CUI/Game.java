@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Game implements Serializable {
 
-    private List<MoveInfo> moveHistory = new ArrayList<>();
 
     private static final int BOARD_SIZE = 8;
     ChessTile[][] chessboard = createEmptyChessboard();
@@ -20,6 +19,7 @@ public class Game implements Serializable {
     private boolean playerAbort = false;
 
     private List<User> userList = new ArrayList<>();
+    private List<MoveInfo> moveHistory = new ArrayList<>();
 
 
     public Game() throws IOException {
@@ -70,7 +70,8 @@ public class Game implements Serializable {
                         game = loadedGame; // Update the game instance with the loaded game
                     }
                 } else if (userInputCommand.equalsIgnoreCase("history")) {
-                    game.printMoveHistory(game.moveHistory);
+                    List<String> moveHistory = game.loadMoveHistory(); // Load move history
+                    game.printMoveHistory(moveHistory); // Print the loaded move history
                 } else {
                     game.userInput(userInputCommand, gameState);
                 }
@@ -424,6 +425,7 @@ public class Game implements Serializable {
                     gameState.switchPlayer();
                     MoveInfo moveInfo = new MoveInfo(sourceRow, sourceCol, destRow, destCol);
                     moveHistory.add(moveInfo);
+                    saveMoveHistory();
                 }
 
 
@@ -869,7 +871,7 @@ public class Game implements Serializable {
         return false;
     }
 
-    public void printMoveHistory(List<MoveInfo> moveHistory) {
+    public void printMoveHistory(List<String> moveHistory) {
         System.out.println("Move History:");
 
         for (int i = 0; i < moveHistory.size(); i++) {
@@ -877,12 +879,39 @@ public class Game implements Serializable {
         }
     }
 
+    private void saveMoveHistory() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            fileIOManager.writeMoveHistory("move_history.txt", moveHistory);
+            System.out.println("Move history saved successfully.");
+        } catch (IOException e) {
+            System.out.println("Failed to save move history: " + e.getMessage());
+        }
+    }
 
-    private class MoveInfo implements Serializable {
+    private List<String> loadMoveHistory() {
+        try {
+            FileIOManager fileIOManager = new FileIOManager();
+            return fileIOManager.readMoveHistory("move_history.txt");
+        } catch (IOException e) {
+            System.out.println("Failed to load move history: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+
+
+
+    class MoveInfo implements Serializable {
         private int sourceRow;
         private int sourceCol;
         private int destRow;
         private int destCol;
+
+        @Override
+        public String toString() {
+            return String.format("(%d, %d) -> (%d, %d)", sourceRow, sourceCol, destRow, destCol);
+        }
 
         public MoveInfo(int sourceRow, int sourceCol, int destRow, int destCol) {
             this.sourceRow = sourceRow;

@@ -1,0 +1,2 @@
+CUI.Game$MoveInfo@6d4b1c02
+CUI.Game$MoveInfo@5622fdf
