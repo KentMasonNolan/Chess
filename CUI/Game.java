@@ -72,6 +72,8 @@ public class Game implements Serializable {
                 } else if (userInputCommand.equalsIgnoreCase("history")) {
                     List<String> moveHistory = game.loadMoveHistory(); // Load move history
                     game.printMoveHistory(moveHistory); // Print the loaded move history
+                } else if (userInputCommand.equalsIgnoreCase("exit") || userInputCommand.equalsIgnoreCase("quit"))  {
+                    game.playerAbort = true;
                 } else {
                     game.userInput(userInputCommand, gameState);
                 }
