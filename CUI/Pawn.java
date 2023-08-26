@@ -25,31 +25,44 @@ public class Pawn extends Piece implements Serializable {
 
     @Override
     public boolean isValidMove(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
+        // check if the destination tile is occupied
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
+
+        // check if the tile above the destination is occupied
         boolean isSquareAboveOccupied = chessboard[destRow - 1][destCol].isTileFilled();
+
+        // check if the tile below the destination is occupied
         boolean isSquareBelowOccupied = chessboard[destRow + 1][destCol].isTileFilled();
+
+        // check if the destination is within the bounds of the chessboard
         boolean isDestinationInBounds = (destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8);
 
         if (Objects.equals(this.getColour(), "black")) {
+            // if the piece is a black pawn
             if (isFirstMove && (destRow == sourceRow - 1 || destRow == sourceRow - 2) && !isDestinationOccupied && isDestinationInBounds && !isSquareAboveOccupied) {
                 if (destRow == 0) {
+                    // promote pawn if it reaches the opposite end
                     promotePawn(sourceRow, sourceCol, destRow, destCol, chessboard);
                 }
                 return true;
             } else if (!isFirstMove && destRow == sourceRow - 1 && !isDestinationOccupied && isDestinationInBounds) {
                 if (destRow == 0) {
+                    // promote pawn if it reaches the opposite end
                     promotePawn(sourceRow, sourceCol, destRow, destCol, chessboard);
                 }
                 return true;
             }
         } else {
+            // if the piece is a white pawn
             if (isFirstMove && (destRow == sourceRow + 1 || destRow == sourceRow + 2) && !isDestinationOccupied && isDestinationInBounds && !isSquareBelowOccupied) {
                 if (destRow == 7) {
+                    // promote pawn if it reaches the opposite end
                     promotePawn(sourceRow, sourceCol, destRow, destCol, chessboard);
                 }
                 return true;
             } else if (!isFirstMove && destRow == sourceRow + 1 && !isDestinationOccupied && isDestinationInBounds) {
                 if (destRow == 7) {
+                    // promote pawn if it reaches the opposite end
                     promotePawn(sourceRow, sourceCol, destRow, destCol, chessboard);
                 }
                 return true;
@@ -57,6 +70,7 @@ public class Pawn extends Piece implements Serializable {
         }
         return false;
     }
+
 
     @Override
     public List<ChessTile> getValidMoves(ChessTile[][] chessboard) {
@@ -65,26 +79,29 @@ public class Pawn extends Piece implements Serializable {
 
     @Override
     public boolean isValidCapture(int sourceRow, int sourceCol, int destRow, int destCol, ChessTile[][] chessboard) {
-
+        // check if the destination tile is occupied
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
-        boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
 
+        // check if the piece at the destination is of opponent's color
+        boolean isOpponentColour = (!Objects.equals(this.colour, chessboard[destRow][destCol].getPiece().colour));
 
         if (isDestinationOccupied && isOpponentColour) {
             if (colour.equals("black")) {
+                // check valid capture for black pawn
                 if (destCol > 0 && destCol < 8 && (destRow == sourceRow + 1 || destRow == sourceRow - 1) && (destCol == sourceCol - 1 || destCol == sourceCol + 1)) {
                     return true;
                 }
             } else if (colour.equals("white")) {
+                // check valid capture for white pawn
                 if (destCol > 0 && destCol < 8 && (destRow == sourceRow - 1 || destRow == sourceRow + 1) && (destCol == sourceCol - 1 || destCol == sourceCol + 1)) {
                     return true;
                 }
-
             }
         }
-        System.out.println("Invalid capture");
+        System.out.println("invalid capture");
         return false;
     }
+
 
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {

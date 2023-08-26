@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class User implements Serializable {
     private String name;
-    private int elo; // You can extend this to include other attributes
+    private int elo; //
 
     public User(String name, int elo) {
         this.name = name;
