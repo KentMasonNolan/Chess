@@ -1,2 +1,2 @@
-CUI.Game$MoveInfo@6d4b1c02
-CUI.Game$MoveInfo@5622fdf
+(1, 5) -> (3, 5)
+(6, 7) -> (4, 7)
