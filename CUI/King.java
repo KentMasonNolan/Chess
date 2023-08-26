@@ -50,6 +50,8 @@ public class King extends Piece implements Serializable {
         return null;
     }
 
+
+    // checks each tile around the king and if the opposite colour doesn't have a capture flag set, it can escape.
     public boolean hasValidMoveToEscape(ChessTile[][] chessboard) {
         int kingRow = this.getPieceRow();
         int kingCol = this.getPieceCol();
@@ -89,6 +91,8 @@ public class King extends Piece implements Serializable {
         return false;
     }
 
+
+    // sets can capture flags for all tiles around the king
     @Override
     public void canCapture(int sourceRow, int sourceCol, ChessTile[][] chessboard, GameState gameState) {
         for (int row = sourceRow - 1; row <= sourceRow + 1; row++) {
