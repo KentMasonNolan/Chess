@@ -9,6 +9,26 @@ class ChessTile implements Serializable {
     protected boolean canBlackCapture = false;
     protected boolean canWhiteCapture = false;
 
+    private Piece piece;
+
+    private Piece previousPiece;
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public Piece getPreviousPiece() {
+        return previousPiece;
+    }
+
+    public void setPreviousPiece(Piece previousPiece) {
+        this.previousPiece = previousPiece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
     public boolean getCanBlackCapture() {
         return canBlackCapture;
     }
@@ -28,9 +48,6 @@ class ChessTile implements Serializable {
     public void removePiece() {
         piece = null; // Remove the piece from the tile (set it to null)
     }
-
-    private Piece piece;
-    private Piece previousPiece;
 
     public int getRow() {
         return row;
@@ -55,21 +72,5 @@ class ChessTile implements Serializable {
 
     public boolean isTileFilled() {
         return piece != null;
-    }
-
-    public Piece getPiece() {
-        return piece;
-    }
-
-    public Piece getPreviousPiece() {
-        return previousPiece;
-    }
-
-    public void setPreviousPiece(Piece previousPiece) {
-        this.previousPiece = previousPiece;
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
     }
 }

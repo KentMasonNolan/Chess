@@ -89,8 +89,8 @@ public class Game implements Serializable {
         loadUserList(); // Load the list of users at the start
 
         System.out.println("What board would you like to play?");
-        System.out.println("1. normal chessboard");
-        System.out.println("2. test chessboard");
+        System.out.println("1. Normal chessboard");
+        System.out.println("2. Puzzle chessboard");
         // todo setup a showcase board for markers to test
 
         Scanner input = new Scanner(System.in);
