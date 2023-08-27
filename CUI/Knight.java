@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Knight extends Piece implements Serializable {
 
     protected Knight(String colour, int row, int col) {
-        super(colour, "Knight");
+        super(colour, "NKnight");
         this.pieceRow = row;
         this.pieceCol = col;
     }

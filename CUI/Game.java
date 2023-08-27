@@ -73,6 +73,7 @@ public class Game implements Serializable {
                     List<String> moveHistory = game.loadMoveHistory(); // Load move history
                     game.printMoveHistory(moveHistory); // Print the loaded move history
                 } else if (userInputCommand.equalsIgnoreCase("exit") || userInputCommand.equalsIgnoreCase("quit"))  {
+                    System.out.println("Thank you for playing.");
                     game.playerAbort = true;
                 } else {
                     game.userInput(userInputCommand, gameState);
@@ -383,6 +384,7 @@ public class Game implements Serializable {
             // check if the move is valid
             if (piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
                 // move the piece
+                clearAllCaptureFlags();
                 chessboard[sourceRow][sourceCol].removePiece();
                 chessboard[destRow][destCol].setPiece(piece);
                 piece.setPieceCol(destCol);
@@ -839,6 +841,7 @@ public class Game implements Serializable {
 
 
     //prints the move history by printing each line.
+    //todo change because it is shit.
     public void printMoveHistory(List<String> moveHistory) {
         System.out.println("Move History:");
 
