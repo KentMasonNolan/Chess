@@ -270,27 +270,128 @@ public class Game implements Serializable {
     }
 
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) {
-        // Set black king in the usual spot
-        King blackKing = new King("black", 7, 4, gameState);
-        chessboard[7][4].setPiece(blackKing);
-        gameState.setBlackKingPosition(7, 4);
 
-        // Set white pawn one move away
-        Bishop whiteBishop = new Bishop("white", 2, 3);
-        Pawn whitePawn = new Pawn("white", 0, 0);
-        Queen whiteQueen = new Queen("white", 2, 0);
 
-        gameState.getWhitePieces().add(whiteBishop);
-        gameState.getWhitePieces().add(whitePawn);
+        Rook whiteRook1 = new Rook("white", 0, 0);
+        gameState.getWhitePieces().add(whiteRook1);
+        chessboard[0][0].setPiece(whiteRook1);
+
+        Bishop whiteBishop1 = new Bishop("white", 0, 2);
+        gameState.getWhitePieces().add(whiteBishop1);
+        chessboard[0][2].setPiece(whiteBishop1);
+
+        King whiteKing = new King("white", 0, 3, gameState);
+        gameState.getWhitePieces().add(whiteKing);
+        chessboard[0][3].setPiece(whiteKing);
+
+        Queen whiteQueen = new Queen("white", 0, 4);
         gameState.getWhitePieces().add(whiteQueen);
+        chessboard[0][4].setPiece(whiteQueen);
 
-        chessboard[2][3].setPiece(whiteBishop);
-        chessboard[0][0].setPiece(whitePawn);
-        chessboard[2][0].setPiece(whiteQueen);
+        Rook whiteRook2 = new Rook("white", 0, 7);
+        gameState.getWhitePieces().add(whiteRook2);
+        chessboard[0][7].setPiece(whiteRook2);
 
-        Rook whiteRook = new Rook("white", 5, 5);
-        gameState.getWhitePieces().add(whiteRook);
-        chessboard[6][5].setPiece(whiteRook);
+        Pawn pawn1 = new Pawn("white", 1, 0);
+        gameState.getWhitePieces().add(pawn1);
+        chessboard[1][0].setPiece(pawn1);
+
+        Pawn pawn2 = new Pawn("white", 1, 1);
+        gameState.getWhitePieces().add(pawn2);
+        chessboard[1][1].setPiece(pawn2);
+
+        Pawn pawn3 = new Pawn("white", 1, 2);
+        gameState.getWhitePieces().add(pawn3);
+        chessboard[1][2].setPiece(pawn3);
+
+        Knight whiteKnight1 = new Knight("white", 1, 3);
+        gameState.getWhitePieces().add(whiteKnight1);
+        chessboard[1][3].setPiece(whiteKnight1);
+
+        Bishop whiteBishop2 = new Bishop("white", 1, 4);
+        gameState.getWhitePieces().add(whiteBishop2);
+        chessboard[1][4].setPiece(whiteBishop2);
+
+        Pawn pawn4 = new Pawn("white", 1, 7);
+        gameState.getWhitePieces().add(pawn4);
+        chessboard[1][7].setPiece(pawn4);
+
+        Pawn pawn5 = new Pawn("white", 2, 3);
+        gameState.getWhitePieces().add(pawn5);
+        chessboard[2][3].setPiece(pawn5);
+
+        Pawn pawn6 = new Pawn("white", 3, 4);
+        gameState.getWhitePieces().add(pawn6);
+        chessboard[3][4].setPiece(pawn6);
+
+        Pawn pawn7 = new Pawn("white", 1, 5);
+        gameState.getWhitePieces().add(pawn7);
+        chessboard[1][5].setPiece(pawn7);
+
+        Pawn pawn8 = new Pawn("white", 2, 6);
+        gameState.getWhitePieces().add(pawn8);
+        chessboard[2][6].setPiece(pawn8);
+
+        Queen blackQueen = new Queen("black", 2, 7);
+        gameState.getBlackPieces().add(blackQueen);
+        chessboard[2][7].setPiece(blackQueen);
+
+        Knight blackKnight2 = new Knight("black", 3, 6);
+        gameState.getBlackPieces().add(blackKnight2);
+        chessboard[3][6].setPiece(blackKnight2);
+
+        Bishop blackBishop2 = new Bishop("black", 4, 2);
+        gameState.getBlackPieces().add(blackBishop2);
+        chessboard[4][2].setPiece(blackBishop2);
+
+        Pawn Bpawn1 = new Pawn("black", 6, 0);
+        gameState.getBlackPieces().add(Bpawn1);
+        chessboard[6][0].setPiece(Bpawn1);
+
+        Pawn Bpawn2 = new Pawn("black", 6, 1);
+        gameState.getBlackPieces().add(Bpawn2);
+        chessboard[6][1].setPiece(Bpawn2);
+
+        Pawn Bpawn3 = new Pawn("black", 6, 2);
+        gameState.getBlackPieces().add(Bpawn3);
+        chessboard[6][2].setPiece(Bpawn3);
+
+        Pawn Bpawn4 = new Pawn("black", 6, 3);
+        gameState.getBlackPieces().add(Bpawn4);
+        chessboard[6][3].setPiece(Bpawn4);
+
+        Pawn Bpawn6 = new Pawn("black", 6, 5);
+        gameState.getBlackPieces().add(Bpawn6);
+        chessboard[6][5].setPiece(Bpawn6);
+
+        Pawn Bpawn7 = new Pawn("black", 6, 6);
+        gameState.getBlackPieces().add(Bpawn7);
+        chessboard[6][6].setPiece(Bpawn7);
+
+        Pawn Bpawn8 = new Pawn("black", 6, 7);
+        gameState.getBlackPieces().add(Bpawn8);
+        chessboard[6][7].setPiece(Bpawn8);
+
+        Rook blackRook1 = new Rook("black", 7, 0);
+        gameState.getBlackPieces().add(blackRook1);
+        chessboard[7][0].setPiece(blackRook1);
+
+        Knight blackKnight1 = new Knight("black", 7, 1);
+        gameState.getBlackPieces().add(blackKnight1);
+        chessboard[7][1].setPiece(blackKnight1);
+
+        Bishop blackBishop1 = new Bishop("black", 7, 2);
+        gameState.getBlackPieces().add(blackBishop1);
+        chessboard[7][2].setPiece(blackBishop1);
+
+        King blackKing = new King("black", 7, 3, gameState);
+        gameState.getBlackPieces().add(blackKing);
+        chessboard[7][3].setPiece(blackKing);
+
+        Rook blackRook2 = new Rook("black", 7, 7);
+        gameState.getBlackPieces().add(blackRook2);
+        chessboard[7][7].setPiece(blackRook2);
+
     }
 
 

@@ -29,10 +29,10 @@ public class Pawn extends Piece implements Serializable {
         boolean isDestinationOccupied = chessboard[destRow][destCol].isTileFilled();
 
         // check if the tile above the destination is occupied
-        boolean isSquareAboveOccupied = chessboard[destRow - 1][destCol].isTileFilled();
+        boolean isSquareAboveOccupied = chessboard[sourceRow - 1][destCol].isTileFilled();
 
         // check if the tile below the destination is occupied
-        boolean isSquareBelowOccupied = chessboard[destRow + 1][destCol].isTileFilled();
+        boolean isSquareBelowOccupied = chessboard[sourceRow + 1][destCol].isTileFilled();
 
         // check if the destination is within the bounds of the chessboard
         boolean isDestinationInBounds = (destCol >= 0 && destCol <= 8) && (destRow >= 0 && destRow <= 8);
