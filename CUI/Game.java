@@ -891,6 +891,12 @@ public class Game implements Serializable {
                     return false;
                 }
 
+                // For knights, no need to check the path
+                if (piece.getType().equals("Knight")) {
+                    System.out.println("Checkmate");
+                    return true;
+                }
+
                 // Check if the path can be blocked.
                 List<ChessTile> path = getPathBetweenAttackingPieceAndKing(gameState, piece);
 
@@ -918,6 +924,11 @@ public class Game implements Serializable {
                 // Checking if the attacking black piece can be captured
                 if (gameState.blackCapturablePieces.contains(piece)) {
                     return false;
+                }
+
+                if (piece.getType().equals("NKnight")) {
+                    System.out.println("Checkmate");
+                    return true;
                 }
 
                 // Check if the path can be blocked.
