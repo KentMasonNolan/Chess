@@ -212,22 +212,22 @@ public class Game implements Serializable {
 
         // Add white pieces to the gameState's whitePieces list
         gameState.getWhitePieces().add(whiteRook1);
-//        gameState.getWhitePieces().add(whiteKnight1);
-//        gameState.getWhitePieces().add(whiteBishop1);
-//        gameState.getWhitePieces().add(whiteQueen);
+        gameState.getWhitePieces().add(whiteKnight1);
+        gameState.getWhitePieces().add(whiteBishop1);
+        gameState.getWhitePieces().add(whiteQueen);
         gameState.getWhitePieces().add(whiteKing);
-//        gameState.getWhitePieces().add(whiteBishop2);
-//        gameState.getWhitePieces().add(whiteKnight2);
+        gameState.getWhitePieces().add(whiteBishop2);
+        gameState.getWhitePieces().add(whiteKnight2);
         gameState.getWhitePieces().add(whiteRook2);
 
         // Set pieces on the board
         chessboard[0][0].setPiece(whiteRook1);
-//        chessboard[0][1].setPiece(whiteKnight1);
-//        chessboard[0][2].setPiece(whiteBishop1);
-//        chessboard[0][3].setPiece(whiteQueen);
+        chessboard[0][1].setPiece(whiteKnight1);
+        chessboard[0][2].setPiece(whiteBishop1);
+        chessboard[0][3].setPiece(whiteQueen);
         chessboard[0][4].setPiece(whiteKing);
-//        chessboard[0][5].setPiece(whiteBishop2);
-//        chessboard[0][6].setPiece(whiteKnight2);
+        chessboard[0][5].setPiece(whiteBishop2);
+        chessboard[0][6].setPiece(whiteKnight2);
         chessboard[0][7].setPiece(whiteRook2);
 
         // Set white pawns in the second row
@@ -238,41 +238,41 @@ public class Game implements Serializable {
         }
 
 //        // Set black pieces
-//        Rook blackRook1 = new Rook("black", 7, 0);
-//        Knight blackKnight1 = new Knight("black", 7, 1);
-//        Bishop blackBishop1 = new Bishop("black", 7, 2);
+        Rook blackRook1 = new Rook("black", 7, 0);
+        Knight blackKnight1 = new Knight("black", 7, 1);
+        Bishop blackBishop1 = new Bishop("black", 7, 2);
         Queen blackQueen = new Queen("black", 7, 3);
-//        King blackKing = new King("black", 7, 4, gameState);
-//        Bishop blackBishop2 = new Bishop("black", 7, 5);
-//        Knight blackKnight2 = new Knight("black", 7, 6);
-//        Rook blackRook2 = new Rook("black", 7, 7);
+        King blackKing = new King("black", 7, 4, gameState);
+        Bishop blackBishop2 = new Bishop("black", 7, 5);
+        Knight blackKnight2 = new Knight("black", 7, 6);
+        Rook blackRook2 = new Rook("black", 7, 7);
 //
 //        // Add black pieces to the gameState's blackPieces list
-//        gameState.getBlackPieces().add(blackRook1);
-//        gameState.getBlackPieces().add(blackKnight1);
-//        gameState.getBlackPieces().add(blackBishop1);
+        gameState.getBlackPieces().add(blackRook1);
+        gameState.getBlackPieces().add(blackKnight1);
+        gameState.getBlackPieces().add(blackBishop1);
         gameState.getBlackPieces().add(blackQueen);
-//        gameState.getBlackPieces().add(blackKing);
-//        gameState.getBlackPieces().add(blackBishop2);
-//        gameState.getBlackPieces().add(blackKnight2);
-//        gameState.getBlackPieces().add(blackRook2);
+        gameState.getBlackPieces().add(blackKing);
+        gameState.getBlackPieces().add(blackBishop2);
+        gameState.getBlackPieces().add(blackKnight2);
+        gameState.getBlackPieces().add(blackRook2);
 //
 //        // Set pieces on the board
-//        chessboard[7][0].setPiece(blackRook1);
-//        chessboard[7][1].setPiece(blackKnight1);
-//        chessboard[7][2].setPiece(blackBishop1);
+        chessboard[7][0].setPiece(blackRook1);
+        chessboard[7][1].setPiece(blackKnight1);
+        chessboard[7][2].setPiece(blackBishop1);
         chessboard[7][3].setPiece(blackQueen);
-//        chessboard[7][4].setPiece(blackKing);
-//        chessboard[7][5].setPiece(blackBishop2);
-//        chessboard[7][6].setPiece(blackKnight2);
-//        chessboard[7][7].setPiece(blackRook2);
+        chessboard[7][4].setPiece(blackKing);
+        chessboard[7][5].setPiece(blackBishop2);
+        chessboard[7][6].setPiece(blackKnight2);
+        chessboard[7][7].setPiece(blackRook2);
 
-        // Set black pawns in the second-to-last row
-//        for (int col = 0; col < BOARD_SIZE; col++) {
-//            Pawn blackPawn = new Pawn("black", 6, col);
-//            gameState.getBlackPieces().add(blackPawn);
-//            chessboard[6][col].setPiece(blackPawn);
-//        }
+//         Set black pawns in the second-to-last row
+        for (int col = 0; col < BOARD_SIZE; col++) {
+            Pawn blackPawn = new Pawn("black", 6, col);
+            gameState.getBlackPieces().add(blackPawn);
+            chessboard[6][col].setPiece(blackPawn);
+        }
     }
 
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) {
