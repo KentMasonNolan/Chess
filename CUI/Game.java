@@ -578,6 +578,7 @@ public class Game implements Serializable {
             }
         }
 
+        //chatGPT did this
         if (king.isFirstMove() && rook.isFirstMove()) { // is this fails, they have moved before.
             for (int i = sourceCol + direction; i != destCol; i += direction) {
                 if (king.getColour().equals("white")) {
