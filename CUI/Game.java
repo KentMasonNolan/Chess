@@ -25,6 +25,10 @@ public class Game implements Serializable {
     public Game() throws IOException {
     }
 
+    public GameState getGameState() {
+        return gameState;
+    }
+
     public static void main(String[] args) throws IOException {
         Scanner input = new Scanner(System.in);
         GameState gameState = new GameState();
@@ -68,6 +72,8 @@ public class Game implements Serializable {
                     Game loadedGame = Game.loadGameFromFile(filename);
                     if (loadedGame != null) {
                         game = loadedGame; // Update the game instance with the loaded game
+                        gameState = game.getGameState(); // Update the game state
+
                     }
                 } else if (userInputCommand.equalsIgnoreCase("history")) {
                     List<String> moveHistory = game.loadMoveHistory(); // Load move history
@@ -206,22 +212,22 @@ public class Game implements Serializable {
 
         // Add white pieces to the gameState's whitePieces list
         gameState.getWhitePieces().add(whiteRook1);
-        gameState.getWhitePieces().add(whiteKnight1);
-        gameState.getWhitePieces().add(whiteBishop1);
-        gameState.getWhitePieces().add(whiteQueen);
+//        gameState.getWhitePieces().add(whiteKnight1);
+//        gameState.getWhitePieces().add(whiteBishop1);
+//        gameState.getWhitePieces().add(whiteQueen);
         gameState.getWhitePieces().add(whiteKing);
-        gameState.getWhitePieces().add(whiteBishop2);
-        gameState.getWhitePieces().add(whiteKnight2);
+//        gameState.getWhitePieces().add(whiteBishop2);
+//        gameState.getWhitePieces().add(whiteKnight2);
         gameState.getWhitePieces().add(whiteRook2);
 
         // Set pieces on the board
         chessboard[0][0].setPiece(whiteRook1);
-        chessboard[0][1].setPiece(whiteKnight1);
-        chessboard[0][2].setPiece(whiteBishop1);
-        chessboard[0][3].setPiece(whiteQueen);
+//        chessboard[0][1].setPiece(whiteKnight1);
+//        chessboard[0][2].setPiece(whiteBishop1);
+//        chessboard[0][3].setPiece(whiteQueen);
         chessboard[0][4].setPiece(whiteKing);
-        chessboard[0][5].setPiece(whiteBishop2);
-        chessboard[0][6].setPiece(whiteKnight2);
+//        chessboard[0][5].setPiece(whiteBishop2);
+//        chessboard[0][6].setPiece(whiteKnight2);
         chessboard[0][7].setPiece(whiteRook2);
 
         // Set white pawns in the second row
@@ -231,42 +237,42 @@ public class Game implements Serializable {
             chessboard[1][col].setPiece(whitePawn);
         }
 
-        // Set black pieces
-        Rook blackRook1 = new Rook("black", 7, 0);
-        Knight blackKnight1 = new Knight("black", 7, 1);
-        Bishop blackBishop1 = new Bishop("black", 7, 2);
+//        // Set black pieces
+//        Rook blackRook1 = new Rook("black", 7, 0);
+//        Knight blackKnight1 = new Knight("black", 7, 1);
+//        Bishop blackBishop1 = new Bishop("black", 7, 2);
         Queen blackQueen = new Queen("black", 7, 3);
-        King blackKing = new King("black", 7, 4, gameState);
-        Bishop blackBishop2 = new Bishop("black", 7, 5);
-        Knight blackKnight2 = new Knight("black", 7, 6);
-        Rook blackRook2 = new Rook("black", 7, 7);
-
-        // Add black pieces to the gameState's blackPieces list
-        gameState.getBlackPieces().add(blackRook1);
-        gameState.getBlackPieces().add(blackKnight1);
-        gameState.getBlackPieces().add(blackBishop1);
+//        King blackKing = new King("black", 7, 4, gameState);
+//        Bishop blackBishop2 = new Bishop("black", 7, 5);
+//        Knight blackKnight2 = new Knight("black", 7, 6);
+//        Rook blackRook2 = new Rook("black", 7, 7);
+//
+//        // Add black pieces to the gameState's blackPieces list
+//        gameState.getBlackPieces().add(blackRook1);
+//        gameState.getBlackPieces().add(blackKnight1);
+//        gameState.getBlackPieces().add(blackBishop1);
         gameState.getBlackPieces().add(blackQueen);
-        gameState.getBlackPieces().add(blackKing);
-        gameState.getBlackPieces().add(blackBishop2);
-        gameState.getBlackPieces().add(blackKnight2);
-        gameState.getBlackPieces().add(blackRook2);
-
-        // Set pieces on the board
-        chessboard[7][0].setPiece(blackRook1);
-        chessboard[7][1].setPiece(blackKnight1);
-        chessboard[7][2].setPiece(blackBishop1);
+//        gameState.getBlackPieces().add(blackKing);
+//        gameState.getBlackPieces().add(blackBishop2);
+//        gameState.getBlackPieces().add(blackKnight2);
+//        gameState.getBlackPieces().add(blackRook2);
+//
+//        // Set pieces on the board
+//        chessboard[7][0].setPiece(blackRook1);
+//        chessboard[7][1].setPiece(blackKnight1);
+//        chessboard[7][2].setPiece(blackBishop1);
         chessboard[7][3].setPiece(blackQueen);
-        chessboard[7][4].setPiece(blackKing);
-        chessboard[7][5].setPiece(blackBishop2);
-        chessboard[7][6].setPiece(blackKnight2);
-        chessboard[7][7].setPiece(blackRook2);
+//        chessboard[7][4].setPiece(blackKing);
+//        chessboard[7][5].setPiece(blackBishop2);
+//        chessboard[7][6].setPiece(blackKnight2);
+//        chessboard[7][7].setPiece(blackRook2);
 
         // Set black pawns in the second-to-last row
-        for (int col = 0; col < BOARD_SIZE; col++) {
-            Pawn blackPawn = new Pawn("black", 6, col);
-            gameState.getBlackPieces().add(blackPawn);
-            chessboard[6][col].setPiece(blackPawn);
-        }
+//        for (int col = 0; col < BOARD_SIZE; col++) {
+//            Pawn blackPawn = new Pawn("black", 6, col);
+//            gameState.getBlackPieces().add(blackPawn);
+//            chessboard[6][col].setPiece(blackPawn);
+//        }
     }
 
     private void setupTestPieces(ChessTile[][] chessboard, GameState gameState) {
@@ -466,7 +472,7 @@ public class Game implements Serializable {
         if (piece != null && piece.getColour().equals(gameState.currentPlayer)) {
 
             // check for castling
-            if (piece.type.equals("king") && Math.abs(destCol - sourceCol) == 2) {
+            if (piece.type.equals("King") && Math.abs(destCol - sourceCol) == 2) {
                 if (canCastle(piece, sourceRow, sourceCol, destRow, destCol, chessboard)) {
                     // perform castling
                     clearAllCaptureFlags();
@@ -540,7 +546,7 @@ public class Game implements Serializable {
                     }
                 }
             } else {
-                System.out.println("invalid move. please try again.");
+                System.out.println("invalid move. please try again. Error in movePiece");
             }
         } else {
             System.out.println("no piece found or it's not your turn. please try again.");
@@ -624,7 +630,7 @@ public class Game implements Serializable {
         switch (rookOption) { // starting top left to bottom right
             case QUEENSIDE_WHITE:
                 chessboard[0][0].removePiece();
-                chessboard[0][2].setPiece(rook);
+                chessboard[0][3].setPiece(rook);
                 break;
             case KINGSIDE_WHITE:
                 chessboard[0][7].removePiece();
@@ -632,7 +638,7 @@ public class Game implements Serializable {
                 break;
             case QUEENSIDE_BLACK:
                 chessboard[7][0].removePiece();
-                chessboard[7][2].setPiece(rook);
+                chessboard[7][3].setPiece(rook);
                 break;
             case KINGSIDE_BLACK:
                 chessboard[7][7].removePiece();
@@ -926,6 +932,7 @@ public class Game implements Serializable {
                     return false;
                 }
 
+                // For knights, no need to check the path
                 if (piece.getType().equals("NKnight")) {
                     System.out.println("Checkmate");
                     return true;
