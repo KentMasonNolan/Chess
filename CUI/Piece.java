@@ -8,6 +8,8 @@ abstract class Piece implements Serializable {
     protected String colour;
     protected String type;
 
+    protected String imageLocation;
+
 
     protected int pieceCol;
     protected int pieceRow;
