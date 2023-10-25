@@ -88,6 +88,27 @@ public class Game extends JFrame {
         }
     }
 
+//        public Game() {
+//        // Removed setTitle, setDefaultCloseOperation, setSize, setLocationRelativeTo, and setVisible 
+//
+//        // Set layout for the main panel
+//        chessBoardPanel = new JPanel(new BorderLayout());
+//
+//        // Create the Chess board panel with a GridLayout
+//        JPanel gridPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
+//        chessBoardPanel.add(gridPanel, BorderLayout.CENTER);
+//
+//        // Create and add the Chess board squares
+//        for (int row = 0; row < BOARD_SIZE; row++) {
+//            for (int col = 0; col < BOARD_SIZE; col++) {
+//                ChessTile tile = chessboard[row][col];
+//                JPanel square = createSquarePanel(tile);
+//                gridPanel.add(square);
+//            }
+//        }
+//    }
+    
+    
     public Game() {
         setTitle("Chess Board");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -128,6 +149,10 @@ public class Game extends JFrame {
         } else {
             return new Color(118, 150, 86); // Dark color
         }
+    }
+    
+        public JPanel getChessBoardPanel() {
+        return chessBoardPanel;
     }
 
 
