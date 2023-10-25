@@ -112,6 +112,8 @@ public class ChessMenu {
         gamesListModel.addElement(game);
     }
 }
+    
+    
 
 
     public static void main(String[] args) {
