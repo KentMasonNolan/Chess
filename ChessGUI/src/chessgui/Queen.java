@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Queen extends Piece implements Serializable {
 
-    protected Queen(String colour, int row, int col) {
+    public Queen(String colour, int row, int col) {
         super(colour, "Queen");
         this.pieceRow = row;
         this.pieceCol = col;

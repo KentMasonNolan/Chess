@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+
 public class Knight extends Piece implements Serializable {
 
-    protected Knight(String colour, int row, int col) {
+    public Knight(String colour, int row, int col) {
         super(colour, "NKnight");
         this.pieceRow = row;
         this.pieceCol = col;

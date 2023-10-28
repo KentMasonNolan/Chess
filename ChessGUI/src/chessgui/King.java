@@ -15,7 +15,7 @@ public class King extends Piece implements Serializable {
 
     private boolean isFirstMove = true;
 
-    protected King(String colour, int row, int col, GameState gameState) {
+    public King(String colour, int row, int col, GameState gameState) {
         super(colour, "King");
         this.pieceRow = row;
         this.pieceCol = col;

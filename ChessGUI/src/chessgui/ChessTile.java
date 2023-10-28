@@ -2,7 +2,7 @@ package ChessGUI;
 
 import java.io.Serializable;
 
-class ChessTile implements Serializable {
+public class ChessTile implements Serializable {
     private int row;
     private int col;
 

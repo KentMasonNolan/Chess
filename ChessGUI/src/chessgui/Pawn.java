@@ -156,7 +156,7 @@ public class Pawn extends Piece implements Serializable {
         chessboard[sourceRow][sourceCol].removePiece();
     }
 
-    protected Pawn(String colour, int row, int col) {
+    public Pawn(String colour, int row, int col) {
         super(colour, "Pawn");
         this.pieceRow = row;
         this.pieceCol = col;

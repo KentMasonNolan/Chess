@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Bishop extends Piece implements Serializable {
-    protected Bishop(String colour, int row, int col) {
+    public Bishop(String colour, int row, int col) {
         super(colour, "Bishop");
         this.pieceRow = row;
         this.pieceCol = col;
