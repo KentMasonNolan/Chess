@@ -233,8 +233,17 @@ private ChessTile getTileAtMousePosition(Point point) {
     // Convert the mouse position into board coordinates
     int col = point.x / (DEFAULT_WIDTH / BOARD_SIZE);
     int row = point.y / (DEFAULT_HEIGHT / BOARD_SIZE);
+    
+    // Boundary checks to ensure the calculated row and column are within valid ranges
+    if (row < 0 || row >= BOARD_SIZE || col < 0 || col >= BOARD_SIZE) {
+        // Optionally, you can return null or throw a custom exception to indicate an invalid tile.
+        // For now, we will simply return null.
+        return null;
+    }
+    
     return chessboard[row][col];
 }
+
 
 private void movePiece(ChessTile sourceTile, ChessTile destTile) {
     Piece piece = sourceTile.getPiece();
