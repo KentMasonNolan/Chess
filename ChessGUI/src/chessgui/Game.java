@@ -94,28 +94,32 @@ public class Game extends JFrame {
         }
     }
 
-    
+    // this constructor seems unintended, maybe it's a debug thing?
     public Game(){
         System.out.println("This is the wrong constructor");
     }
-    
-public void closeGame() {
-    remove(chessBoardPanel);
-    revalidate();
-    repaint();
-    this.dispose();
-}
 
+    // cleans up the game view and closes the game window
+    public void closeGame() {
+        remove(chessBoardPanel);
+        revalidate();
+        repaint();
+        this.dispose();
+    }
+
+    // sets up the game view and shows it
     public void initializeAndShow() {
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Or whatever you have
+        // make sure the window closes properly when the close button is clicked
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
         this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         this.setTitle("Chess Game");
         this.add(chessBoardPanel);
-        this.setLocationRelativeTo(null); // Center the frame
+        // let's center the frame on the screen
+        this.setLocationRelativeTo(null); 
         this.setVisible(true);
     }
 
-
+    // this constructor copies stuff from another game, neat for duplication or maybe saving states
     public Game(Game otherGame){
         this.chessBoardPanel = otherGame.chessBoardPanel;
         this.chessboard = otherGame.chessboard;
@@ -123,7 +127,7 @@ public void closeGame() {
         updateBoardDisplay();
         initializeAndShow();
     }
-    
+
     
 public Game(String playerOne, String playerTwo) {
     setTitle("Chess Board");
@@ -181,31 +185,41 @@ private JPanel createSquarePanel(ChessTile tile) {
 
 
 
-    private Color getSquareColor(ChessTile tile) {
-        int row = tile.getRow();
-        int col = tile.getCol();
-        if ((row + col) % 2 == 0) {
-            return new Color(238, 238, 210); // Light color
-        } else {
-            return new Color(118, 150, 86); // Dark color
-        }
+// returns the color of the tile based on its position
+private Color getSquareColor(ChessTile tile) {
+    int row = tile.getRow();
+    int col = tile.getCol();
+    if ((row + col) % 2 == 0) {
+        // for even squares, use a light color
+        return new Color(238, 238, 210);
+    } else {
+        // for odd squares, use a dark color
+        return new Color(118, 150, 86);
     }
-    
-        public JPanel getChessBoardPanel() {
-        return chessBoardPanel;
-    }
-        
-        public ImageIcon getPieceImage(Piece piece) {
-            if (piece == null) {
-                return null; // No image for empty tiles.
-            }
-            String color = piece.getColour().substring(0, 1); 
-            String type = piece.getClass().getSimpleName().substring(0, 1).toUpperCase(); 
+}
 
-            String imagePath = "/chessgui/Images/" + color + type + ".png";
+// returns the current chess board panel
+public JPanel getChessBoardPanel() {
+    return chessBoardPanel;
+}
 
-        return new ImageIcon(getClass().getResource(imagePath));
+// fetches the image icon for a given chess piece
+public ImageIcon getPieceImage(Piece piece) {
+    if (piece == null) {
+        // no image needed if there's no piece on the tile
+        return null; 
     }
+    // get the first letter of the piece's color
+    String color = piece.getColour().substring(0, 1); 
+    // get the first letter of the piece's type (e.g. P for Pawn)
+    String type = piece.getClass().getSimpleName().substring(0, 1).toUpperCase(); 
+
+    // construct the path to the image
+    String imagePath = "/chessgui/Images/" + color + type + ".png";
+
+    return new ImageIcon(getClass().getResource(imagePath));
+}
+
         
         private ChessTile sourceTile; // to remember which tile the piece is coming from
 
@@ -245,6 +259,7 @@ private ChessTile getTileAtMousePosition(Point point) {
 }
 
 
+// move a piece from source tile to destination tile if the move is valid
 private void movePiece(ChessTile sourceTile, ChessTile destTile) {
     Piece piece = sourceTile.getPiece();
     int sourceRow = sourceTile.getRow();
@@ -252,41 +267,51 @@ private void movePiece(ChessTile sourceTile, ChessTile destTile) {
     int destRow = destTile.getRow();
     int destCol = destTile.getCol();
 
+    // check if the move is valid and then move the piece
     if (piece != null && piece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
         destTile.setPiece(piece);
         sourceTile.removePiece();
         piece.setPieceRow(destRow);
         piece.setPieceCol(destCol);
 
+        // update the display after the move
         updateBoardDisplay();
-
     }
 }
 
-
+// update the entire chess board display
 private void updateBoardDisplay() {
     chessBoardPanel.removeAll();
     for (int row = 0; row < BOARD_SIZE; row++) {
         for (int col = 0; col < BOARD_SIZE; col++) {
             ChessTile tile = chessboard[row][col];
             JPanel square = createSquarePanel(tile);
-            setupDragAndDrop(square, tile); // setup drag and drop for this square
+            // making each square ready for drag and drop
+            setupDragAndDrop(square, tile); 
             chessBoardPanel.add(square);
         }
     }
+    // making sure the board reflects the recent changes
     chessBoardPanel.revalidate();
     chessBoardPanel.repaint();
 }
 
+
+// our mouse listener class to manage piece movements
 private class ChessMouseListener extends MouseAdapter {
 
+    // currently selected piece
     private Piece currentPiece;
+    // label for the visual representation of our piece
     private JLabel currentPieceLabel;
+    // starting position of our piece
     private int sourceRow;
     private int sourceCol;
+    // the panel square that the piece is on
     private JPanel sourceSquare;
 
     @Override
+    // when mouse is pressed, get the piece info if there's any on the tile
     public void mousePressed(MouseEvent e) {
         sourceSquare = (JPanel) e.getSource();
         String name = sourceSquare.getName();
@@ -300,12 +325,13 @@ private class ChessMouseListener extends MouseAdapter {
             sourceRow = row;
             sourceCol = col;
 
-            // Visually remove the piece from the source square for dragging
+            // for drag visual, remove piece from source square
             currentPieceLabel = (JLabel) sourceSquare.getComponent(0);
             sourceSquare.remove(currentPieceLabel);
             sourceSquare.revalidate();
             sourceSquare.repaint();
 
+            // debugging info
             System.out.println("Piece selected: " + currentPiece.getColour() + " " + currentPiece.getType());
             System.out.println("sourceRow = " + row);
             System.out.println("sourceCol = " + col);
@@ -313,6 +339,7 @@ private class ChessMouseListener extends MouseAdapter {
     }
 
     @Override
+    // when dragging, show the piece image following the mouse
     public void mouseDragged(MouseEvent e) {
         if (currentPiece != null) {
             currentPieceLabel.setLocation(e.getPoint());
@@ -321,43 +348,49 @@ private class ChessMouseListener extends MouseAdapter {
         }
     }
 
-@Override
-public void mouseReleased(MouseEvent e) {
-    
-    if (currentPiece != null && currentPiece.getColour().equals(gameState.currentPlayer)) {
-        // Get the mouse's x and y coordinates relative to the chessBoardPanel
-        Point releasePoint = SwingUtilities.convertPoint((Component) e.getSource(), e.getPoint(), chessBoardPanel);
+    @Override
+    // when mouse is released, try to move the piece if it's a valid move
+    public void mouseReleased(MouseEvent e) {
+        
+        // only proceed if a piece is selected and it's the player's turn
+        if (currentPiece != null && currentPiece.getColour().equals(gameState.currentPlayer)) {
+            // convert the point to be relative to the chessboard
+            Point releasePoint = SwingUtilities.convertPoint((Component) e.getSource(), e.getPoint(), chessBoardPanel);
 
-        int destRow = releasePoint.y / TILE_SIZE;
-        int destCol = releasePoint.x / TILE_SIZE;
+            int destRow = releasePoint.y / TILE_SIZE;
+            int destCol = releasePoint.x / TILE_SIZE;
 
-        if (currentPiece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
-            chessboard[destRow][destCol].setPiece(currentPiece);
-            chessboard[sourceRow][sourceCol].removePiece();
+            // check if the move is valid
+            if (currentPiece.isValidMove(sourceRow, sourceCol, destRow, destCol, chessboard)) {
+                chessboard[destRow][destCol].setPiece(currentPiece);
+                chessboard[sourceRow][sourceCol].removePiece();
 
-            // Remove the piece's JLabel from the source tile
-            JPanel sourceSquare = (JPanel) chessBoardPanel.getComponent(sourceRow * BOARD_SIZE + sourceCol);
-            sourceSquare.removeAll();
+                // update the GUI after the move
+                JPanel sourceSquare = (JPanel) chessBoardPanel.getComponent(sourceRow * BOARD_SIZE + sourceCol);
+                sourceSquare.removeAll();
 
-            // Add the piece's JLabel to the destination tile
-            JPanel destSquare = (JPanel) chessBoardPanel.getComponent(destRow * BOARD_SIZE + destCol);
-            destSquare.add(new JLabel(getPieceImage(currentPiece)));
+                // move the piece to its new location on the board
+                JPanel destSquare = (JPanel) chessBoardPanel.getComponent(destRow * BOARD_SIZE + destCol);
+                destSquare.add(new JLabel(getPieceImage(currentPiece)));
 
-            updateBoardDisplay();
-            gameState.switchPlayer();
+                updateBoardDisplay();
+                gameState.switchPlayer();  // switch to the next player
 
-            System.out.println("Piece moved to: " + destRow + "," + destCol);
-        } else {
-            System.out.println("destRow = " + destRow);
-            System.out.println("DestCol = " + destCol);
-            System.out.println("Invalid move");
+                System.out.println("Piece moved to: " + destRow + "," + destCol);
+            } else {
+                // debugging info for invalid moves
+                System.out.println("destRow = " + destRow);
+                System.out.println("DestCol = " + destCol);
+                System.out.println("Invalid move");
+            }
+
+            // clear the selected piece
+            currentPiece = null;
         }
-
-        currentPiece = null;
     }
-}
 
 }
+
 
 
 
