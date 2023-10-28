@@ -14,8 +14,9 @@ public class Game extends JFrame {
         private static final int DEFAULT_WIDTH = 600; // Default width of the JFrame
         private static final int DEFAULT_HEIGHT = 600; // Default height of the JFrame
         private static final int TILE_SIZE = DEFAULT_WIDTH / BOARD_SIZE; // Default width of the JFrame
-        private JPanel chessBoardPanel; // Panel to hold the Chess board
+        private JPanel chessBoardPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE)); // Panel to hold the Chess board
         private GameState gameState = new GameState();
+
 
         ChessTile[][] chessboard = createEmptyChessboard();
 
@@ -94,14 +95,45 @@ public class Game extends JFrame {
     }
 
     
+    public Game(){
+        System.out.println("This is the wrong constructor");
+    }
     
-public Game() {
+public void closeGame() {
+    remove(chessBoardPanel);
+    revalidate();
+    repaint();
+    this.dispose();
+}
+
+    public void initializeAndShow() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Or whatever you have
+        this.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        this.setTitle("Chess Game");
+        this.add(chessBoardPanel);
+        this.setLocationRelativeTo(null); // Center the frame
+        this.setVisible(true);
+    }
+
+
+    public Game(Game otherGame){
+        this.chessBoardPanel = otherGame.chessBoardPanel;
+        this.chessboard = otherGame.chessboard;
+        this.gameState = otherGame.gameState;
+        updateBoardDisplay();
+        initializeAndShow();
+    }
+    
+    
+public Game(String playerOne, String playerTwo) {
     setTitle("Chess Board");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setLayout(new BorderLayout());
+    
+    System.out.println(playerOne + " asdasd " + playerTwo);
 
     // Create the Chess board panel with a GridLayout
-    chessBoardPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
+//    chessBoardPanel = new JPanel(new GridLayout(BOARD_SIZE, BOARD_SIZE));
     add(chessBoardPanel, BorderLayout.CENTER);
 
     // Initialize pieces on the board
